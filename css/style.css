@@ -1,0 +1,11 @@
+body {
+    font-family: 'Rubik', sans-serif;
+}
+
+.background-image {
+    background-image:    url(/img/roskelld_square_halftone.png) !important;
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+    background-color: transparent;
+}
