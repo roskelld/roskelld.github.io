@@ -47,3 +47,7 @@ main {
 .selected {
     border:    3px white solid;
 }
+
+.detail-description {
+    padding: 1em;
+}
