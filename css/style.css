@@ -13,18 +13,11 @@ main {
 }
 
 .background-image {
-    background:             url(../img/roskelld_square_halftone.png) !important;
-    background-size:        cover !important;                      /* <------ */
+    min-height:             100%;
+    background:             linear-gradient( 0deg, rgba(42, 42, 42, 0.63), rgba(60, 55, 58, 0.85) ), url(../img/roskelld_square_halftone.png), grey !important;
+    background-size:        cover !important;
     background-position:    center center !important;
     background-repeat:      no-repeat !important;
-    background-color:       transparent !important;
-}
-
-.content-section {
-    /* position: fixed; */
-    /* height: 80%;
-    width: 80%; */
-
 }
 
 .container {
@@ -32,22 +25,74 @@ main {
 }
 
 .game-card {
-        display: block;
-    /* width: 250px;
-    height: 250px; */
+    display: block;
+    cursor: pointer;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    opacity: 0.5;
 }
+.game-card:hover {
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+    opacity: 0.5;
+}
+
 
 .game-card.a {
     display: block;
     overflow:hidden
-    /* width: 250px;
-    height: 250px; */
 }
 
 .selected {
-    border:    3px white solid;
+    -webkit-filter: grayscale(0%) !important;
+    filter: grayscale(0%) !important;
+    opacity: 1 !important;
 }
 
 .detail-description {
     padding: 1em;
+}
+
+
+.content-section {
+    display: inline-block;
+    font-weight: 600;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.detail-header {
+    padding: 0.1em;
+    padding-left:   0.3em;
+    padding-right:  0.3em;
+    border-radius:  0.1em;
+    font-weight: 500;
+    font-stretch: semi-expanded;
+}
+
+.detail-data {
+    padding-left: 1em;
+    width:        30em;
+}
+
+td.detail-header {
+    width: 10em;
+}
+
+td.detail-data {
+    width: 80%;
+}
+
+.title {
+    font-size: 2em;
+}
+
+table {
+    /* width: 100%; */
+}
+
+.contentdetail {
+    display: inline-block;
+    background-color: black;
+    border-radius: 0.4em;
 }
