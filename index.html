@@ -8,34 +8,37 @@
 	<link rel="stylesheet" href="./css/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
 </head>
 
 <body class="blue-grey darken-3 blue-grey-text text-lighten-4">
 	<header>
-		<nav class="nav-extended blue-grey darken-4 blue-grey-text text-lighten-4">
-			<div class="nav-wrapper">
-				<a href="#" class="brand-logo"><span>
-						<h4 class="blue-grey-text text-lighten-4">Dean Roskell</h4>
-					</span></a>
-				<a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
-				<ul id="nav-mobile" class="right hide-on-med-and-down">
-					<li><a class="blue-grey-text text-lighten-4" href="https://twitter.com/roskelld" title="Twitter"><i class="fab fa-twitter-square"></i></a></li>
-					<li><a class="blue-grey-text text-lighten-4" href="https://github.com/roskelld/" title="Github"><i class="fab fa-github-square"></i></a></li>
-					<li><a class="blue-grey-text text-lighten-4" href="https://stackoverflow.com/users/6126468/roskelld" title="Stack Exchange"><i class="fab fa-stack-overflow"></i></a></li>
-					<li><a class="blue-grey-text text-lighten-4" href="mailto:roskelld@protonmail.com?subject=Hey Dean!" title="email"><i class="fas fa-envelope-square"></i></a></li>
-				</ul>
-			</div>
-			<div class="nav-content hide-on-med-and-down">
-				<ul class="tabs tabs-transparent">
-					<li class="tab"><a class="active" href="#home">Home</a></li>
-					<li class="tab"><a href="#services">Services</a></li>
-					<li class="tab"><a href="#games">Games</a></li>
-					<li class="tab"><a href="#applications">Applications</a></li>
-					<li class="tab"><a href="#projects">Projects</a></li>
-					<li class="tab"><a href="#bio">Bio</a></li>
-				</ul>
-			</div>
-		</nav>
+		<div class="navbar-fixed">
+			<nav class="nav-extended blue-grey darken-4 blue-grey-text text-lighten-4">
+				<div class="nav-wrapper">
+					<a href="#" class="brand-logo"><span>
+							<h4 class="blue-grey-text text-lighten-4">Dean Roskell</h4>
+						</span></a>
+					<a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+						<li><a class="blue-grey-text text-lighten-4" href="https://twitter.com/roskelld" title="Twitter"><i class="fab fa-twitter-square"></i></a></li>
+						<li><a class="blue-grey-text text-lighten-4" href="https://github.com/roskelld/" title="Github"><i class="fab fa-github-square"></i></a></li>
+						<li><a class="blue-grey-text text-lighten-4" href="https://stackoverflow.com/users/6126468/roskelld" title="Stack Exchange"><i class="fab fa-stack-overflow"></i></a></li>
+						<li><a class="blue-grey-text text-lighten-4" href="mailto:roskelld@protonmail.com?subject=Hey Dean!" title="email"><i class="fas fa-envelope-square"></i></a></li>
+					</ul>
+				</div>
+				<div class="nav-content hide-on-med-and-down">
+					<ul class="tabs tabs-transparent">
+						<li class="tab"><a class="active" href="#home">Home</a></li>
+						<li class="tab"><a href="#services">Services</a></li>
+						<li class="tab"><a href="#games">Games</a></li>
+						<li class="tab"><a href="#applications">Applications</a></li>
+						<li class="tab"><a href="#projects">Projects</a></li>
+						<li class="tab"><a href="#bio">Bio</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
 		<div class="sidenav blue-grey darken-1" id="mobile-nav">
 			<div class="section"></div>
 			<div class="center-align">
@@ -301,12 +304,11 @@
 		</div>
 	</footer>
 
-
-	<ul id="tab-container" class="tabs hide">
-		<!-- <li class="tab"><a class="active" href="#game-content-home">Test 1</a></li> -->
-	</ul>
+	<!-- HIDDEN -->
+	<ul id="tab-container" class="tabs hide"></ul>
 
 	<!-- Scripts -->
+	<script src="https://unpkg.com/simplebar@latest/dist/simplebar.js"></script>
 	<script src="./data/data.js"></script>
 	<script src="./js/site.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

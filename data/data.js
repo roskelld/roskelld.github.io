@@ -29,7 +29,7 @@ const games = [
         dev_time:       '2 years',
         role:           'Senior Designer',
         work:           [],
-        description:    'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.',
+        description:    'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title. Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title. Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title. Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title. Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.',
     },
     {
         id:             'daitres',

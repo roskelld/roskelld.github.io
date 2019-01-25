@@ -43,10 +43,12 @@ class WebSite {
         }
 
         this.games = {
-            cards:                  document.querySelectorAll('.game-card'),
+            cards:              document.querySelectorAll('.game-card'),
         }
 
         this.cardClicks();
+
+        this.scroller = new SimpleBar( document.querySelector('main'), {});
     }
 
     gameCardGenerator( data, containerId ) {
@@ -67,7 +69,7 @@ class WebSite {
             const imgDiv    = document.createElement( 'div' );
             const img       = document.createElement( 'img' );
 
-            colDiv.classList.add( 'col', 's12', 'm3', 'l2' );
+            colDiv.classList.add( 'col', 's12', 'm3', 'l3' );
             cardDiv.classList.add( 'card', 'game-card' );
             cardDiv.id = `card-${item.id}`;
             imgDiv.classList.add( 'card-image' );
