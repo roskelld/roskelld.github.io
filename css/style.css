@@ -8,8 +8,9 @@ body {
     min-height: 100vh;
     flex-direction: column;
     /* height:100%; */
-    /* overflow-x: hidden; */
-    /* overflow:         auto; */
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    /* overflow: hidden; */
 }
 
 main {
@@ -18,11 +19,21 @@ main {
   /* overflow:         auto; */
   /* overflow-x:       hidden; */
   top:              50px;
+  padding-top:          3em;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 footer {
     margin-top: 50px;
     height:     100%;
+}
+
+.no-select {
+    -webkit-user-select: none !important;  /* Chrome all / Safari all */
+    -moz-user-select: none !important;     /* Firefox all */
+    -ms-user-select: none !important;      /* IE 10+ */
+    user-select: none !important;          /* Likely future */
 }
 
 .background-image {
@@ -76,6 +87,18 @@ footer {
     margin-right: 1em;
 }
 
+.link {
+    cursor: pointer;
+}
+
+.no-link {
+    cursor: default;
+}
+
+.grab {
+    cursor: grab;
+}
+
 .detail-header {
     padding: 0.1em;
     padding-left:   0.3em;
@@ -85,9 +108,19 @@ footer {
     font-stretch: semi-expanded;
 }
 
+.unreleased {
+    position: absolute;
+    bottom: 2px;
+    width: 100%;
+    background-color: black;
+    color: red;
+    font-size: 1em;
+    text-align: center;
+}
+
 .detail-data {
     padding-left: 1em;
-    width:        30em;
+    /* width:        30em; */
 }
 
 td.detail-header {
