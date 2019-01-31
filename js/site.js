@@ -14,7 +14,7 @@ class WebSite {
         // INITIALIZE MATERIALIZE
         const tabs = document.querySelectorAll( '.tabs' );
         this.tabOptions = {
-            // onShow: this.tabInit,
+            onShow: this.tabSelect,
         };
         this.tabInstances = M.Tabs.init( tabs, this.tabOptions );
         setTimeout( () => {
@@ -60,20 +60,18 @@ class WebSite {
 
     }
 
-    tabInit( tab ) {
+    tabSelect( tab ) {
         if ( typeof tab === 'undefined' ) tab = this.$activeTabLink[0].hash;
-        console.log( tab.id );
 
         switch (tab.id) {
             case 'home':
-
+                window.s.carouselInstances[0].next();
                 break;
             case 'services':
 
                 break;
             case 'games':
-                console.log('DING');
-                window.s.gameCardGenerator( games, 'games' );
+                // window.s.gameCardGenerator( games, 'games' );
                 break;
             case 'applications':
 
