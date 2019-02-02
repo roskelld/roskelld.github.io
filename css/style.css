@@ -1,32 +1,39 @@
+html {
+    overflow-y: scroll;
+    font-family: 'Rubik', sans-serif;
+}
+
 header {
-     /* overflow: hidden; */
+
+}
+
+.navbar-fixed {
+
+}
+
+nav.nav-extended {
+    height: 142px !important;
 }
 
 body {
-    font-family: 'Rubik', sans-serif;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    /* height:100%; */
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    /* overflow: hidden; */
 }
 
 main {
   flex:             1 0 auto;
-  /* height:           auto; */
-  /* overflow:         auto; */
-  /* overflow-x:       hidden; */
-  top:              50px;
-  padding-top:          3em;
-  overflow: auto;
-  overflow-x: hidden;
+  padding-top:      4em;
 }
 
 footer {
-    margin-top: 50px;
-    height:     100%;
+
+}
+
+.alegreya-font {
+    font-family: 'Alegreya', serif;
+    font-size: 1.3em;
+    line-height: 1.7em;
 }
 
 .no-select {
@@ -52,8 +59,35 @@ footer {
     background-repeat:      no-repeat !important;
 }
 
+.header-logo {
+    font-size: 1.5em !important;
+    margin-top: 1em !important;
+    line-height: 1em !important;
+    background-image: linear-gradient( black 0% 50%, yellow 50% 100%);
+    background-repeat: repeat-x;
+    background-position: 0 1.25em;
+    background-size: 1px 4px;
+    padding-left: 13px;
+    padding-right: 13px;
+    padding-bottom: 7px;
+    cursor: pointer;
+}
+
+.header-logo:hover {
+    /* --color: #ff9800; */
+}
+
+.sub-header {
+    line-height: 1em;
+    padding-bottom: 1em;
+}
+
 .container {
     width: 80% !important;
+}
+
+.width-40 {
+    width: 40% !important;
 }
 
 .game-card {
@@ -177,7 +211,7 @@ td.detail-data {
 .contentdetail {
     width:              100%;
     display:            inline-block;
-    background-color:   black;
+    background-color:   white;
     border-radius:      0.4em;
     float:              left;
     min-height:         700px;
@@ -187,9 +221,106 @@ td.detail-data {
     font-size: 1.2em;
 }
 
+.tab {
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+    background-color: white !important;
+}
+
+.tab a.active {
+    background-color: yellow !important;
+}
+
+.content-panel {
+    /* opacity: 0 !important; */
+    animation:          fader 0.4s cubic-bezier(.91,.01,.65,1) forwards;
+}
+
+.btn-flat {
+    border-radius: 0.5em;
+    border: 2px rgb(240, 240, 240) solid !important;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/* ****************************************************************************/
+/* STORY                                                                       */
+/*                                                                             */
+/* ****************************************************************************/
+
+#story-look {
+    animation:          fader 0.4s cubic-bezier(.91,.01,.65,1) forwards;
+}
+
+
+#story-talk {
+    animation:          fader 0.4s cubic-bezier(.91,.01,.65,1) forwards;
+}
+
+#story-talk a {
+    animation:          fader 5s cubic-bezier(.91,.01,.65,1) forwards;
+}
+.story-hidden {
+    display: none;
+}
+
+/* ****************************************************************************/
+/* HOVER.CSS                                                                  */
+/* https://ianlunn.github.io/Hover/                                           */
+/* ****************************************************************************/
+
+/* Sweep To Right */
+.hvr-sweep-to-right {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  position: relative;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.hvr-sweep-to-right:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba( 255, 255, 0, 0.3 );
+
+  transform: scaleX(0);
+  transition-property: transform;
+  transform-origin: 0 50%;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+
+  -webkit-transform: scaleX(0);
+  -webkit-transition-property: transform;
+  -webkit-transform-origin: 0 50%;
+  -webkit-transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+}
+
+.hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
+  color: white;
+}
+.hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+
 /* ****************************************************************************/
 /* ANIMATIONS */
 /* ****************************************************************************/
+@keyframes fader {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
 @keyframes half-saturation-in {
     0% {

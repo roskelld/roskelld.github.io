@@ -8,34 +8,39 @@
 	<link rel="stylesheet" href="./css/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Alegreya" rel="stylesheet">
 	<link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
 </head>
 
-<body class="blue-grey darken-3 blue-grey-text text-lighten-4">
+<body class="">
 	<header>
 		<div class="navbar-fixed">
-			<nav class="nav-extended blue-grey darken-4 blue-grey-text text-lighten-4">
+			<nav id="nav-header" class="nav-extended white z-depth-0">
 				<div class="nav-wrapper">
-					<a href="#" class="brand-logo"><span>
-							<h4 class="blue-grey-text text-lighten-4"></h4>
-						</span></a>
-					<a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
-					<ul id="nav-mobile" class="right hide-on-med-and-down">
-						<li><a class="blue-grey-text text-lighten-4" href="https://twitter.com/roskelld" title="Twitter"><i class="fab fa-twitter-square"></i></a></li>
-						<li><a class="blue-grey-text text-lighten-4" href="https://github.com/roskelld/" title="Github"><i class="fab fa-github-square"></i></a></li>
-						<li><a class="blue-grey-text text-lighten-4" href="https://stackoverflow.com/users/6126468/roskelld" title="Stack Exchange"><i class="fab fa-stack-overflow"></i></a></li>
-						<li><a class="blue-grey-text text-lighten-4" href="mailto:roskelld@protonmail.com?subject=Hey Dean!" title="email"><i class="fas fa-envelope-square"></i></a></li>
-					</ul>
+					<div class="center-align">
+						<a href="/" class="header-logo black-text">Dean Roskell</a>
+						<div class="sub-header grey-text">· Game Developer · Web Designer · Software Consultant · Tinkerer ·</div>
+					</div>
+
+					<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="fas fa-bars"></i></a> -->
+
 				</div>
-				<div class="nav-content hide-on-med-and-down">
-					<ul class="tabs no-autoinit tabs-transparent">
-						<li class="tab"><a class="active" href="#home">Home</a></li>
-						<li class="tab"><a href="#services">Services</a></li>
-						<li class="tab"><a href="#games">Games</a></li>
-						<li class="tab"><a href="#applications">Applications</a></li>
-						<li class="tab"><a href="#projects">Projects</a></li>
-						<!-- <li class="tab"><a href="#bio">Bio</a></li> -->
-					</ul>
+				<div class="nav-content">
+					<div class="row">
+						<div class="col m2"></div>
+						<div class="col m8">
+							<ul class="tabs no-autoinit tabs-transparent tabs-fixed-width">
+								<li class="tab hvr-sweep-to-right"><a class="black-text active" href="#home">Home</a></li>
+								<li class="tab hvr-sweep-to-right"><a class=" black-text" href="#services">Services</a></li>
+								<li class="tab hvr-sweep-to-right"><a class="black-text" href="#games">Games</a></li>
+								<li class="tab hvr-sweep-to-right"><a class="black-text" href="#applications">Applications</a></li>
+								<li class="tab hvr-sweep-to-right"><a class="black-text" href="#projects">Projects</a></li>
+								<!-- <li class="tab hvr-sweep-to-right"><a class="black-text" href="#bio">Bio</a></li> -->
+							</ul>
+
+						</div>
+						<div class="col m2"></div>
+					</div>
 				</div>
 			</nav>
 		</div>
@@ -44,27 +49,27 @@
 			<div class="center-align">
 				<div class="row">
 					<div class="col s3">
-						<a href="https://twitter.com/roskelld" title="Twitter"><i class="blue-grey-text text-lighten-4 fab fa-twitter-square fa-2x"></i></a>
+						<a href="https://twitter.com/roskelld" class="hvr-sweep-to-right" title="Twitter"><i class="black-text fab fa-twitter-square fa-2x"></i></a>
 					</div>
 					<div class="col s3">
-						<a href="https://github.com/roskelld/" title="Github"><i class="blue-grey-text text-lighten-4 fab fa-github-square fa-2x"></i></a>
+						<a href="https://github.com/roskelld/" title="Github"><i class="black-text fab fa-github-square fa-2x"></i></a>
 					</div>
 					<div class="col s3">
-						<a href="https://stackoverflow.com/users/6126468/roskelld" title="Stack Exchange"><i class="blue-grey-text text-lighten-4 fab fa-stack-overflow fa-2x"></i></a>
+						<a href="https://stackoverflow.com/users/6126468/roskelld" title="Stack Exchange"><i class="black-text fab fa-stack-overflow fa-2x"></i></a>
 					</div>
 					<div class="col s3">
-						<a href="mailto:roskelld@protonmail.com?subject=Hey Dean!" title="email"><i class="blue-grey-text text-lighten-4 fas fa-envelope-square fa-2x"></i></a>
+						<a href="mailto:roskelld@protonmail.com?subject=Hey Dean!" title="email"><i class="black-text fas fa-envelope-square fa-2x"></i></a>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<ul class="">
-					<li><a id="mobile-nav-home" class="link blue-grey-text text-lighten-4">Home</a></li>
-					<li><a id="mobile-nav-services" class="link blue-grey-text text-lighten-4">Services</a></li>
-					<li><a id="mobile-nav-games" class="link blue-grey-text text-lighten-4">Games</a></li>
-					<li><a id="mobile-nav-applications" class="link blue-grey-text text-lighten-4">Applications</a></li>
-					<li><a id="mobile-nav-projects" class="link blue-grey-text text-lighten-4">Projects</a></li>
-					<!-- <li><a id="mobile-nav-bio" class="link blue-grey-text text-lighten-4">Bio</a></li> -->
+					<li><a id="mobile-nav-home" 		class="link black-text">Home</a></li>
+					<li><a id="mobile-nav-services" 	class="link black-text">Services</a></li>
+					<li><a id="mobile-nav-games" 		class="link black-text">Games</a></li>
+					<li><a id="mobile-nav-applications" class="link black-text">Applications</a></li>
+					<li><a id="mobile-nav-projects" 	class="link black-text">Projects</a></li>
+					<!-- <li><a id="mobile-nav-bio" class="link black-text">Bio</a></li> -->
 				</ul>
 			</div>
 		</div>
@@ -75,90 +80,92 @@
 		<div class="row">
 			<!--  HOME SECTION -->
 			<div id="home" class="col s12">
-				<div class="col s2 m3 l4 xl6">
-					<div class="contentlinks"></div>
-				</div>
-
-				<div class="col s12 m9 l8 xl6">
-					<div class="background-image">
-                        <div class="section">
-							<div class="row">
-								<div class="col s12">
-									<div class="center-align">
-										<h2>Dean Roskell</h2>
-										<div class="divider"></div>
-										<h5>Concept. Build. Improve.</h5>
-										<div class="divider"></div>
-									</div>
-									<div class="container">
-										<!-- <p>
-											Worked on end-user facing applications since 1996. Got his start as a web application developer building and supporting database driven web platforms. In 2000 transitioned into video game development, converting a hobby into a
-											career.<br><br>
-											Designed games for LEGO, Warner Bros., and EA, across all major platforms including mobile. At the end of 2016, he left his Senior Designer position at BioWare to form PrimeVR, a company focused on building applications that make use of
-											emerging technologies to solve modern problems.
-										</p> -->
-										<p>Since 1996, Dean has designed and developed software for a wide range of companies, including for many world's leading brands. His skillset covers many aspects of software design and development.</p>
-									</div>
-									<div class="divider"></div>
-									<div class="center-align"><h5>Previous Clients</h5></div>
-									<div id="contentdetail" class="">
-										<div class="carousel no-select" style="height: 250px;">
-										  <a class="carousel-item no-select grab" ><img src="/img/company/ea.png"></a>
-										  <a class="carousel-item no-select grab" ><img src="/img/company/bioware.png"></a>
-										  <a class="carousel-item no-select grab" ><img src="/img/company/t2.png"></a>
-										  <a class="carousel-item no-select grab" ><img src="/img/company/eidos.png"></a>
-										  <a class="carousel-item no-select grab" ><img src="/img/company/sierra.png"></a>
-										  <a class="carousel-item no-select grab" ><img src="/img/company/warthog.png"></a>
-										  <a class="carousel-item no-select grab" ><img src="/img/company/sd.png"></a>
-										  <a class="carousel-item no-select grab" ><img src="/img/company/mastertonic.png"></a>
-										  <a class="carousel-item no-select grab" ><img src="/img/company/wb.png"></a>
-										  <a class="carousel-item no-select grab" ><img src="/img/company/lego.png"></a>
-										</div>
-									</div>
+				<div class="container width-40">
+					<div id="story-intro" class="alegreya-font">
+						<h4>The Beginning.</h4>
+						<p>You enter the darkened room, piles of books and strange contraptions litter the space. The target sits hunched over a desk facing a set of glowing rectangles; he seems undisturbed by your arrival. Perhaps your stealthy entrance worked or maybe the man is too deep into his work to notice you.</p>
+					</div>
+					<div class="center">
+						<a id="story-talk-btn" class="btn-large btn-flat white hvr-sweep-to-right black-text">Speak out</a><a id="story-look-btn" class="btn-large white btn-flat hvr-sweep-to-right black-text">Look Around</a>
+					</div>
+					<div id="story-look" class="alegreya-font story-hidden">
+						<h4>Knowledge.</h4>
+						<p>After a moment you begin feeling confident enough to gaze around the room. Looking up you notice a selection of plaques. As you focus the runes start to look familiar. Perhaps interacting with them might gain you some knowledge on your target.</p>
+					</div>
+					<div id="story-talk" class="alegreya-font story-hidden">
+						<h4>Conversation.</h4>
+						<p>You go to speak but before any sound leaves your mouth you notice some symbols appear in front of you. You're not sure why but you suddenly feel like it might be better to try and communicate through one of them, which though you need to decide.</p>
+						<div class="row">
+							<div class="col s6">
+								<div class="center">
+									<a href="https://twitter.com/roskelld" class="" title="Twitter"><i class="blue-text fab fa-twitter-square fa-2x"></i></a>
 								</div>
 							</div>
-                        </div>
+							<div class="col s6">
+								<div class="center">
+								<a href="mailto:roskelld@protonmail.com?subject=Hey Dean!" title="email"><i class="green-text fas fa-envelope-square fa-2x"></i></a>
+							</div>
+							</div>
+						</div>
 					</div>
+
 				</div>
+				<!-- <div class="divider"></div>
+				<div class="center-align"><h5>Previous Clients</h5></div>
+				<div id="contentdetail" class="">
+					<div class="carousel no-select" style="height: 200px;">
+					  <a class="carousel-item no-select grab" ><img src="/img/company/ea.png"></a>
+					  <a class="carousel-item no-select grab" ><img src="/img/company/bioware.png"></a>
+					  <a class="carousel-item no-select grab" ><img src="/img/company/t2.png"></a>
+					  <a class="carousel-item no-select grab" ><img src="/img/company/eidos.png"></a>
+					  <a class="carousel-item no-select grab" ><img src="/img/company/sierra.png"></a>
+					  <a class="carousel-item no-select grab" ><img src="/img/company/warthog.png"></a>
+					  <a class="carousel-item no-select grab" ><img src="/img/company/sd.png"></a>
+					  <a class="carousel-item no-select grab" ><img src="/img/company/mastertonic.png"></a>
+					  <a class="carousel-item no-select grab" ><img src="/img/company/wb.png"></a>
+					  <a class="carousel-item no-select grab" ><img src="/img/company/lego.png"></a>
+					</div>
+				</div> -->
+
 			</div>
 
 			<!--  SERVICES SECTION -->
 			<div id="services" class="col s12">
+				<div class="col s10 m9 l8 xl6">
+					<div class="contentdetail "></div>
+				</div>
 				<div class="col s2 m3 l4 xl6">
 					<div class="contentlinks"></div>
-				</div>
-				<div class="col s10 m9 l8 xl6">
-					<div class="contentdetail background"></div>
 				</div>
 			</div>
 
 			<!--  GAMES SECTION -->
 			<div id="games" class="col s12">
+				<div class="col s10 m9 l8 xl6">
+					<div class="contentdetail "></div>
+				</div>
 				<div class="col s2 m3 l4 xl6">
 					<div class="contentlinks"></div>
-				</div>
-				<div class="col s10 m9 l8 xl6">
-					<div class="contentdetail background-image"></div>
 				</div>
 			</div>
 
 			<!--  APPLICATIONS SECTION -->
 			<div id="applications" class="col s12">
+				<div class="col s10 m9 l8 xl6">
+					<div class="contentdetail ">&nbsp</div>
+				</div>
 				<div class="col s2 m3 l4 xl6">
 					<div class="contentlinks"></div>
-				</div>
-				<div class="col s10 m9 l8 xl6">
-					<div class="contentdetail background-image">&nbsp</div>
 				</div>
 			</div>
 
 			<!--  PROJECTS SECTION -->
 			<div id="projects" class="col s12">
+				<div class="col s10 m9 l8 xl6">
+					<div class="contentdetail ">&nbsp</div>
+				</div>
 				<div class="col s2 m3 l4 xl6">
 					<div class="contentlinks"></div>
-				</div>
-				<div class="col s10 m9 l8 xl6">
-					<div class="contentdetail background-image">&nbsp</div>
 				</div>
 			</div>
 
@@ -173,13 +180,22 @@
 			</div> -->
 
 		</div>
-
-
 	</main>
-	<footer class="page-footer blue-grey darken-4 blue-grey-text text-lighten-4 no-select">
-		<div class="container">
-			<div class="center-align">
-				<span id="shhh">🍒</span> <br> © 2019 Copyright Dean Roskell
+	<footer class="page-footer white no-select">
+		<div class="row">
+			<div class="col s12">
+				<div class="center-align">
+					<a href="https://twitter.com/roskelld" class="btn-flat" title="Twitter"><i class="blue-text fab fa-twitter-square fa-2x"></i></a>
+					<a href="https://github.com/roskelld/" class="btn-flat" title="Github"><i class="black-text fab fa-github-square fa-2x"></i></a>
+					<a href="https://stackoverflow.com/users/6126468/roskelld" class="btn-flat" title="Stack Exchange"><i class="orange-text fab fa-stack-overflow fa-2x"></i></a>
+					<a href="mailto:roskelld@protonmail.com?subject=Hey Dean!" class="btn-flat" title="email"><i class="green-text fas fa-envelope-square fa-2x"></i></a>
+				</div>
+				<div class="left">
+					<span id="shhh">🍒</span>
+				</div>
+				<div class="right">
+					<span class="grey-text">© 2019 Dean Roskell</span>
+				</div>
 			</div>
 		</div>
 	</footer>
@@ -190,61 +206,10 @@
 	<!-- Scripts -->
 	<script src="https://unpkg.com/simplebar@latest/dist/simplebar.js"></script>
 	<script src="./data/data.js"></script>
-	<script src="./js/site.js"></script>
+	<script type="module" src="js/app.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>
-<!-- <blockquote style="font-style: italic; font-size: 1.5em;">
-Feel like your game's levels aren't proving to be the fun challenge you were looking for or your mechanics just aren't clicking?
-</blockquote>
-<p>
-A Design audit can help identify key issues and establish a plan to get back on track.
-</p>
-<p>
-I offer over 20 years of real-world experience designing and creating games across all platforms and for a wide range of audiences. I find that by talking with the team we can learn about the goals, pain points and build solutions.
-</p>
-<p>
-Let's review and identify issues across:
-<ul>
-<li> <i class="fas fa-plus"></i><span class="size-1-2"> Level Design</span></li>
-<li> <i class="fas fa-plus"></i><span class="size-1-2"> Locomotion</span></li>
-<li> <i class="fas fa-plus"></i><span class="size-1-2"> Puzzle Design</span></li>
-<li> <i class="fas fa-plus"></i><span class="size-1-2"> Presentation</span></li>
-<li> <i class="fas fa-plus"></i><span class="size-1-2"> Player Messaging</span></li>
-<li> <i class="fas fa-plus"></i><span class="size-1-2"> Pacing</span></li>
-<li> <i class="fas fa-plus"></i><span class="size-1-2"> Game Flow</span></li>
-<li> <i class="fas fa-plus"></i><span class="size-1-2"> Tutorials</span></li>
-<li> <i class="fas fa-plus"></i><span class="size-1-2"> UI / Menus</span></li>
-</ul>
 
-<ul class="collapsible">
-  <li>
-	<div class="collapsible-header blue-grey darken-4 blue-grey-text text-lighten-4"><i class="fas fa-dungeon"></i> <span class="size-1-2">Level Design</span></div>
-	<div class="collapsible-body blue-grey darken-4 blue-grey-text text-lighten-4"><span>I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.</span></div>
-  </li>
-  <li>
-	<div class="collapsible-header blue-grey darken-4 blue-grey-text text-lighten-4"><i class="fas fa-running"></i> <span class="size-1-2">Locomotion</span></div>
-	<div class="collapsible-body blue-grey darken-4 blue-grey-text text-lighten-4"><span>Having levels that look great, but aren't fun to move around might be an issue with locomotion. Your character's movement is the main passage way from game-to-player and if it's no fun, then the rest of the game will suffer</span></div>
-  </li>
-  <li>
-	<div class="collapsible-header blue-grey darken-4 blue-grey-text text-lighten-4"><i class="fas fa-puzzle-piece"></i> <span class="size-1-2">Level Design</span></div>
-	<div class="collapsible-body blue-grey darken-4 blue-grey-text text-lighten-4"><span>I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.</span></div>
-  </li>
-  <li>
-  <div class="collapsible-header blue-grey darken-4 blue-grey-text text-lighten-4"><i class="fas fa-dungeon"></i> <span class="size-1-2">Level Design</span></div>
-  <div class="collapsible-body blue-grey darken-4 blue-grey-text text-lighten-4"><span>I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.</span></div>
-  </li>
-  <li>
-  <div class="collapsible-header blue-grey darken-4 blue-grey-text text-lighten-4"><i class="fas fa-dungeon"></i> <span class="size-1-2">Level Design</span></div>
-  <div class="collapsible-body blue-grey darken-4 blue-grey-text text-lighten-4"><span>I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.</span></div>
-  </li>
-  <li>
-  <div class="collapsible-header blue-grey darken-4 blue-grey-text text-lighten-4"><i class="fas fa-dungeon"></i> <span class="size-1-2">Level Design</span></div>
-  <div class="collapsible-body blue-grey darken-4 blue-grey-text text-lighten-4"><span>I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.</span></div>
-  </li>
-</ul>
-
-
-</p> -->
 <!-- <a onclick="s.tabInstances[0].select( 'services' ); s.tabInstances[1].select('content-plan');">aaaa</a> -->

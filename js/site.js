@@ -1,4 +1,12 @@
 'use strict';
+/**
+* Copyright Dean Roskell 2019
+* @author roskelld https://github.com/roskelld
+* Uses: https://ianlunn.github.io/Hover/
+*/
+
+import Story        from './story.js';
+import Blog         from './blog.js';
 
 class WebSite {
     constructor() {
@@ -25,20 +33,25 @@ class WebSite {
         this.tabOptions = { onShow: this.tabSelect };
         this.tabInstances = M.Tabs.init( tabs, this.tabOptions );
 
-        this.carouselEl = document.querySelectorAll( '.carousel' );
-        this.carouselOptions = {};
-        this.carouselInstances = M.Carousel.init( this.carouselEl, this.carouselOptions );
+        // this.carouselEl = document.querySelectorAll( '.carousel' );
+        this.carouselOptions = {
+            dist: 0,
+            shift: 10,
+            padding: 10,
+        };
+        // this.carouselInstances = M.Carousel.init( this.carouselEl, this.carouselOptions );
 
-        const sideNav = document.querySelectorAll( '.sidenav' );
-        this.sideNavInstances = M.Sidenav.init(sideNav, {} );
+        // const sideNav = document.querySelectorAll( '.sidenav' );
+        // this.sideNavInstances = M.Sidenav.init(sideNav, {} );
 
         this.nav = {
+            header:             document.querySelector('#nav-header'),
             tabs:   {
                 home:           document.querySelector('#home'),
-                // services:       document.querySelector('#services'),
+                services:       document.querySelector('#services'),
                 games:          document.querySelector('#games'),
                 applications:   document.querySelector('#applications'),
-                // projects:       document.querySelector('#projects'),
+                projects:       document.querySelector('#projects'),
                 // bio:            document.querySelector('#bio'),
             },
             mobile: {
@@ -52,6 +65,7 @@ class WebSite {
         }
 
         this.content = {
+            main:               document.querySelector('main'),
             panels:             document.querySelectorAll('.product-panel'),
             background:         document.querySelectorAll('.background-image'),
         }
@@ -61,6 +75,9 @@ class WebSite {
         }
 
         this.cardClicks();
+
+        this.story = new Story();
+        this.blog = new Blog();
 
         // GAME
         // this.score = 0;
@@ -74,13 +91,15 @@ class WebSite {
         if ( typeof tab === 'undefined' ) tab = this.$activeTabLink[0].hash;
         if ( tab.id === this.oldTab ) return;                                   // Ignore if tab hasn't changed
 
+        // Reset the story mode
+        s.story.reset();
 
         switch (tab.id) {
             case 'home':
-                M.Carousel.init( s.carouselEl, s.carouselOptions );
+                // M.Carousel.init( s.carouselEl, s.carouselOptions );
                 break;
             case 'services':
-
+                console.log( 'services' );
                 break;
             case 'games':
                 // window.s.gameCardGenerator( games, 'games' );
@@ -121,7 +140,7 @@ class WebSite {
             const img       = document.createElement( 'img' );
 
             colDiv.classList.add( 'col', 's12', 'm12', 'l6', 'xl3' );
-            cardDiv.classList.add( 'card', 'game-card' );
+            cardDiv.classList.add( 'card', 'game-card', 'z-depth-0' );
             cardDiv.id = `card-${item.id}`;
             imgDiv.classList.add( 'card-image' );
             img.src = `img/product/${item.id}.png`;
@@ -143,7 +162,6 @@ class WebSite {
             tabs.appendChild( tab );
 
             let list = `` ;
-            console.log(core);
             // GENERATE DETAIL
             item.work.forEach( x => {
                 list += `<li><div class="collapsible-header grey darken-4 blue-grey-text no-select">
@@ -157,14 +175,8 @@ class WebSite {
             detailDiv.id = `content-${item.id}`;
 
             detailDiv.innerHTML = `
-                <div class="section">
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="center-align">
-                                <h2>${item.title}</h2>
-                            </div>
-                        </div>
-                    </div>
+                <div id="section-${item.id}" class="section content-panel">
+                    <div class="row"><div class="col s12"><div class="center-align"><h2>${item.title}</h2></div></div></div>
                     <div class="row">
                         <div class="col s12"><blockquote style="font-style: italic; font-size: 1.5em;">${item.quote}</blockquote></div>
                     </div>
@@ -219,7 +231,7 @@ class WebSite {
             const img       = document.createElement( 'img' );
 
             colDiv.classList.add( 'col', 's12', 'm12', 'l6', 'xl3' );
-            cardDiv.classList.add( 'card', 'game-card' );
+            cardDiv.classList.add( 'card', 'game-card', 'z-depth-0' );
             cardDiv.id = `card-${item.id}`;
             imgDiv.classList.add( 'card-image' );
             img.src = `img/product/${item.id}.png`;
@@ -264,10 +276,9 @@ class WebSite {
             detailDiv.id = `content-${item.id}`;
 
             detailDiv.innerHTML = `
-                <div class="section">
+                <div id="section-${item.id}" class="section content-panel">
                     <div class="row">
-                        <div class="col s3"><div class="white black-text detail-header title right">Title:</div></div>
-                        <div class="col s9"><div class="title">${item.title}</div></div>
+                        <div class="col s12"><div class="black-text title center-align">${item.title}</div></div>
                     </div>
                     <div class="divider"></div>
                     <div class="section">
@@ -358,7 +369,7 @@ class WebSite {
             const img       = document.createElement( 'img' );
 
             colDiv.classList.add( 'col', 's12', 'm12', 'l6', 'xl3' );
-            cardDiv.classList.add( 'card', 'game-card' );
+            cardDiv.classList.add( 'card', 'game-card', 'z-depth-0' );
             cardDiv.id = `card-${item.id}`;
             imgDiv.classList.add( 'card-image' );
             img.src = `img/product/${item.id}.png`;
@@ -403,10 +414,9 @@ class WebSite {
             detailDiv.id = `content-${item.id}`;
 
             detailDiv.innerHTML = `
-                <div class="section">
+                <div id="section-${item.id}" class="section content-panel">
                     <div class="row">
-                        <div class="col s3"><div class="white black-text detail-header title right">Title:</div></div>
-                        <div class="col s9"><div class="title">${item.title}</div></div>
+                        <div class="col s12"><div class="title center-align">${item.title}</div></div>
                     </div>
                     <div class="divider"></div>
                     <div class="section">
@@ -482,7 +492,7 @@ class WebSite {
             const img       = document.createElement( 'img' );
 
             colDiv.classList.add( 'col', 's12', 'm12', 'l6', 'xl3' );
-            cardDiv.classList.add( 'card', 'game-card' );
+            cardDiv.classList.add( 'card', 'game-card', 'z-depth-0' );
             cardDiv.id = `card-${item.id}`;
             imgDiv.classList.add( 'card-image' );
             img.src = `img/product/${item.id}.png`;
@@ -527,10 +537,9 @@ class WebSite {
             detailDiv.id = `content-${item.id}`;
 
             detailDiv.innerHTML = `
-                <div class="section">
+                <div id="section-${item.id}" class="section content-panel">
                     <div class="row">
-                        <div class="col s3"><div class="white black-text detail-header title right">Title:</div></div>
-                        <div class="col s9"><div class="title">${item.title}</div></div>
+                        <div class="col s12"><div class="title center-align">${item.title}</div></div>
                     </div>
                     <div class="divider"></div>
                     <div class="section">
@@ -643,7 +652,4 @@ class WebSite {
     }
 }
 
-document.addEventListener( 'DOMContentLoaded', () => {
-    const site = new WebSite();
-    window.s = site;
-}, false );
+export default WebSite;
