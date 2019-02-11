@@ -30,7 +30,11 @@ main {
 }
 
 .soft-grey-text {
-    color: #343434;
+    color: #343434 !important;
+}
+
+.soft-grey-text-2 {
+    color: rgb(147, 145, 143) !important;
 }
 
 footer {}
@@ -127,7 +131,7 @@ footer {}
     -webkit-filter: grayscale(0%) !important;
     filter: grayscale(0%) !important;
     opacity: 1 !important;
-    animation: grayscale-out 0.3s linear;
+    animation: grayscale-50-100 0.3s linear;
 }
 
 .detail-description {
@@ -213,7 +217,8 @@ td.detail-data {
 }
 
 .tab a.active {
-    background-color: yellow !important;
+    background-color: rgb(243, 246, 169) !important;
+
 }
 
 .content-panel {
@@ -239,13 +244,13 @@ td.detail-data {
 }
 
 a.active {
-    background-color: yellow !important;
+    background-color: rgb(243, 246, 169) !important;
 }
 
 .text-link {
-    background: rgba(203, 203, 203, 0.3);
+    background: rgb(243, 246, 169);
     color: rgb(147, 145, 143) !important;
-    padding: 0.1em;
+    padding: 0em 0.1em 0 0.1em;
 }
 
 code {
@@ -303,6 +308,26 @@ h5 {
     font-weight: bold !important;
 }
 
+.hover-gray-to-color {
+    filter: grayscale( 100% );
+    opacity: 0.3;
+}
+
+.hover-gray-to-color:hover {
+    animation: grayscale-out 1s ease-out forwards;
+}
+
+/* .hover-gray-to-color:hover:before {
+    animation: grayscale-out 1s ease-out backwards;
+    background-color: green !important;
+    color: green !important;
+} */
+
+.hover-gray-to-color:focus, .hover-gray-to-color:active {
+    filter: grayscale(0);
+    opacity: 1;
+}
+
 /* ****************************************************************************/
 /* STORY                                                                       */
 /* ****************************************************************************/
@@ -355,7 +380,7 @@ h5 {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 0, 1);
+    background: rgb(243, 246, 169);
     transform: scaleX(0);
     transition-property: transform;
     transform-origin: 0 50%;
@@ -399,7 +424,7 @@ h5 {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 0, 1);
+    background: rgb(243, 246, 169);
     -webkit-transform: scaleX(0);
     transform: scaleX(0);
     -webkit-transform-origin: 0 50%;
@@ -445,7 +470,7 @@ h5 {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 0, 1);
+    background: rgb(243, 246, 169);
     -webkit-transform: scaleX(0);
     transform: scaleX(0);
     -webkit-transform-origin: 100% 50%;
@@ -491,7 +516,7 @@ h5 {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 0, 1);
+    background: rgb(243, 246, 169);
     -webkit-transform: scaleY(0);
     transform: scaleY(0);
     -webkit-transform-origin: 50% 0;
@@ -537,7 +562,7 @@ h5 {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 0, 1);
+    background: rgb(243, 246, 169);
     -webkit-transform: scaleY(0);
     transform: scaleY(0);
     -webkit-transform-origin: 50% 100%;
@@ -602,7 +627,7 @@ h5 {
     }
 }
 
-@keyframes grayscale-out {
+@keyframes grayscale-50-100 {
     0% {
         -webkit-filter: grayscale(50%);
         filter: grayscale(50%);
@@ -613,6 +638,20 @@ h5 {
         -webkit-filter: grayscale(100%);
         filter: grayscale(100%);
         opacity: 0.5;
+    }
+}
+
+@keyframes grayscale-out {
+    0% {
+        -webkit-filter: grayscale(100%);
+        filter: grayscale(100%);
+        opacity: 0.5;
+    }
+
+    100% {
+        -webkit-filter: grayscale(0%);
+        filter: grayscale(0%);
+        opacity: 1;
     }
 }
 
