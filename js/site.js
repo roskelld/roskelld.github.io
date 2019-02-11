@@ -12,6 +12,8 @@ class WebSite {
     constructor() {
         // Style
         this.split = '·';
+        // this.itemURI = '%F0%9F%8E%AE'; // 🎮
+        this.itemURI = '?'; // 🎮
         // Build DOM Elements
         const games     = data.filter( item => item.type === 'game' );
         const apps      = data.filter( item => item.type === 'app' );
@@ -26,20 +28,25 @@ class WebSite {
 
         const content =  document.querySelector('#stuff')
 
-        // this.scroller = new SimpleBar( content, {});
         // .....................................................................
         // INITIALIZE MATERIALIZE
-        const tabs = document.querySelectorAll( '.tabs' );
-        this.tabOptions = { onShow: this.tabSelect };
-        this.tabInstances = M.Tabs.init( tabs, this.tabOptions );
+        const tabsMain = document.querySelector( '#main-nav-tabs' );
+        const tabsBody = document.querySelector( '#tab-container' );
+        this.tabMainOptions = { onShow: this.onTabSelected };
+        this.tabBodyInstances = M.Tabs.init( tabsBody, {} );
+        this.tabMainInstances = M.Tabs.init( tabsMain, this.tabMainOptions );
 
-        // this.carouselEl = document.querySelectorAll( '.carousel' );
+        this.carouselEl = document.querySelectorAll( '.carousel' );
         this.carouselOptions = {
             dist: 0,
             shift: 10,
             padding: 10,
         };
-        // this.carouselInstances = M.Carousel.init( this.carouselEl, this.carouselOptions );
+        this.carouselInstances = M.Carousel.init( this.carouselEl, this.carouselOptions );
+
+        this.photosEl = document.querySelectorAll('.materialboxed');
+        this.photosOptions = {};
+        this.photosInstances = M.Materialbox.init( this.photosEl, this.photosOptions );
 
         // const sideNav = document.querySelectorAll( '.sidenav' );
         // this.sideNavInstances = M.Sidenav.init(sideNav, {} );
@@ -52,15 +59,31 @@ class WebSite {
                 games:          document.querySelector('#games'),
                 applications:   document.querySelector('#applications'),
                 projects:       document.querySelector('#projects'),
-                // bio:            document.querySelector('#bio'),
+                bio:            document.querySelector('#bio'),
             },
             mobile: {
-                    home:           document.querySelector('#mobile-nav-home').addEventListener( 'click', () => { this.tabInstances[0].select('home'); this.sideNavInstances[0].close(); }, false ),
+                    // home:           document.querySelector('#mobile-nav-home').addEventListener( 'click', () => { this.tabInstances[0].select('home'); this.sideNavInstances[0].close(); }, false ),
                     // services:       document.querySelector('#mobile-nav-services').addEventListener( 'click', () => { this.tabInstances[0].select('services');  this.sideNavInstances[0].close(); }, false ),
-                    games:          document.querySelector('#mobile-nav-games').addEventListener( 'click', () => { this.tabInstances[0].select('games'); this.sideNavInstances[0].close(); }, false ),
-                    applications:   document.querySelector('#mobile-nav-applications').addEventListener( 'click', () => { this.tabInstances[0].select('applications'); this.sideNavInstances[0].close(); }, false ),
+                    // games:          document.querySelector('#mobile-nav-games').addEventListener( 'click', () => { this.tabInstances[0].select('games'); this.sideNavInstances[0].close(); }, false ),
+                    // applications:   document.querySelector('#mobile-nav-applications').addEventListener( 'click', () => { this.tabInstances[0].select('applications'); this.sideNavInstances[0].close(); }, false ),
                     // projects:       document.querySelector('#mobile-nav-projects').addEventListener( 'click', () => { this.tabInstances[0].select('projects'); this.sideNavInstances[0].close(); }, false ),
                     // bio:            document.querySelector('#mobile-nav-bio').addEventListener( 'click', () => { this.tabInstances[0].select('bio'); this.sideNavInstances[0].close(); }, false ),
+            },
+            buttons: {
+                home:           document.querySelector('#home-menu-btn'),
+                services:       document.querySelector('#services-menu-btn'),
+                games:          document.querySelector('#games-menu-btn'),
+                applications:   document.querySelector('#applications-menu-btn'),
+                projects:       document.querySelector('#projects-menu-btn'),
+                bio:            document.querySelector('#bio-menu-btn'),
+                all:            document.querySelectorAll('.menu-btn'),
+            },
+            cards: {
+                services:           document.querySelector(`#services`).querySelector('.contentlinks').querySelectorAll('.card-link'),
+                games:              document.querySelector(`#games`).querySelector('.contentlinks').querySelectorAll('.card-link'),
+                applications:       document.querySelector(`#applications`).querySelector('.contentlinks').querySelectorAll('.card-link'),
+                projects:           document.querySelector(`#projects`).querySelector('.contentlinks').querySelectorAll('.card-link'),
+                all:                document.querySelectorAll('.card-link'),
             }
         }
 
@@ -68,15 +91,14 @@ class WebSite {
             main:               document.querySelector('main'),
             panels:             document.querySelectorAll('.product-panel'),
             background:         document.querySelectorAll('.background-image'),
+            // cards:              document.querySelectorAll('.card-link'),
         }
 
-        this.games = {
-            cards:              document.querySelectorAll('.game-card'),
-        }
-
-        this.cardClicks();
+        this.setMenuLinks();
+        this.setCardLinks();
 
         this.story = new Story();
+
         this.blog = new Blog();
 
         // GAME
@@ -85,41 +107,151 @@ class WebSite {
         // this.eatSound = new Audio('/sound/cherry.mp3');
         // this.dieSound = new Audio('/sound/die.mp3');
         // document.querySelector('#shhh').addEventListener( 'click', () => { this.startShhh() }, false );
+
     }
 
-    tabSelect( tab ) {
-        if ( typeof tab === 'undefined' ) tab = this.$activeTabLink[0].hash;
-        if ( tab.id === this.oldTab ) return;                                   // Ignore if tab hasn't changed
+    init() {
+        // this.onTabSelected();
 
-        // Reset the story mode
-        s.story.reset();
+        window.addEventListener("hashchange", e => {
+            console.log('HASH CHANGE');
+            this.openHashLocation();
+        });
 
-        switch (tab.id) {
-            case 'home':
-                // M.Carousel.init( s.carouselEl, s.carouselOptions );
-                break;
-            case 'services':
-                console.log( 'services' );
-                break;
-            case 'games':
-                // window.s.gameCardGenerator( games, 'games' );
-                break;
-            case 'applications':
+        // Read URI and setup site
 
-                break;
-            case 'projects':
+        this.openHashLocation();
+    }
 
-                break;
-            default:
+    openHashLocation() {
+        const c =  window.location.hash;
+        let url = '';
 
+        if ( c !== '' ) {
+            const tab = ( c.includes(this.itemURI) ) ? c.slice( 1, c.indexOf(this.itemURI) ) : c.slice( 1, c.length );
+            this.selectTab( tab );
+
+            url += `#${tab}`;
+            scroll(0,0);
+
+            if ( c.includes(this.itemURI) ) {
+                const item = c.slice(  c.indexOf(this.itemURI) + 1, c.length );
+                // console.log(`CARD: ${item}`);
+                this.selectCard( item, tab );
+                url += `?${item}`;
+            }
+
+        } else {
+            this.selectTab( 'home' );
+        }
+    }
+
+    onTabSelected( tab ) {
+        // Generate Tab from URL if not given
+        if ( typeof tab === 'undefined' || tab === null ) {
+            tab = {};
+            tab.id = window.location.hash.substr(1);;
         }
 
+        if ( tab.id === this.oldTab ) return;                                   // Ignore if tab hasn't changed
+
+        // Spin carousel
+        if ( tab.id === 'home' && this.oldTab !== 'home')
+            s.carouselInstances[0].next();
+
+
         this.oldTab = tab.id;
+
+        if ( tab.id !== 'home' || tab.id !== 'bio' ) {
+            if ( typeof s.nav.cards[tab.id] === 'undefined' ) return;
+            s.story.reset();                                                    // Reset Story
+            s.selectCard( s.nav.cards[tab.id][0].id.replace( 'card-', ''), tab.id );
+        }
+
+
+    }
+
+    selectTab( tabId ) {
+        this.tabMainInstances.select( tabId );
+        this.nav.buttons.all.forEach( button => button.classList.remove('active') );
+        this.nav.buttons[tabId].classList.add( 'active' );
+    }
+
+    selectCard( cardId, tabId = 'all',  ) {
+        const cards = Array.from( s.nav.cards[tabId] );
+        const card = cards.find( item => item.id === `card-${cardId}` );
+        if ( typeof card === 'undefined' ) return;
+        this.nav.cards.all.forEach( card => card.classList.remove('selected') );   // Remove highlight
+        card.classList.add( 'selected' );
+        this.tabBodyInstances.select( `content-${cardId}` );                       // Select Content
+    }
+
+    setCardLinks() {
+        this.nav.cards.all.forEach( card => {
+            card.addEventListener( 'click', e => {
+                this.selectCard( card.dataset.target );
+                // Update URI
+                const uri = `${this.tabMainInstances.$activeTabLink[0].hash}${this.itemURI}${card.dataset.target}`;
+                window.history.pushState( { id: `#${uri}` }, 'Dean Roskell', `${uri}` );
+            }, false );
+        });
+    }
+
+    setMenuLinks() {
+        this.nav.buttons.all.forEach( button => {
+            button.addEventListener( 'click', e => {
+                this.selectTab( button.dataset.target );
+                // Update URI
+                window.history.pushState( { id: `#${button.dataset.target}` }, 'Dean Roskell', `/#${button.dataset.target}` );
+            }, false );
+        });
     }
 
     updateScroller( tab ) {
         console.log( window.s.scroller );
         window.s.scroller.recalculate();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // CONTENT GENERATION
+
+    generateCard( item ) {
+        const colDiv    = document.createElement( 'div' );
+        const cardDiv   = document.createElement( 'div' );
+        const imgDiv    = document.createElement( 'div' );
+        const img       = document.createElement( 'img' );
+
+        colDiv.classList.add( 'col', 's12', 'm12', 'l6', 'xl3' );
+        cardDiv.classList.add( 'card', 'card-link', 'z-depth-0' );
+        cardDiv.id = `card-${item.id}`;
+        cardDiv.dataset.target = item.id;
+        imgDiv.classList.add( 'card-image' );
+        img.src = `img/product/${item.id}.png`;
+        img.title = item.title;
+
+        imgDiv.appendChild( img );
+
+        if ( item.release === 'N/A' ) {
+            const release = document.createElement( 'span' );
+            release.classList.add( 'unreleased' );
+            release.textContent = 'Unreleased';
+            imgDiv.appendChild( release );
+        }
+
+        cardDiv.appendChild( imgDiv );
+        colDiv.appendChild( cardDiv );
+
+        return colDiv;
+    }
+
+    generateFakeTab( item ) {
+        const tab = document.createElement( 'li' );
+        const tabLink = document.createElement( 'a' );
+        tab.classList.add( 'tab' );
+        tabLink.href = `#content-${item.id}`;
+        tabLink.textContent = `${item.id}`;
+        tab.appendChild( tabLink );
+        return tab;
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -132,34 +264,13 @@ class WebSite {
         const detail  = container.querySelector( '.contentdetail' );
         const tabs    = document.querySelector( '#tab-container' );
 
-        data.forEach( item => {
+        data.forEach( (item, i) => {
+
             // GENERATE LINKS
-            const colDiv    = document.createElement( 'div' );
-            const cardDiv   = document.createElement( 'div' );
-            const imgDiv    = document.createElement( 'div' );
-            const img       = document.createElement( 'img' );
-
-            colDiv.classList.add( 'col', 's12', 'm12', 'l6', 'xl3' );
-            cardDiv.classList.add( 'card', 'game-card', 'z-depth-0' );
-            cardDiv.id = `card-${item.id}`;
-            imgDiv.classList.add( 'card-image' );
-            img.src = `img/product/${item.id}.png`;
-            img.title = item.title;
-
-            imgDiv.appendChild( img );
-            cardDiv.appendChild( imgDiv );
-            colDiv.appendChild( cardDiv );
-            links.appendChild( colDiv );
+            links.appendChild( this.generateCard( item ) );
 
             // GENERATE CONTENT TAB
-            // Futz around with the ul tabs because Materialize seems to need one
-            const tab = document.createElement( 'li' );
-            const tabLink = document.createElement( 'a' );
-            tab.classList.add( 'tab' );
-            tabLink.href = `#content-${item.id}`;
-            tabLink.textContent = `${item.id}`;
-            tab.appendChild( tabLink );
-            tabs.appendChild( tab );
+            tabs.appendChild(  this.generateFakeTab( item ) );
 
             let list = `` ;
             // GENERATE DETAIL
@@ -223,42 +334,13 @@ class WebSite {
         const detail  = container.querySelector( '.contentdetail' );
         const tabs    = document.querySelector( '#tab-container' );
 
-        data.forEach( item => {
+        data.forEach( (item, i) => {
             // GENERATE LINKS
-            const colDiv    = document.createElement( 'div' );
-            const cardDiv   = document.createElement( 'div' );
-            const imgDiv    = document.createElement( 'div' );
-            const img       = document.createElement( 'img' );
-
-            colDiv.classList.add( 'col', 's12', 'm12', 'l6', 'xl3' );
-            cardDiv.classList.add( 'card', 'game-card', 'z-depth-0' );
-            cardDiv.id = `card-${item.id}`;
-            imgDiv.classList.add( 'card-image' );
-            img.src = `img/product/${item.id}.png`;
-            img.title = item.title;
-
-            imgDiv.appendChild( img );
-
-            if ( item.release === 'N/A' ) {
-                const release = document.createElement( 'span' );
-                release.classList.add( 'unreleased' );
-                release.textContent = 'Unreleased';
-                imgDiv.appendChild( release );
-            }
-
-
-            cardDiv.appendChild( imgDiv );
-            colDiv.appendChild( cardDiv );
-            links.appendChild( colDiv );
+            links.appendChild( this.generateCard( item ) );
 
             // GENERATE CONTENT TAB
             // Futz around with the ul tabs because Materialize seems to need one
-            const tab = document.createElement( 'li' );
-            const tabLink = document.createElement( 'a' );
-            tab.classList.add( 'tab' );
-            tabLink.href = `#content-${item.id}`;
-            tabLink.textContent = `${item.id}`;
-            tab.appendChild( tabLink );
+            const tab = this.generateFakeTab( item );
             tabs.appendChild( tab );
 
             // GENERATE DETAIL
@@ -276,50 +358,50 @@ class WebSite {
             detailDiv.id = `content-${item.id}`;
 
             detailDiv.innerHTML = `
-                <div id="section-${item.id}" class="section content-panel">
+                <div class="section content-panel">
                     <div class="row">
-                        <div class="col s12"><div class="black-text title center-align">${item.title}</div></div>
+                        <div class="col s12"><div class="soft-grey-text title center-align">${item.title}</div></div>
                     </div>
                     <div class="divider"></div>
                     <div class="section">
                         <div class="row">
-                            <div class="col s12 m3"><div class="white black-text detail-header right">Platform(s):</div></div>
+                            <div class="col s12 m3"><div class="off-white soft-grey-text detail-header right">Platform(s):</div></div>
                             <div class="col s12 m9"><div class="detail-data">${platforms}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Genre:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Genre:</div></div>
                             <div class="col s3"><div class="detail-data">${item.genre}</div></div>
-                            <div class="col s2"><div class="white black-text detail-header right">Company:</div></div>
+                            <div class="col s2"><div class="off-white soft-grey-text detail-header right">Company:</div></div>
                             <div class="col s4"><div class="detail-data">${item.company}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Release:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Release:</div></div>
                             <div class="col s2"><div class="detail-data">${item.release}</div></div>
-                            <div class="col s3"><div class="white black-text detail-header right">Publisher:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Publisher:</div></div>
                             <div class="col s4"><div class="detail-data">${item.publisher}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Role:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Role:</div></div>
                             <div class="col s9"><div class="detail-data">${item.role}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Responsibilities:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Responsibilities:</div></div>
                             <div class="col s9"><div class="detail-data">${tasks}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Technology:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Technology:</div></div>
                             <div class="col s9"><div class="detail-data">${tech}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Team Size:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Team Size:</div></div>
                             <div class="col s9"><div class="detail-data">${item.team_size}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Dev Time:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Dev Time:</div></div>
                             <div class="col s9"><div class="detail-data">${item.dev_time}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Trailer:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Trailer:</div></div>
                             <div class="col s9"><div class="detail-data"><a href="${item.trailer}"><i class="fas fa-film fa-2x"></i></a></div></div>
                         </div>
                     </div>
@@ -336,21 +418,6 @@ class WebSite {
         // <div class="col s12"><div class="center">${item.embed}</div></div>
     }
 
-    cardClicks() {
-        this.games.cards.forEach( (card, idx) => {
-            const content = card.id.replace('card', 'content');
-            if ( idx === 0 ) card.classList.add( 'selected' );
-            card.addEventListener( 'click', () => {
-
-                this.tabInstances[1].select(content);                           // Select Card
-
-                this.games.cards.forEach( card => card.classList.remove('selected') );
-                card.classList.add('selected');
-
-            }, false );
-        });
-    }
-
     ////////////////////////////////////////////////////////////////////////////
     // APPLICATIONS
 
@@ -361,42 +428,13 @@ class WebSite {
         const detail  = container.querySelector( '.contentdetail' );
         const tabs    = document.querySelector( '#tab-container' );
 
-        data.forEach( item => {
+        data.forEach( (item, i) => {
             // GENERATE LINKS
-            const colDiv    = document.createElement( 'div' );
-            const cardDiv   = document.createElement( 'div' );
-            const imgDiv    = document.createElement( 'div' );
-            const img       = document.createElement( 'img' );
-
-            colDiv.classList.add( 'col', 's12', 'm12', 'l6', 'xl3' );
-            cardDiv.classList.add( 'card', 'game-card', 'z-depth-0' );
-            cardDiv.id = `card-${item.id}`;
-            imgDiv.classList.add( 'card-image' );
-            img.src = `img/product/${item.id}.png`;
-            img.title = item.title;
-
-            imgDiv.appendChild( img );
-
-            if ( item.release === 'N/A' ) {
-                const release = document.createElement( 'span' );
-                release.classList.add( 'unreleased' );
-                release.textContent = 'Unreleased';
-                imgDiv.appendChild( release );
-            }
-
-
-            cardDiv.appendChild( imgDiv );
-            colDiv.appendChild( cardDiv );
-            links.appendChild( colDiv );
+            links.appendChild( this.generateCard( item ) );
 
             // GENERATE CONTENT TAB
             // Futz around with the ul tabs because Materialize seems to need one
-            const tab = document.createElement( 'li' );
-            const tabLink = document.createElement( 'a' );
-            tab.classList.add( 'tab' );
-            tabLink.href = `#content-${item.id}`;
-            tabLink.textContent = `${item.id}`;
-            tab.appendChild( tabLink );
+            const tab = this.generateFakeTab( item );
             tabs.appendChild( tab );
 
             // GENERATE DETAIL
@@ -421,43 +459,43 @@ class WebSite {
                     <div class="divider"></div>
                     <div class="section">
                         <div class="row">
-                            <div class="col s12 m3"><div class="white black-text detail-header right">Platform(s):</div></div>
+                            <div class="col s12 m3"><div class="off-white soft-grey-text detail-header right">Platform(s):</div></div>
                             <div class="col s12 m9"><div class="detail-data">${platforms}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Genre:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Genre:</div></div>
                             <div class="col s3"><div class="detail-data">${item.genre}</div></div>
-                            <div class="col s2"><div class="white black-text detail-header right">Company:</div></div>
+                            <div class="col s2"><div class="off-white soft-grey-text detail-header right">Company:</div></div>
                             <div class="col s4"><div class="detail-data">${item.company}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Release:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Release:</div></div>
                             <div class="col s2"><div class="detail-data">${item.release}</div></div>
-                            <div class="col s3"><div class="white black-text detail-header right">Publisher:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Publisher:</div></div>
                             <div class="col s4"><div class="detail-data">${item.publisher}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Role:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Role:</div></div>
                             <div class="col s9"><div class="detail-data">${item.role}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Responsibilities:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Responsibilities:</div></div>
                             <div class="col s9"><div class="detail-data">${tasks}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Technology:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Technology:</div></div>
                             <div class="col s9"><div class="detail-data">${tech}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Team Size:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Team Size:</div></div>
                             <div class="col s9"><div class="detail-data">${item.team_size}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Dev Time:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Dev Time:</div></div>
                             <div class="col s9"><div class="detail-data">${item.dev_time}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Link:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Link:</div></div>
                             <div class="col s9"><div class="detail-data"><a href="${item.link}">${item.link}</a></div></div>
                         </div>
                     </div>
@@ -484,42 +522,13 @@ class WebSite {
         const detail  = container.querySelector( '.contentdetail' );
         const tabs    = document.querySelector( '#tab-container' );
 
-        data.forEach( item => {
+        data.forEach( (item, i) => {
             // GENERATE LINKS
-            const colDiv    = document.createElement( 'div' );
-            const cardDiv   = document.createElement( 'div' );
-            const imgDiv    = document.createElement( 'div' );
-            const img       = document.createElement( 'img' );
-
-            colDiv.classList.add( 'col', 's12', 'm12', 'l6', 'xl3' );
-            cardDiv.classList.add( 'card', 'game-card', 'z-depth-0' );
-            cardDiv.id = `card-${item.id}`;
-            imgDiv.classList.add( 'card-image' );
-            img.src = `img/product/${item.id}.png`;
-            img.title = item.title;
-
-            imgDiv.appendChild( img );
-
-            if ( item.release === 'N/A' ) {
-                const release = document.createElement( 'span' );
-                release.classList.add( 'unreleased' );
-                release.textContent = 'Unreleased';
-                imgDiv.appendChild( release );
-            }
-
-
-            cardDiv.appendChild( imgDiv );
-            colDiv.appendChild( cardDiv );
-            links.appendChild( colDiv );
+            links.appendChild( this.generateCard( item ) );
 
             // GENERATE CONTENT TAB
             // Futz around with the ul tabs because Materialize seems to need one
-            const tab = document.createElement( 'li' );
-            const tabLink = document.createElement( 'a' );
-            tab.classList.add( 'tab' );
-            tabLink.href = `#content-${item.id}`;
-            tabLink.textContent = `${item.id}`;
-            tab.appendChild( tabLink );
+            const tab = this.generateFakeTab( item );
             tabs.appendChild( tab );
 
             // GENERATE DETAIL
@@ -550,52 +559,52 @@ class WebSite {
                     <div class="divider"></div>
                     <div class="section">
                         <div class="row">
-                            <div class="col s12 m3"><div class="white black-text detail-header right">Platform(s):</div></div>
+                            <div class="col s12 m3"><div class="off-white soft-grey-text detail-header right">Platform(s):</div></div>
                             <div class="col s12 m9"><div class="detail-data">${platforms}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Genre:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Genre:</div></div>
                             <div class="col s3"><div class="detail-data">${item.genre}</div></div>
-                            <div class="col s2"><div class="white black-text detail-header right">Company:</div></div>
+                            <div class="col s2"><div class="off-white soft-grey-text detail-header right">Company:</div></div>
                             <div class="col s4"><div class="detail-data">${item.company}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Release:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Release:</div></div>
                             <div class="col s2"><div class="detail-data">${item.release}</div></div>
-                            <div class="col s3"><div class="white black-text detail-header right">Publisher:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Publisher:</div></div>
                             <div class="col s4"><div class="detail-data">${item.publisher}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Role:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Role:</div></div>
                             <div class="col s9"><div class="detail-data">${item.role}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Responsibilities:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Responsibilities:</div></div>
                             <div class="col s9"><div class="detail-data">${tasks}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Technology:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Technology:</div></div>
                             <div class="col s9"><div class="detail-data">${tech}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Team Size:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Team Size:</div></div>
                             <div class="col s9"><div class="detail-data">${item.team_size}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Dev Time:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Dev Time:</div></div>
                             <div class="col s9"><div class="detail-data">${item.dev_time}</div></div>
                         </div>
                         <div class="row">
-                            <div class="col s3"><div class="white black-text detail-header right">Link:</div></div>
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Link:</div></div>
                             <div class="col s9"><div class="detail-data"><a href="${item.link}">${item.link}</a></div></div>
                         </div>
                     </div>
                 </div>`;
+
             detail.appendChild( detailDiv );
         });
 
     }
-
 
     ////////////////////////////////////////////////////////////////////////////
     // HIDDEN GAME
