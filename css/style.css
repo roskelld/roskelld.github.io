@@ -24,6 +24,10 @@ main {
     /* padding-top: 4em; */
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .sidenav-overlay {
     /* z-index: 900 !important; */
 }
