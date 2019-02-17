@@ -112,7 +112,9 @@ class WebSite {
         // this.eatSound = new Audio('/sound/cherry.mp3');
         // this.dieSound = new Audio('/sound/die.mp3');
         // document.querySelector('#shhh').addEventListener( 'click', () => { this.startShhh() }, false );
-
+        const test = document.createElement( 'div' );
+        test.innerHTML = `<h1 class="black-test">TESTING</h1>`;
+        document.querySelector( 'main' ).appendChild( test );
     }
 
     init() {
