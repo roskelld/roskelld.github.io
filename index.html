@@ -23,7 +23,7 @@
 	<meta property="og:image:alt" content="sparkshot" />
 	<meta property="og:description" content="Dean Roskell: Game Developer Web Designer and Consultant." />
 
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="./css/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
@@ -31,10 +31,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
-<body>
+<body >
 	<header>
 		<div class="navbar-fixed">
-			<nav id="nav-header" class="nav-extended off-white z-depth-0">
+			<nav id="nav-header" class="off-white z-depth-0">
 				<!-- <div class="nav-wrapper">
 					<div class="center-align">
 						<a href="/" class="header-logo soft-grey-text">Dean Roskell</a>
@@ -43,8 +43,7 @@
 				</div> -->
 				<div class="nav-content">
 					<div class="row">
-						<div class="col m2"></div>
-						<div class="col m8">
+						<div class="col m12 hide-on-med-and-down">
 							<div class="center">
 								<a id="home-menu-btn" data-target="home" class="menu-btn btn-large btn-flat off-white no-select hvr-bounce-to-bottom soft-grey-text-2 active">Home</a>
 								<a id="services-menu-btn" data-target="services" class="menu-btn btn-large btn-flat off-white no-select hvr-bounce-to-bottom soft-grey-text-2">services</a>
@@ -54,69 +53,40 @@
 								<a id="bio-menu-btn" data-target="bio" class="menu-btn btn-large btn-flat off-white no-select hvr-bounce-to-bottom soft-grey-text-2">About</a>
 							</div>
 						</div>
-						<div class="col m2"></div>
+						<div class="col s12">
+							<a data-target="mobile-menu" class="sidenav-trigger btn-flat"><i class="fas fa-bars soft-grey-text"></i></a>
+						</div>
 					</div>
 				</div>
 			</nav>
 		</div>
-
+		<div class="">
+			<ul class="sidenav" id="mobile-menu">
+				<li><a data-target="home" 		  class="menu-btn no-select  hvr-bounce-to-right soft-grey-text-2">Home</a></li>
+				<li><a data-target="services" 	  class="menu-btn no-select  hvr-bounce-to-right soft-grey-text-2">services</a></li>
+				<li><a data-target="games" 		  class="menu-btn no-select  hvr-bounce-to-right soft-grey-text-2">games</a></li>
+				<li><a data-target="applications" class="menu-btn no-select  hvr-bounce-to-right soft-grey-text-2">apps</a></li>
+				<li><a data-target="projects"  	  class="menu-btn no-select  hvr-bounce-to-right soft-grey-text-2">projects</a></li>
+				<li><a data-target="bio" 		  class="menu-btn no-select  hvr-bounce-to-right soft-grey-text-2">About</a></li>
+			</ul>
+		</div>
 	</header>
 	<main>
-		<div id="stuff" class="section">
-		</div>
-		<div class="row">
+		<!-- <div id="stuff" class="section"></div> -->
+		<div class="row full">
 			<!--  HOME SECTION -->
 			<div id="home" class="col s12">
 				<div class="container">
-					<div id="story-intro" class="alegreya-font story-hidden width-40">
-						<h4>The Beginning.</h4>
-						<p>You enter the darkened room, piles of books and strange contraptions litter the space. Your target sits hunched over a desk facing a set of glowing rectangles; he seems undisturbed by your arrival. Perhaps your stealthy entrance worked or maybe the man is too deep into his work to notice you.</p>
-						<div class="center">
-							<a id="story-talk-btn" class="btn-large btn-flat off-white no-select hvr-sweep-to-right soft-grey-text">Speak out</a>
-							<a id="story-look-btn" class="btn-large off-white no-select btn-flat hvr-sweep-to-right soft-grey-text">Look Around</a>
-						</div>
-					</div>
-					<div id="story-look" class="alegreya-font story-hidden width-40">
-						<h4>Knowledge.</h4>
-						<p>After a moment you begin feeling confident enough to gaze around the room. Looking up you notice a selection of plaques. As you focus the runes start to look familiar. Perhaps interacting with them might gain you some knowledge on your target.</p>
-					</div>
-					<div id="story-talk" class="alegreya-font story-hidden width-40">
-						<h4>Conversation.</h4>
-						<p>You go to speak but before any sound leaves your mouth you notice some symbols appear in front of you. You're not sure why but you suddenly feel like it might be better to try and communicate through one of them, which though you need to decide.</p>
-						<div class="row">
-							<div class="col s6">
-								<div class="center">
-									<a href="https://twitter.com/roskelld" class="" title="Twitter"><i class="blue-text fab fa-twitter fa-2x"></i></a>
-								</div>
-							</div>
-							<div class="col s6">
-								<div class="center">
-								<a href="mailto:roskelld@protonmail.com?subject=Hey Dean!" title="email"><i class="green-text fas fa-envelope fa-2x"></i></a>
-							</div>
-							</div>
-						</div>
-					</div>
-					<div id="story-return" class="alegreya-font story-hidden width-40">
-
-						<div class="welcome">
+					<div id="" class="welcome alegreya-font">
+						<div class="">
 							<div class="">
-								<div class="">
-									<h1>Hello, I'm <a href="#bio" class="text-link">Dean Roskell</a>.</h1>
-									<h1>I create <a href="#games" class="text-link">games</a>.</h1>
-									<h1>I also make <a href="#applications" class="text-link">apps</a>.</h1>
-									<h1>I can be <a href="#services" class="text-link">hired</a>.</h1>
-									<h1>Let's <a href="#services" class="text-link">talk</a>.</h1>
-								</div>
+								<h1>Hello, I'm <a href="#bio" class="text-link hvr-bounce-to-top">Dean Roskell</a>.</h1>
+								<h1>I've created <a href="#games" class="text-link hvr-bounce-to-top">games</a> for nearly 20 years.</h1>
+								<h1>I make <a href="#applications" class="text-link hvr-bounce-to-top">apps</a> for the web.</h1>
+								<h1>My skills can be <a href="#services" class="text-link hvr-bounce-to-top">hired</a>.</h1>
+								<h1>I live in <a href="https://en.wikipedia.org/wiki/Edmonton" class="text-link hvr-bounce-to-top">Edmonton, Canada</a>.</h1>
+								<h1>Let's <a href="mailto:roskelld@protonmail.com?subject=Hey Dean!" class="text-link hvr-bounce-to-top">talk</a>.</h1>
 							</div>
-						</div>
-
-
-						<div class="hide">
-							<h4>Welcome.</h4>
-							<p>More than two decades of software design for some of the biggest brands in the industry have rewarded Dean with the experience to build a skill set across a range of disciplines.</p>
-							<h4>The Sell.</h4>
-							<p>If you're looking for help in creating your next game I can help you reach that goal, just send me a message.</p>
-
 						</div>
 					</div>
 
@@ -149,13 +119,108 @@
 			</div>
 
 			<!--  SERVICES SECTION -->
-			<div id="services" class="col s12">
-				<div class="row">
-					<div class="col s10 m9 l8 xl6">
-						<div class="contentdetail "></div>
+			<div id="services" class="col s12 full">
+				<div class="fullpage">
+					<div class="row height-50">
+						<div class="col s12 m4 pad-height-20">
+							<div class="center-div">
+								<div class="square card z-depth-0 vanilla white-text valign-wrapper no-select">
+									<p class="title soft-grey-text">Do you have an idea but are unsure how to build it?</p>
+								</div>
+							</div>
+						</div>
+						<div class="col s12 m4 pad-height-20">
+							<div class="center-div">
+								<div class="card z-depth-0 square vanilla white-text valign-wrapper no-select">
+									<p class="title soft-grey-text">Has your production run into problems?</p>
+								</div>
+							</div>
+						</div>
+						<div class="col s12 m4 pad-height-20">
+							<div class="center-div">
+								<div class="card z-depth-0 square vanilla white-text valign-wrapper no-select">
+									<p class="title soft-grey-text">Is the experience not as fun as you hoped?</p>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="col s2 m3 l4 xl6">
+					<div class="row height-50">
+						<div class="col s12 no-padding">
+							<div class=" pad-height-20">
+								<div class="vanilla soft-grey-text">
+									<p class="title">Why not share the problem? <span><a href="#services-about"><i class="fas fa-arrow-down"></i></a></span></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="services-about" class="fullpage">
+					<div class="row pad-height-20">
+						<div class="col s12 m2"></div>
+						<div class="col s12 m3">
+							<div class="size-1-2">
+								<p>I've spent decades building a career on <i>creative problem solving</i> and <i>solving creative problems</i>. By combining technical know-how with a user-centric viewpoint I develop solutions that can fit the requirements of the project whilst serving the goal of producing a positive user-experience.</p>
+							</div>
+						</div>
+						<div class="col s12 m2"></div>
+						<div class="col s12 m3">
+							<p class="size-1-2">I can offer a flexible fit service, this is about your project and team. </p>
+							<!-- <p class="size-1-2">Sometimes it can be hard to even know what the problem is, in fact that's half the task, first understand the problem, then figure out a plan.</p> -->
+						</div>
+						<div class="col s12 m2"></div>
+					</div>
+					<div class="row height-50">
+						<div class="col s12 m4 pad-height-20">
+							<div class="center-div">
+								<div class="square card z-depth-0 vanilla no-select">
+									<span class="right fa-layers fa-2x pad-1">
+										<i class="soft-grey-text right far fa-square "></i>
+										<i class="coral-reef-text right fas fa-check "></i>
+									</span>
+									<p class="title soft-grey-text left-align">1. Setup a call</p>
+									<div class="center-align">
+										<a href="mailto:roskelld@protonmail.com?subject=Hey Dean!" class="btn-flat" title="email"><i class="soft-grey-text fas fa-envelope fa-4x"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col s12 m4 pad-height-20">
+							<div class="center-div">
+								<div class="card z-depth-0 square vanilla no-select">
+									<span class="right fa-layers fa-2x pad-1">
+										<i class="soft-grey-text right far fa-square "></i>
+										<i class="coral-reef-text right fas fa-check "></i>
+									</span>
+									<p class="title soft-grey-text left-align">2. Talk about your project, goals and challenges.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col s12 m4 pad-height-20">
+							<div class="center-div">
+								<div class="card z-depth-0 square vanilla no-select">
+									<span class="right fa-layers fa-2x pad-1">
+										<i class="soft-grey-text right far fa-square "></i>
+										<i class="coral-reef-text right fas fa-check "></i>
+									</span>
+									<p class="title soft-grey-text left-align">3. We'll build a plan to success.</p>
+									<div class="center-align">
+										<i class="coral-reef-text fas fa-thumbs-up fa-4x"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row hidden">
+					<div class="col s12">
 						<div class="contentlinks"></div>
+					</div>
+				</div>
+				<div class="row hidden">
+					<div class="col s12">
+						<div class="contentdetail "></div>
 					</div>
 				</div>
 			</div>

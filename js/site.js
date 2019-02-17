@@ -24,7 +24,7 @@ class WebSite {
         this.gameCardGenerator( games, 'games' );
         this.applicationCardGenerator( apps, 'applications');
         this.projectCardGenerator( projects, 'projects');
-        this.serviceCardGenerator( service, 'services', core[0] );
+        // this.serviceCardGenerator( service, 'services', core[0] );
 
         const content =  document.querySelector('#stuff')
 
@@ -35,6 +35,10 @@ class WebSite {
         this.tabMainOptions = { onShow: this.onTabSelected };
         this.tabBodyInstances = M.Tabs.init( tabsBody, {} );
         this.tabMainInstances = M.Tabs.init( tabsMain, this.tabMainOptions );
+
+        const sideNav = document.querySelectorAll( '.sidenav' );
+        this.sideNavOptions = {};
+        this.sideNavInstances = M.Sidenav.init( sideNav, this.sideNavOptions );
 
         this.carouselEl = document.querySelectorAll( '.carousel' );
         this.carouselOptions = {
@@ -92,12 +96,13 @@ class WebSite {
             panels:             document.querySelectorAll('.product-panel'),
             background:         document.querySelectorAll('.background-image'),
             // cards:              document.querySelectorAll('.card-link'),
+            fullpage:           document.querySelectorAll( '.fullpage' ),
         }
 
         this.setMenuLinks();
         this.setCardLinks();
 
-        this.story = new Story();
+        // this.story = new Story();
 
         this.blog = new Blog();
 
@@ -119,8 +124,17 @@ class WebSite {
         });
 
         // Read URI and setup site
-
         this.openHashLocation();
+
+        window.addEventListener( "resize", e => {
+            this.content.fullpage.forEach( panel => {
+                this.setFullPagePanelHeight( panel );
+            })
+        });
+
+        this.content.fullpage.forEach( panel => {
+            this.setFullPagePanelHeight( panel );
+        })
     }
 
     openHashLocation() {
@@ -163,8 +177,8 @@ class WebSite {
         this.oldTab = tab.id;
 
         if ( tab.id !== 'home' || tab.id !== 'bio' ) {
-            if ( typeof s.nav.cards[tab.id] === 'undefined' ) return;
-            s.story.reset();                                                    // Reset Story
+            if ( typeof s.nav.cards[tab.id] == 'undefined' || typeof s.nav.cards[tab.id][0] == 'undefined' ) return;
+            // s.story.reset();                                                    // Reset Story
             s.selectCard( s.nav.cards[tab.id][0].id.replace( 'card-', ''), tab.id );
         }
 
@@ -172,6 +186,7 @@ class WebSite {
     }
 
     selectTab( tabId ) {
+        if ( typeof tabId == 'undefined' ) return;
         this.tabMainInstances.select( tabId );
         this.nav.buttons.all.forEach( button => button.classList.remove('active') );
         this.nav.buttons[tabId].classList.add( 'active' );
@@ -212,8 +227,36 @@ class WebSite {
         window.s.scroller.recalculate();
     }
 
+    setFullPagePanelHeight( el ) {
+        el.style.minHeight = `${window.innerHeight}px`;
+    }
+
     ////////////////////////////////////////////////////////////////////////////
     // CONTENT GENERATION
+
+    generateTextCard( item ) {
+        const colDiv    = document.createElement( 'div' );
+        const cardDiv   = document.createElement( 'div' );
+        const textDiv   = document.createElement( 'p' );
+        // const imgDiv    = document.createElement( 'div' );
+        // const img       = document.createElement( 'img' );
+
+        colDiv.classList.add( 'col', 's12', 'm12', 'l3', 'xl2' );
+        cardDiv.classList.add( 'card', 'square', 'card-link', 'z-depth-0', 'valign-wrapper', 'no-select' );
+        cardDiv.id = `card-${item.id}`;
+        cardDiv.dataset.target = item.id;
+        // imgDiv.classList.add( 'card-image' );
+        // img.src = `img/product/${item.id}.png`;
+        // img.title = item.title;
+
+        // imgDiv.appendChild( img );
+        textDiv.classList.add( 'title' );
+        textDiv.textContent = item.title;
+        cardDiv.appendChild( textDiv );
+        colDiv.appendChild( cardDiv );
+
+        return colDiv;
+    }
 
     generateCard( item ) {
         const colDiv    = document.createElement( 'div' );
@@ -267,7 +310,7 @@ class WebSite {
         data.forEach( (item, i) => {
 
             // GENERATE LINKS
-            links.appendChild( this.generateCard( item ) );
+            links.appendChild( this.generateTextCard( item ) );
 
             // GENERATE CONTENT TAB
             tabs.appendChild(  this.generateFakeTab( item ) );
