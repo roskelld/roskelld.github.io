@@ -1,3 +1,4 @@
+'use strict';
 import WebSite          from './site.js';
 
 const site = new WebSite();
@@ -8,6 +9,6 @@ document.addEventListener( 'DOMContentLoaded', function() {
 
 }, false );
 
-document.querySelector( '#loader' ).classList.remove( 'loader' );
+
 window.s = site;
 site.init();

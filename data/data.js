@@ -1,5 +1,5 @@
 'use strict';
-
+document.querySelector( '#loader' ).classList.remove( 'loader' );
 const data = [
     {
         type:           'core',
