@@ -64,7 +64,7 @@ main {
 }
 
 nav .sidenav-trigger {
-    padding-top: 1em;
+    /* padding-top: 1em; */
 }
 
 .logo {
@@ -81,12 +81,12 @@ nav .sidenav-trigger {
     transition-duration: 0.3s;
 }
 
-.logo:hover {
+/* .logo:hover {
     width: 200px;
     height: 200px;
     bottom: 2.5vh;
     right: 2.5vh;
-}
+} */
 
 @media only screen and (min-width: 0px) {
     .square {
