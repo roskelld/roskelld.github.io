@@ -1,7 +1,7 @@
 import WebSite          from './site.js';
 
 const site = new WebSite();
-document.addEventListener( 'DOMContentLoaded', () => {
+document.addEventListener( 'DOMContentLoaded', function() {
     document.querySelector( '#loader' ).classList.remove( 'loader' );
 }, false );
 
