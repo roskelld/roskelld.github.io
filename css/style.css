@@ -3,9 +3,68 @@ html {
     /* font-family: 'Rubik', sans-serif; */
     font-family: 'Karla', sans-serif;
     height: 100%;
+
 }
 
-header {}
+header {
+
+
+}
+
+/* ****************************************************************************/
+/* SITE BORDER */
+/* ****************************************************************************/
+
+.border {
+    position: fixed;
+    display: block;
+    min-height: 100%;
+    min-width: 100%;
+    outline: 2px solid #343434;
+    outline-offset: -10px;
+    z-index: 1000;
+    pointer-events: none;
+    filter: blur(0.03rem);
+}
+
+.border-red {
+    position: fixed;
+    display: block;
+    min-height: 100%;
+    min-width: 100%;
+    outline: 2px solid #ff00004d;
+    outline-offset: -10px;
+    margin: 0.1em 0 0 0.1em;
+    padding: 0;
+    z-index: 999;
+    pointer-events: none;
+}
+
+.border-cyan {
+    position: fixed;
+    display: block;
+    min-height: 100%;
+    min-width: 100%;
+    outline: 2px solid #00ffff4d;
+    outline-offset: -10px;
+    z-index: 998;
+    pointer-events: none;
+    left: -2px;
+    top: -2px;
+}
+
+.border-white {
+    position: fixed;
+    display: block;
+    min-height: 100%;
+    min-width: 100%;
+    outline: 20px solid #f1f1f1 ;
+    outline-offset: -10px;
+    z-index: 997;
+    pointer-events: none;
+    left: -2px;
+    top: -2px;
+}
 
 .navbar-fixed {}
 
@@ -50,11 +109,12 @@ main {
 }
 
 .sidenav-overlay {
-    /* z-index: 900 !important; */
+    z-index: 1000 !important;
 }
 
 .sidenav {
     width: 65% !important;
+    z-index: 1001 !important;
 }
 
 .sidenav .menu-btn {
