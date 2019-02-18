@@ -66,7 +66,7 @@ class WebSite {
                 applications:   document.querySelector('#applications-menu-btn'),
                 projects:       document.querySelector('#projects-menu-btn'),
                 bio:            document.querySelector('#bio-menu-btn'),
-                logo:            document.querySelector( '#logo' ),
+                logo:           document.querySelector( '#logo' ),
                 all:            document.querySelectorAll('.menu-btn'),
             },
             cards: {
