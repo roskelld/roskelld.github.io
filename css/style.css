@@ -63,6 +63,10 @@ main {
     margin: 0;
 }
 
+nav .sidenav-trigger {
+    padding: 1em;
+}
+
 .logo {
     width: 100px;
     height: 100px;
