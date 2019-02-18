@@ -59,14 +59,6 @@ class WebSite {
                 projects:       document.querySelector('#projects'),
                 bio:            document.querySelector('#bio'),
             },
-            mobile: {
-                    // home:           document.querySelector('#mobile-nav-home').addEventListener( 'click', () => { this.tabInstances[0].select('home'); this.sideNavInstances[0].close(); }, false ),
-                    // services:       document.querySelector('#mobile-nav-services').addEventListener( 'click', () => { this.tabInstances[0].select('services');  this.sideNavInstances[0].close(); }, false ),
-                    // games:          document.querySelector('#mobile-nav-games').addEventListener( 'click', () => { this.tabInstances[0].select('games'); this.sideNavInstances[0].close(); }, false ),
-                    // applications:   document.querySelector('#mobile-nav-applications').addEventListener( 'click', () => { this.tabInstances[0].select('applications'); this.sideNavInstances[0].close(); }, false ),
-                    // projects:       document.querySelector('#mobile-nav-projects').addEventListener( 'click', () => { this.tabInstances[0].select('projects'); this.sideNavInstances[0].close(); }, false ),
-                    // bio:            document.querySelector('#mobile-nav-bio').addEventListener( 'click', () => { this.tabInstances[0].select('bio'); this.sideNavInstances[0].close(); }, false ),
-            },
             buttons: {
                 home:           document.querySelector('#home-menu-btn'),
                 services:       document.querySelector('#services-menu-btn'),
@@ -74,6 +66,7 @@ class WebSite {
                 applications:   document.querySelector('#applications-menu-btn'),
                 projects:       document.querySelector('#projects-menu-btn'),
                 bio:            document.querySelector('#bio-menu-btn'),
+                logo:            document.querySelector( '#logo' ),
                 all:            document.querySelectorAll('.menu-btn'),
             },
             cards: {
@@ -96,10 +89,6 @@ class WebSite {
         this.setMenuLinks();
         this.setCardLinks();
 
-        // this.story = new Story();
-
-        // this.blog = new Blog();
-
         // GAME
         // this.score = 0;
         // this.introSound = new Audio('/sound/intro.mp3');
@@ -109,8 +98,6 @@ class WebSite {
     }
 
     init() {
-        // this.onTabSelected();
-
         window.addEventListener("hashchange", e => {
             console.log('HASH CHANGE');
             this.openHashLocation();
@@ -127,7 +114,13 @@ class WebSite {
 
         this.content.fullpage.forEach( panel => {
             this.setFullPagePanelHeight( panel );
-        })
+        });
+
+        window.addEventListener( "scroll", e=> {
+            this.setLogoScreenPosition();
+        }, false );
+
+        this.setLogoScreenPosition();
     }
 
     openHashLocation() {
@@ -168,6 +161,8 @@ class WebSite {
 
 
         this.oldTab = tab.id;
+
+        s.setLogoScreenPosition();
 
         if ( tab.id !== 'home' || tab.id !== 'bio' ) {
             if ( typeof s.nav.cards[tab.id] == 'undefined' || typeof s.nav.cards[tab.id][0] == 'undefined' ) return;
@@ -222,6 +217,14 @@ class WebSite {
 
     setFullPagePanelHeight( el ) {
         el.style.minHeight = `${window.innerHeight}px`;
+    }
+
+    setLogoScreenPosition() {
+        const result = document.scrollingElement.scrollHeight + document.scrollingElement.getBoundingClientRect().top - document.scrollingElement.getBoundingClientRect().height
+        if ( result <= 0 )
+            this.nav.buttons.logo.classList.add( 'off-right' );
+        else
+            this.nav.buttons.logo.classList.remove( 'off-right' );
     }
 
     ////////////////////////////////////////////////////////////////////////////

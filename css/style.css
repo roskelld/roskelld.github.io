@@ -1,6 +1,7 @@
 html {
     overflow-y: scroll;
-    font-family: 'Rubik', sans-serif;
+    /* font-family: 'Rubik', sans-serif; */
+    font-family: 'Karla', sans-serif;
     height: 100%;
 }
 
@@ -87,9 +88,10 @@ nav .sidenav-trigger {
     bottom: 2.5vh;
     right: 2.5vh;
 } */
-
-.logo.off-right {
-    right: -50%;
+@media only screen and (max-width: 500px) {
+    .logo.off-right {
+        right: -50%;
+    }
 }
 
 @media only screen and (min-width: 0px) {
@@ -210,13 +212,15 @@ footer {}
 /* ****************************************************************************/
 
 .alegreya-font {
-    font-family: 'Alegreya', serif;
+    /* font-family: 'Alegreya', serif; */
+    font-family: 'Karla', sans-serif;
     font-size: 1.3em;
     line-height: 1.7em;
 }
 
 .roboto-font {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Karla', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
     font-size: 1.3em;
     line-height: 1.7em;
 }
@@ -235,6 +239,9 @@ p.caption {
         margin-right: -50%;
         transform: translate(-50%, -50%);
     }
+    h1 {
+        font-size: 1em !important;
+    }
 }
 
 @media only screen and (min-width: 750px) {
@@ -245,10 +252,13 @@ p.caption {
         margin-right: -50%;
         transform: translate(-50%, -50%);
     }
+    h1 {
+        font-size: 2em !important;
+    }
 }
 
 
-@media only screen and (min-width: 0px) {
+/* @media only screen and (min-width: 0px) {
     h1 {
         font-size: 1.3em !important;
         line-height: 85% !important;
@@ -263,14 +273,22 @@ p.caption {
         line-height: 110% !important;
         margin: 2.8rem 0 1.68rem 0 !important;
     }
+} */
+
+p {
+    margin-top: 2em    !important;
+    margin-bottom: 2em !important;
 }
 
 h3 {
-    font-size: 1.3em !important;
+    font-size: 1.7em   !important;
+    margin-top: 2em    !important;
+    margin-bottom: 2em !important;
 }
 
 h4 {
     font-size: 1.2em !important;
+    line-height: 5em !important;
 }
 
 h5 {
@@ -479,7 +497,7 @@ td.detail-data {
 
 .menu-btn {
     font-weight: 400;
-    font-family: Roboto;
+    font-family: 'Karla', sans-serif;
     font-size: 2em;
     -webkit-font-smoothing: antialiased;
     text-shadow: 1px 1px 1px rgba(0,0,0,0.004);

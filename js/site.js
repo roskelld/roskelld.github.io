@@ -136,11 +136,7 @@ class WebSite {
             this.setFullPagePanelHeight( panel );
         });
 
-        window.addEventListener( "scroll", e=> {
-            const result = document.scrollingElement.getBoundingClientRect().top - document.scrollingElement.getBoundingClientRect().y;
 
-            if ( result <= 0 )
-        });
     }
 
     openHashLocation() {
