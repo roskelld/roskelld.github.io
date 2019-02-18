@@ -34,14 +34,6 @@ class WebSite {
         this.sideNavOptions = {};
         this.sideNavInstances = M.Sidenav.init( sideNav, this.sideNavOptions );
 
-        this.carouselEl = document.querySelectorAll( '.carousel' );
-        this.carouselOptions = {
-            dist: 0,
-            shift: 10,
-            padding: 10,
-        };
-        this.carouselInstances = M.Carousel.init( this.carouselEl, this.carouselOptions );
-
         this.photosEl = document.querySelectorAll('.materialboxed');
         this.photosOptions = {};
         this.photosInstances = M.Materialbox.init( this.photosEl, this.photosOptions );
@@ -158,18 +150,12 @@ class WebSite {
 
         if ( tab.id === this.oldTab ) return;                                   // Ignore if tab hasn't changed
 
-        // Spin carousel
-        if ( tab.id === 'home' && this.oldTab !== 'home')
-            s.carouselInstances[0].next();
-
-
         this.oldTab = tab.id;
-        window.scrollTo( 0, 0 ); 
+        window.scrollTo( 0, 0 );
         s.setLogoScreenPosition();
 
         if ( tab.id !== 'home' || tab.id !== 'bio' ) {
-            if ( typeof s.nav.cards[tab.id] == 'undefined' || typeof s.nav.cards[tab.id][0] == 'undefined' ) return;
-            // s.story.reset();                                                    // Reset Story
+            if ( typeof s.nav.cards[tab.id] == 'undefined' || typeof s.nav.cards[tab.id][0] == 'undefined' ) return;                                                // Reset Story
             s.selectCard( s.nav.cards[tab.id][0].id.replace( 'card-', ''), tab.id );
         }
 
@@ -224,7 +210,7 @@ class WebSite {
 
     setLogoScreenPosition() {
         const result = document.scrollingElement.scrollHeight + document.scrollingElement.getBoundingClientRect().top - document.scrollingElement.getBoundingClientRect().height
-        if ( result <= 1 )
+        if ( result >= 1 )
             this.nav.buttons.logo.classList.add( 'off-right' );
         else
             this.nav.buttons.logo.classList.remove( 'off-right' );
