@@ -81,6 +81,7 @@ class WebSite {
                 projects:       document.querySelector('#projects-menu-btn'),
                 bio:            document.querySelector('#bio-menu-btn'),
                 all:            document.querySelectorAll('.menu-btn'),
+                logo:           document.querySelector('#logo'),
             },
             cards: {
                 services:           document.querySelector(`#services`).querySelector('.contentlinks').querySelectorAll('.card-link'),
@@ -133,7 +134,13 @@ class WebSite {
 
         this.content.fullpage.forEach( panel => {
             this.setFullPagePanelHeight( panel );
-        })
+        });
+
+        window.addEventListener( "scroll", e=> {
+            const result = document.scrollingElement.getBoundingClientRect().top - document.scrollingElement.getBoundingClientRect().y;
+
+            if ( result <= 0 )
+        });
     }
 
     openHashLocation() {
