@@ -64,7 +64,7 @@ main {
     margin: 0;
 }
 
-.sidenav-trigger {
+#sidenav-btn {
     display: block;
     position: fixed;
     z-index: 900;

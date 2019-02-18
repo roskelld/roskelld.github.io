@@ -46,9 +46,6 @@ class WebSite {
         this.photosOptions = {};
         this.photosInstances = M.Materialbox.init( this.photosEl, this.photosOptions );
 
-        // const sideNav = document.querySelectorAll( '.sidenav' );
-        // this.sideNavInstances = M.Sidenav.init(sideNav, {} );
-
         this.nav = {
             header:             document.querySelector('#nav-header'),
             tabs:   {
@@ -67,6 +64,7 @@ class WebSite {
                 projects:       document.querySelector('#projects-menu-btn'),
                 bio:            document.querySelector('#bio-menu-btn'),
                 logo:           document.querySelector( '#logo' ),
+                sidenav:        document.querySelector( '#sidenav-btn' ),
                 all:            document.querySelectorAll('.menu-btn'),
             },
             cards: {
@@ -119,6 +117,10 @@ class WebSite {
         window.addEventListener( "scroll", e => {
             e.preventDefault();
             this.setLogoScreenPosition();
+        }, false );
+
+        this.nav.buttons.sidenav.addEventListener( "click", e => {
+            this.sideNavInstances[0].open();
         }, false );
 
         this.setLogoScreenPosition();
