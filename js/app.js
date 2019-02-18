@@ -116,7 +116,8 @@ class WebSite {
             this.setFullPagePanelHeight( panel );
         });
 
-        window.addEventListener( "scroll", e=> {
+        window.addEventListener( "scroll", e => {
+            e.preventDefault();
             this.setLogoScreenPosition();
         }, false );
 
