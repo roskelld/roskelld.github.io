@@ -64,8 +64,12 @@ main {
     margin: 0;
 }
 
-nav .sidenav-trigger {
-    /* padding-top: 1em; */
+.sidenav-trigger {
+    display: block;
+    position: fixed;
+    z-index: 900;
+    right: 5vh;
+    top: 5vh;
 }
 
 .logo {

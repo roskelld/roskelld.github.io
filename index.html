@@ -26,9 +26,6 @@
 	<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="./css/style.css">
 	<link rel="stylesheet" href="./js/lib/materialize.min.css">
-	<!-- <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Alegreya" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
 	<link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
 </head>
 
@@ -36,17 +33,11 @@
 	<div id="loader" class="loader"></div>
 	<a href="#home"><img id="logo" class="logo" src="./img/logo/logo-square-trans-50.png" alt=""></a>
 	<header>
-		<div class="navbar-fixed">
+		<div class="navbar-fixed hide-on-med-and-down">
 			<nav id="nav-header" class="off-white z-depth-0">
-				<!-- <div class="nav-wrapper">
-					<div class="center-align">
-						<a href="/" class="header-logo soft-grey-text">Dean Roskell</a>
-						<div class="sub-header grey-text">· Game Developer · Web Designer · Software Consultant · Tinkerer ·</div>
-					</div>
-				</div> -->
 				<div class="nav-content">
 					<div class="row">
-						<div class="col m12 hide-on-med-and-down">
+						<div class="col m12">
 							<div class="center">
 								<a id="home-menu-btn" data-target="home" class="menu-btn btn-large btn-flat off-white no-select hvr-bounce-to-bottom soft-grey-text-2 active">Home</a>
 								<a id="services-menu-btn" data-target="services" class="menu-btn btn-large btn-flat off-white no-select hvr-bounce-to-bottom soft-grey-text-2">services</a>
@@ -57,7 +48,6 @@
 							</div>
 						</div>
 						<div class="col s12">
-							<a data-target="mobile-menu" class="sidenav-trigger btn-floating btn-large waves-effect waves-light off-white z-depth-0"><i class="fas fa-bars soft-grey-text fa-2x"></i></a>
 						</div>
 					</div>
 				</div>
@@ -65,13 +55,16 @@
 		</div>
 		<div class="">
 			<ul class="sidenav no-padding no-margin" id="mobile-menu">
-				<div class="row"><div class="col s12 no-padding no-margin"><a data-target="home" 		  class="menu-btn no-select hvr-bounce-to-right soft-grey-text-2">Home</a>			</div></div>
-				<div class="row"><div class="col s12 no-padding no-margin"><a data-target="services" 	  class="menu-btn no-select hvr-bounce-to-right soft-grey-text-2">services</a>			</div></div>
-				<div class="row"><div class="col s12 no-padding no-margin"><a data-target="games" 		  class="menu-btn no-select hvr-bounce-to-right soft-grey-text-2">games</a>			</div></div>
-				<div class="row"><div class="col s12 no-padding no-margin"><a data-target="applications"  class="menu-btn no-select hvr-bounce-to-right soft-grey-text-2">apps</a>			</div></div>
-				<div class="row"><div class="col s12 no-padding no-margin"><a data-target="projects"  	  class="menu-btn no-select hvr-bounce-to-right soft-grey-text-2">projects</a>			</div></div>
-				<div class="row"><div class="col s12 no-padding no-margin"><a data-target="bio" 		  class="menu-btn no-select hvr-bounce-to-right soft-grey-text-2">About</a>			</div></div>
+				<div class="row"><div class="col s12 no-padding no-margin"><a data-target="home" 		  class="menu-btn no-select hvr-bounce-to-right soft-grey-text-2">Home</a>			</div>
+				<div class="col s12 no-padding no-margin"><a data-target="services" 	  class="menu-btn no-select hvr-bounce-to-right soft-grey-text-2">services</a>			</div>
+				<div class="col s12 no-padding no-margin"><a data-target="games" 		  class="menu-btn no-select hvr-bounce-to-right soft-grey-text-2">games</a>			</div>
+				<div class="col s12 no-padding no-margin"><a data-target="applications"  class="menu-btn no-select hvr-bounce-to-right soft-grey-text-2">apps</a>			</div>
+				<div class="col s12 no-padding no-margin"><a data-target="projects"  	  class="menu-btn no-select hvr-bounce-to-right soft-grey-text-2">projects</a>			</div>
+				<div class="col s12 no-padding no-margin"><a data-target="bio" 		  class="menu-btn no-select hvr-bounce-to-right soft-grey-text-2">About</a>			</div>
 			</ul>
+		</div>
+		<div class="show-on-small">
+			<a data-target="mobile-menu" class="sidenav-trigger z-depth-0"><i class="fas fa-bars soft-grey-text fa-2x"></i></a>
 		</div>
 	</header>
 	<main>
