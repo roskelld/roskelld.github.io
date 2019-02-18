@@ -5,8 +5,8 @@
 * Uses: https://ianlunn.github.io/Hover/
 */
 
-// import Story        from './story.js';
-// import Blog         from './blog.js';
+import Story        from './story.js';
+import Blog         from './blog.js';
 
 class WebSite {
     constructor() {
