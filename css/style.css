@@ -257,6 +257,22 @@ p.caption {
     }
     h1 {
         font-size: 1em !important;
+        margin: 1.8rem 1rem 1.68rem 1rem !important;
+    }
+}
+
+@media only screen and (min-width: 500px) {
+    .welcome {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+    }
+    h1 {
+        font-size: 1em !important;
+        line-height: 1em !important;
+        margin: 0.2rem 0 0.5rem 0 !important;
     }
 }
 
@@ -270,6 +286,7 @@ p.caption {
     }
     h1 {
         font-size: 2em !important;
+        margin: 2.8rem 0 1.68rem 0 !important;
     }
 }
 
