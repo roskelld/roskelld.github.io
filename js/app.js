@@ -164,7 +164,7 @@ class WebSite {
 
 
         this.oldTab = tab.id;
-
+        window.scrollTo( 0, 0 ); 
         s.setLogoScreenPosition();
 
         if ( tab.id !== 'home' || tab.id !== 'bio' ) {
@@ -224,7 +224,7 @@ class WebSite {
 
     setLogoScreenPosition() {
         const result = document.scrollingElement.scrollHeight + document.scrollingElement.getBoundingClientRect().top - document.scrollingElement.getBoundingClientRect().height
-        if ( result <= 0 )
+        if ( result <= 1 )
             this.nav.buttons.logo.classList.add( 'off-right' );
         else
             this.nav.buttons.logo.classList.remove( 'off-right' );

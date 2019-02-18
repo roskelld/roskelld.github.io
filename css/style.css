@@ -86,12 +86,6 @@ main {
     transition-duration: 0.3s;
 }
 
-/* .logo:hover {
-    width: 200px;
-    height: 200px;
-    bottom: 2.5vh;
-    right: 2.5vh;
-} */
 @media only screen and (max-width: 500px) {
     .logo.off-right {
         right: -50%;
@@ -215,8 +209,7 @@ footer {}
 /* WORDS */
 /* ****************************************************************************/
 
-.alegreya-font {
-    /* font-family: 'Alegreya', serif; */
+.karla-font {
     font-family: 'Karla', sans-serif;
     font-size: 1.3em;
     line-height: 1.7em;
@@ -260,24 +253,6 @@ p.caption {
         font-size: 2em !important;
     }
 }
-
-
-/* @media only screen and (min-width: 0px) {
-    h1 {
-        font-size: 1.3em !important;
-        line-height: 85% !important;
-        margin: 0.2rem 0 1.68rem 0 !important;
-    }
-}
-
-
-@media only screen and (min-width: 850px) {
-    h1 {
-        font-size: 4.2rem !important;
-        line-height: 110% !important;
-        margin: 2.8rem 0 1.68rem 0 !important;
-    }
-} */
 
 p {
     margin-top: 2em    !important;
@@ -543,6 +518,7 @@ code {
     display: block !important;
     margin-left: auto !important;
     margin-right: auto !important;
+    max-width: 100% !important;
 }
 
 .hover-gray-to-color {
