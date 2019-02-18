@@ -212,10 +212,8 @@ class WebSite {
         const result = document.scrollingElement.scrollHeight - document.scrollingElement.getBoundingClientRect().top + document.scrollingElement.getBoundingClientRect().height
         if ( result >= 1 ) {
             this.nav.buttons.logo.classList.add( 'off-right' );
-            this.nav.buttons.logo.textContent = result;
         } else {
             this.nav.buttons.logo.classList.remove( 'off-right' );
-            this.nav.buttons.logo.textContent = result;
         }
     }
 
