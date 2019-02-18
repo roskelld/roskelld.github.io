@@ -36,6 +36,38 @@ main {
     width: 150px !important;
 }
 
+.logo {
+    width: 100px;
+    height: 100px;
+    display: block;
+    position: fixed;
+    z-index: 1000;
+    bottom: 5px;
+    right: 5px;
+    -webkit-transition-property: width, height;
+    transition-property: width, height;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+
+.logo:hover {
+    width: 200px;
+    height: 200px;
+    /* animation: scale 0.3s linear; */
+}
+
+@keyframes scale {
+    0% {
+        width: 100px;
+        height: 100px;
+    }
+    100% {
+        width: 200px;
+        height: 200px;
+    }
+
+}
+
 @media only screen and (min-width: 0px) {
     .square {
         width: 200px;
