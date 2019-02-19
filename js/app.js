@@ -60,7 +60,7 @@ class WebSite {
                 all:            document.querySelectorAll('.menu-btn'),
             },
             cards: {
-                services:           document.querySelector(`#services`).querySelector('.contentlinks').querySelectorAll('.card-link'),
+                // services:           document.querySelector(`#services`).querySelector('.contentlinks').querySelectorAll('.card-link'),
                 games:              document.querySelector(`#games`).querySelector('.contentlinks').querySelectorAll('.card-link'),
                 applications:       document.querySelector(`#applications`).querySelector('.contentlinks').querySelectorAll('.card-link'),
                 projects:           document.querySelector(`#projects`).querySelector('.contentlinks').querySelectorAll('.card-link'),
@@ -96,11 +96,7 @@ class WebSite {
         // Read URI and setup site
         this.openHashLocation();
 
-        window.addEventListener( "resize", e => {
-            this.content.fullpage.forEach( panel => {
-                this.setFullPagePanelHeight( panel );
-            })
-        });
+        window.addEventListener( 'resize', this.debounce( () => this.setFullPagePanelHeight(), 300 ));
 
         this.content.fullpage.forEach( panel => {
             this.setFullPagePanelHeight( panel );
@@ -111,12 +107,15 @@ class WebSite {
             this.setLogoScreenPosition();
         }, false );
 
+
         this.nav.buttons.sidenav.addEventListener( "click", e => {
             this.sideNavInstances[0].open();
         }, false );
 
         this.setLogoScreenPosition();
     }
+
+
 
     openHashLocation() {
         const c =  window.location.hash;
@@ -204,8 +203,10 @@ class WebSite {
         window.s.scroller.recalculate();
     }
 
-    setFullPagePanelHeight( el ) {
-        el.style.minHeight = `${window.innerHeight}px`;
+    setFullPagePanelHeight() {
+        this.content.fullpage.forEach( panel => {
+            panel.style.minHeight = `${window.innerHeight}px`;
+        })
     }
 
     setLogoScreenPosition() {
@@ -627,6 +628,10 @@ class WebSite {
                             <div class="col s3"><div class="off-white soft-grey-text detail-header right">Link:</div></div>
                             <div class="col s9"><div class="detail-data"><a href="${item.link}">${item.link}</a></div></div>
                         </div>
+                        <div class="row">
+                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Trailer:</div></div>
+                            <div class="col s9"><div class="detail-data"><a href="${item.trailer}"><i class="fas fa-film fa-2x"></i></a></div></div>
+                        </div>
                     </div>
                 </div>`;
 
@@ -688,11 +693,24 @@ class WebSite {
         }
 
     }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Utils
+
+    debounce( func, time ) {
+        let timeout;
+        return function() {
+            const functionCall = () => func.apply( this, arguments );
+
+            clearTimeout( timeout );
+            timeout = setTimeout( functionCall, time );
+        }
+    }
 }
 
 const site = new WebSite();
 document.addEventListener( 'DOMContentLoaded', function() {
-    setTimeout( () => { 
+    setTimeout( () => {
         document.querySelector( '#loader' ).classList.remove( 'loader' );
     }, 10);
 }, false );

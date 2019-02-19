@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Wolf 3D Test Environment</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimum-scale=1, maximum-scale=1">
+		<style>
+			body { font-family: Monospace; background-color: #636363; margin: 0px; overflow: hidden; }
+		</style>
+		<script src="https://rawgit.com/aframevr/aframe/0cceca4/dist/aframe-master.min.js"></script>
+		<script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
+		<script src="https://rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
+		<script src="https://rawgit.com/donmccurdy/aframe-physics-system/v1.4.0/dist/aframe-physics-system.min.js"></script>
+		<script src="https://unpkg.com/aframe-animation-component/dist/aframe-animation-component.min.js"></script>
+        <script>
+            if (typeof AFRAME === 'undefined') {
+                throw new Error('Component attempted to register before AFRAME was available.');
+            }
+            AFRAME.registerComponent('wall', {
+                schema: {
+                    set: { type: 'string', default: '' },                               // Set texture
+                    tile: { type: 'int', default: 0 },                                  // Selected tile for this mesh
+                    position: { type: 'vec2', default: { x: 0, y: 0 } },                // Grid position for mesh
+                    rotation: { default: 0, oneOf: [0, 90, 180, 270] },                 // Vertical rotation for mesh
+                    scale: { type: 'int', default: 2 },                                 // Scale of mesh in meters
+                    collision: { type: 'boolean', default: true }                       // Add collision
+                },
+                init: function () {
+                    var el = this.el;
+
+                    // Setup geometry
+                    el.setAttribute('geometry', { primitive: 'plane', height: this.data.scale, width: this.data.scale });
+
+                    el.setAttribute('rotation', { x: 0, y: this.data.rotation, z: 0 } );
+                    if (this.data.rotation == 90 || this.data.rotation == 270) {
+                        el.setAttribute('position', { x: (this.data.position.x * this.data.scale) - (this.data.scale / 2), y: 1.5, z: (this.data.position.y * this.data.scale) - (this.data.scale / 2) });
+                    } else {
+                        el.setAttribute('position', { x: (this.data.position.x * this.data.scale), y: 1.5, z: (this.data.position.y * this.data.scale) });
+                    }
+
+                    // Setup material
+                    el.setAttribute('texture-atlas-material', { set: this.data.set, tile: this.data.tile });
+
+                    if (this.data.collision == true) el.setAttribute('static-body');
+                }
+            });
+        </script>
+        <script>
+            if (typeof AFRAME === 'undefined') {
+                throw new Error('Component attempted to register before AFRAME was available.');
+            }
+            AFRAME.registerComponent('texture-atlas-material', {
+                dependencies: ['static-body'],
+                schema: {
+                    set: { type: 'string', default: '#TILES' },                         // Set texture
+                    size: { type: 'vec2', default: { x: 512, y: 512 } },                // Set texture size
+                    tileHeight: { type: 'int', default: 8 },                            // Number of vertical tiles
+                    tileWidth: { type: 'int', default: 8 },                             // Number of horizontal tiles
+                    tile: { type: 'int', default: 0 },                                  // Selected tile for this material
+                },
+                init: function () {
+                    var el = this.el;
+
+                    // Set up UV Offset
+                    // !!! this needs to be improved
+                    var temp = Math.round(this.data.tile / this.data.tileHeight );
+                    if (temp > 6) temp - 1;
+                    var offsetY = ( 1 / this.data.tileHeight ) * temp;
+                    var offsetX = (1 / (8 / (this.data.tile % this.data.tileHeight)));
+
+                    // Setup material
+                    el.setAttribute('material', { src: this.data.set,
+                                                width: this.data.size.x,
+                                                height: this.data.size.y,
+                                                repeat: { x: (1 / this.data.tileHeight), y: (1 / this.data.tileWidth) },
+                                                offset: { x: offsetX, y: offsetY},
+                                                flatShading: true,
+                                            });
+                }
+            });
+        </script>
+		<script>
+			// cursor-listener can be added to an object allowing it to respond
+			// to events from the interface
+			// Events can be listened to by adding an addEventListener
+			// on the cursor-listener object
+			// onEnter - fires when the cursor enters the object's screen space bounds
+			// onLeave - fires when the cursor leaves the object's screen space bounds
+			// onClick - fires when the click action is used whilst in the screen space bounds
+            if (typeof AFRAME === 'undefined') {
+                throw new Error('Component attempted to register before AFRAME was available.');
+            }
+			AFRAME.registerComponent('cursor-listener', {
+				schema: {},
+			  	init: function () {
+					var el = this.el;
+
+					// Setup Cursor Visibility
+					var cursor = document.querySelector('[cursor-icon]');
+					var enableDistance = cursor.getAttribute('cursor-icon').enableDistance;
+
+					el.addEventListener('mouseenter', OnMouseEnter);
+					el.addEventListener('mouseleave', OnMouseLeave);
+					el.addEventListener('click', OnClick);
+
+					function OnMouseEnter (e){
+						if (e.detail.intersection.distance <= enableDistance){
+							cursor.setAttribute('visible', true);						// Send out the onClick event
+						}
+						this.distance = e.detail.intersection.distance;
+						el.emit('onEnter');
+					}
+
+					function OnMouseLeave (e){
+						this.distance = -1;
+						el.emit('onLeave');												// Send out the onLeave event
+						cursor.setAttribute('visible', false);							// Ensure that the cursor is cleared
+					}
+
+					function OnClick (e){
+						if (e.detail.intersection.distance <= enableDistance){
+							el.emit('onClick');											// Send out the onClick event
+						}
+					}
+				}
+			});
+		</script>
+		<script>
+			if (typeof AFRAME === 'undefined') {
+				throw new Error('Component attempted to register before AFRAME was available.');
+			}
+			AFRAME.registerComponent('door', {
+				dependencies: ['static-body', 'cursor-listener'],
+				schema: {
+					position: { type: 'vec2', default: { x: 0, y: 0 } },                // Spatial Grid position for mesh
+					rotation: { default: 0, oneOf: [0, 90, 180, 270] },                 // Vertical rotation for mesh
+					scale: { type: 'int', default: 2 },                                 // Scale of mesh in meters
+					openDoorOffset: { default: 1.01 },                                   // Distance to slide open door in m
+					autoCloseDoorDelay: { default: 3 },                                 // Auto close after x sec. -1 never
+                    doorTile: { default: 30 },
+					state: {}
+				},
+                init: function () {
+					var ob = this;
+                    var el = this.el;
+					var data = this.data;
+					var state = this.state;
+					this.state = 'closed';
+					this.data.state = this.state;
+					this.waitTicks = 0;
+
+                    var doorClosedX;
+                    var doorClosedZ;
+
+                    if (this.data.rotation == 90 || this.data.rotation == 270){
+                        doorClosedX = this.data.position.x * this.data.scale - (this.data.scale / 2);
+                        doorClosedZ = (this.data.position.y * this.data.scale) - (this.data.scale / 2) - 1;
+                    } else {
+                        doorClosedX = this.data.position.x * this.data.scale;
+                        doorClosedZ = (this.data.position.y * this.data.scale) - 1;
+
+                    }
+                    var doorOpenX = doorClosedX - (data.openDoorOffset * data.scale);
+
+					// Setup geometry
+					el.setAttribute('geometry', { primitive: 'box', height: data.scale, width: data.scale, depth: 0.2 });
+                    el.setAttribute('rotation', { x: 0, y: this.data.rotation, z: 0 } );
+                    el.setAttribute('position', { x: doorClosedX, y: 1.5, z: doorClosedZ });
+
+
+
+                    el.setAttribute('texture-atlas-material', { tile: data.doorTile });
+					el.setAttribute('animation', { 	property: 'position',
+													dir: 'normal',
+													startEvents: 'playDoorAnimation',
+													dur: 950,
+													to: { x: doorOpenX  }
+												});
+
+                    // Add Sound
+                    el.setAttribute('sound', { src: '#door-open-sound', pool: 2 } );
+
+                    // Add Listeners
+					el.addEventListener('onClick', function() {
+                        ob.checkDoorState();
+                    });
+
+					// React to state changes
+					el.addEventListener('animationbegin', function () {
+						el.removeAttribute('static-body');
+                        el.components.sound.playSound();
+					});
+
+					el.addEventListener('animationcomplete', function () {
+						// If door is in open position
+						if (el.getAttribute('position').x != doorClosedX) {
+							el.setAttribute('animation', { to: { x: doorClosedX }});
+							data.state = 'open';
+
+						} else {
+							el.setAttribute('animation', { to: { x: doorOpenX }});
+							data.state = 'closed';
+
+                            // Add static-body physics to closed door
+							el.setAttribute('static-body', '');
+						}
+					});
+				},
+				tick: function (time, deltaTime) {
+                    var ob = this;
+
+                    // Automatically close the door if set (not -1) after x seconds
+                    if (ob.data.autoCloseDoorDelay != -1 && ob.data.state == 'open'){
+                        ob.waitTicks++;
+                        if (ob.waitTicks >= (ob.data.autoCloseDoorDelay * 60)){
+                            ob.waitTicks = 0;
+                            ob.checkDoorState();
+                        }
+                    }
+				},
+				checkDoorState: function(){
+                    var el = this.el;
+
+					// !!! NASTY WORK AROUND !!!
+					// Still not getting a full understanding of javascript variable scope
+					if (this.state != this.data.state) this.state = this.data.state;
+
+					switch (this.state) {
+						case 'open':
+							this.state = 'closing';
+							el.emit('playDoorAnimation', null, false);
+							break;
+						case 'closed':
+							this.state = 'opening';
+							el.emit('playDoorAnimation', null, false);
+							break;
+						case 'opening':
+							break;
+						case 'closing':
+							break;
+						default:
+							console.log("ERROR: Door State Not Valid");
+							break;
+					}
+					// !!! NASTY WORK AROUND !!!
+					this.data.state = this.state;
+				}
+			});
+		</script>
+		<script>
+            if (typeof AFRAME === 'undefined') {
+                throw new Error('Component attempted to register before AFRAME was available.');
+            }
+			AFRAME.registerComponent('cursor-icon', {
+				schema: {
+					display: { type: 'boolean', default: true },
+					enableDistance: { type: 'float', default: 3}
+				},
+				init: function () {
+
+					var el = this.el;
+					var display = this.data.display;
+
+					el.setAttribute('geometry', { primitive: 'triangle',
+								vertexA: { x: 0, y: 0.5, z: 0 },
+								vertexB: { x: -0.5, y: -0.5, z: 0},
+							 	vertexC: { x: 0.5, y: -0.5, z: 0 }
+							});
+					el.setAttribute('scale', {x: 0.005, y: 0.002, z: 0.005})
+					el.setAttribute('material', {color: 'black', opacity: 0.8 });
+				}
+			});
+		</script>
+    </head>
+    <body>
+        <a-scene stats antialias="true" fog="type: linear; color: #636363; near: 5; far: 59;" physics="debug: false">
+            <a-assets>
+                <img id="TILES" src="./img/wolf3d-tiles.png"></img>
+                <audio id="door-open-sound" src="./sound/Door.mp3"></img>
+            </a-assets>
+
+            <!-- Camera -->
+            <a-entity id="camera" camera="userHeight: 1.6; far: 60"
+						universal-controls="movementControls: keyboard, touch; rotationControls: mouse, hmd; fly: false"
+						kinematic-body="radius: 0.7;"
+						rotation="0 180 0"
+						position="24 0.1 2.5">
+						<a-entity id="cursor" cursor="fuse: false; fuseTimeout: 500"
+							position="0 0 -0.1"
+							cursor-icon>
+	  					</a-entity>
+            </a-entity>
+
+			<!-- Door -->
+			<a-entity door="position: 17 04"></a-entity>
+			<a-entity door="position: 12 04"></a-entity>
+			<a-entity door="position: 12 08"></a-entity>
+            <a-entity door="position: 17 08"></a-entity>
+
+            <!-- Floor / Ceiling-->
+            <a-plane static-body rotation="90 0 0" scale="400 400 0" position="0 2.5 0"></a-plane>
+            <a-plane static-body rotation="-90 0 0" scale="400 400 0" position="0 0.5 0" material="color: #636363; flatShading: true; shader: flat"></a-plane>
+
+             <!-- Room 1 -->
+            <a-entity wall="tile: 45; position: 18 -1; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 17 -1; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 16 -1; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 15 -1; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 19 00; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 19 01; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 19 02; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 19 03; rotation: 270; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 18 03; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 31; position: 18 04; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 31; position: 17 04; rotation: 90; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 16 03; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 15 03; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 15 00; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 15 01; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 15 02; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 15 03; rotation: 90; set: #TILES;"></a-entity>
+
+            <!-- Room 2 -->
+            <a-entity wall="tile: 45; position: 13 -1; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 12 -1; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 11 -1; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 14 00; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 14 01; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 14 02; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 14 03; rotation: 270; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 13 03; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 31; position: 13 04; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 31; position: 12 04; rotation: 90; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 11 03; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 11 00; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 11 01; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 11 02; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 11 03; rotation: 90; set: #TILES;"></a-entity>
+
+            <!-- Room 3 -->
+            <a-entity wall="tile: 45; position: 13 12; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 12 12; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 11 12; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 14 09; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 14 10; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 14 11; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 14 12; rotation: 270; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 13 08; rotation: 0; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 31; position: 13 08; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 31; position: 12 08; rotation: 90; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 11 08; rotation: 0; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 11 09; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 11 10; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 11 11; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 11 12; rotation: 90; set: #TILES;"></a-entity>
+
+            <!-- Room 4 -->
+           <a-entity wall="tile: 45; position: 18 12; rotation: 180; set: #TILES;"></a-entity>
+           <a-entity wall="tile: 45; position: 17 12; rotation: 180; set: #TILES;"></a-entity>
+           <a-entity wall="tile: 45; position: 16 12; rotation: 180; set: #TILES;"></a-entity>
+           <a-entity wall="tile: 45; position: 15 12; rotation: 180; set: #TILES;"></a-entity>
+
+           <a-entity wall="tile: 45; position: 19 09; rotation: 270; set: #TILES;"></a-entity>
+           <a-entity wall="tile: 45; position: 19 10; rotation: 270; set: #TILES;"></a-entity>
+           <a-entity wall="tile: 45; position: 19 11; rotation: 270; set: #TILES;"></a-entity>
+           <a-entity wall="tile: 45; position: 19 12; rotation: 270; set: #TILES;"></a-entity>
+
+           <a-entity wall="tile: 45; position: 18 08; rotation: 0; set: #TILES;"></a-entity>
+
+           <a-entity wall="tile: 31; position: 18 08; rotation: 270; set: #TILES;"></a-entity>
+           <a-entity wall="tile: 31; position: 17 08; rotation: 90; set: #TILES;"></a-entity>
+
+           <a-entity wall="tile: 45; position: 16 08; rotation: 0; set: #TILES;"></a-entity>
+           <a-entity wall="tile: 45; position: 15 08; rotation: 0; set: #TILES;"></a-entity>
+
+           <a-entity wall="tile: 45; position: 15 09; rotation: 90; set: #TILES;"></a-entity>
+           <a-entity wall="tile: 45; position: 15 10; rotation: 90; set: #TILES;"></a-entity>
+           <a-entity wall="tile: 45; position: 15 11; rotation: 90; set: #TILES;"></a-entity>
+           <a-entity wall="tile: 45; position: 15 12; rotation: 90; set: #TILES;"></a-entity>
+
+            <!-- Room 5 -->
+            <a-entity wall="tile: 45; position: 09 -1; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 08 -1; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 07 -1; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 10 00; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 10 01; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 10 02; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 10 03; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 10 04; rotation: 270; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 31; position: 19 05; rotation: 0; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 31; position: 19 06; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 19 05; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 18 04; rotation: 00; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 16 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 15 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 14 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 13 04; rotation: 00; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 11 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 10 04; rotation: 00; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 51; position: 07 00; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 07 01; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 07 02; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 50; position: 07 03; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 07 04; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 07 05; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 51; position: 07 06; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 07 07; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 07 08; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 50; position: 07 09; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 07 10; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 07 11; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 50; position: 07 12; rotation: 90; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 09 12; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 08 12; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 07 12; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 10 08; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 10 09; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 10 10; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 10 11; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 10 12; rotation: 270; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 19 07; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 18 07; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 16 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 15 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 14 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 13 07; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 11 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 10 07; rotation: 180; set: #TILES;"></a-entity>
+
+            <!-- Room 6 -->
+            <a-entity wall="tile: 45; position: 20 05; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 20 07; rotation: 90; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 20 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 21 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 22 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 23 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 24 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 25 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 26 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 27 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 28 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 29 04; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 30 04; rotation: 00; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 20 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 21 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 22 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 23 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 24 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 25 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 26 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 27 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 28 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 29 07; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 30 07; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 30 05; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 30 07; rotation: 270; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 31; position: 30 05; rotation: 0; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 31; position: 30 06; rotation: 180; set: #TILES;"></a-entity>
+
+            <!-- Room 7 -->
+
+            <a-entity wall="tile: 45; position: 31 04; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 31 05; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 31 07; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 45; position: 31 08; rotation: 90; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 53; position: 31 03; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 31 08; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 53; position: 32 03; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 58; position: 32 02; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 32 01; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 32 00; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 32 -1; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 32 -2; rotation: 90; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 53; position: 32 -2; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 52; position: 33 -2; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 34 -2; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 35 -2; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 36 -2; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 52; position: 37 -2; rotation: 00; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 38 -2; rotation: 00; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 53; position: 39 -1; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 39 00; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 39 01; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 58; position: 39 02; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 39 03; rotation: 270; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 53; position: 39 03; rotation: 00; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 18; position: 40 04; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 16; position: 40 05; rotation: 270; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 16; position: 40 07; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 18; position: 40 08; rotation: 270; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 53; position: 39 08; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 53; position: 39 09; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 58; position: 39 10; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 39 11; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 39 12; rotation: 270; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 39 13; rotation: 270; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 53; position: 38 13; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 52; position: 37 13; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 52; position: 37 14; rotation: 270; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 36 14; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 31; position: 35 15; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 31; position: 36 15; rotation: 270; set: #TILES;"></a-entity>
+            <!-- Door --><a-entity wall="tile: 30; position: 35 15; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 45; position: 34 14; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 52; position: 34 14; rotation: 90; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 52; position: 33 13; rotation: 180; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 32 13; rotation: 180; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 53; position: 32 09; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 32 10; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 59; position: 32 11; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 32 12; rotation: 90; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 53; position: 32 13; rotation: 90; set: #TILES;"></a-entity>
+
+            <a-entity wall="tile: 31; position: 40 05; rotation: 0; set: #TILES;"></a-entity>
+            <a-entity wall="tile: 31; position: 40 06; rotation: 180; set: #TILES;"></a-entity>
+            <!-- Door --><a-entity wall="tile: 30; position: 41 06; rotation: 270; set: #TILES;"></a-entity>
+
+        </a-scene>
+    </body>
+</html>

@@ -109,6 +109,26 @@ const data = [{
   description: `<p>A few years ago I built a small Arcade Cabinet based on the RaspberryPi and custom MAME software <a href="https://retropie.org.uk/">RetroPie</a>, and recently have started modifying it to add a payment system using the Bitcoin <a href="https://lightning.network/">Lightning Network protocol</a>.</p>
         <p>Attached to the machine is an <a href="https://www.nodemcu.com/index_en.html">NODE MCU ESP8266</a> Microcontroller unit (MCU) with WiFi and an <a href="https://www.waveshare.com/1.54inch-e-paper-module.htm">e-Paper screen</a>. The MCU connects to <a href="https://acinq.co/">ACINQ Strike</a> and requests a Lightning Network Invoice, then generates a QR code for the e-Paper screen. A User can then use their own LN enabled Wallet on a phone and scan the QR code. Once a payment signal has been received a credit is issued to MAME.</p>`
 }, {
+  type: 'project',
+  id: 'wolf3d',
+  title: 'Wolfenstein 3D Web VR',
+  platforms: ['Web', 'Mobile', 'WebVR'],
+  genre: 'Entertainment',
+  technology: ['Three.js', 'A-Frame', 'Javascript', 'HTML', 'css', 'Atom'],
+  release: '2017',
+  company: '',
+  publisher: '',
+  team_size: 1,
+  dev_time: '3 Days',
+  role: 'Lead Designer / Programmer',
+  work: ['Programming', 'Locomotion', 'Systems'],
+  trailer: 'https://www.youtube.com/watch?v=vHKVKo0JcFA&',
+  embed: ``,
+  link: '/projects/wolf3d',
+  description: `<p>I made this test project whilst I was exploring the possibilities of WebVR tech. This was the second project I worked on and I wanted to test out things like collision, interaction, sound. The idea of using Wolfenstein 3D came about because I wanted something I was familiar with so I could test my results against the existing game. Plus I wanted to see what it felt like to walk around the first FPS game I ever played but in VR.</p>
+                <p>This was an interesting experiement. The A-Frame library allows you to create 3D VR enabled spaces using HTML markup, which is great fun though due to it relying on the DOM to create worlds it's not performant for use for spaces which can't be held comefortably in memory at one time; I believe that Wolfenstein 3D could well work as the levels are simple and small enough.</p>
+                <a href="https://aframe.io/">A-Frame</a>`,
+}, {
   type: 'app',
   id: 'spark',
   title: 'Sparkshot',
