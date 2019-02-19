@@ -200,7 +200,8 @@ main {
   justify-content: center;
   align-items: flex-start;
   text-align: left;
-  min-height: 82vh;
+  min-height: 62vh;
+  margin-top: 2em;
 }
 
 .height-50 {
