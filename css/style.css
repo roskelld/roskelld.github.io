@@ -1,9 +1,8 @@
 html {
     overflow-y: scroll;
-    /* font-family: 'Rubik', sans-serif; */
+    overflow-x: hidden;
     font-family: 'Karla', sans-serif;
     height: 100%;
-
 }
 
 header {
