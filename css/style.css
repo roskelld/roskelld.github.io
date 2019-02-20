@@ -320,6 +320,9 @@ main {
         margin-top:    2em      !important;
         margin-bottom: 0em      !important;
     }
+    .head-title {
+        margin: 60px 0 0 0;
+    }
 }
 
 @media screen and (min-width: 850px) {
@@ -331,23 +334,21 @@ main {
         align-items: flex-start;
         margin: 60px 0;
     }
-}
-
-
-.flex-column {
-    margin-right: 40px;
-}
-
-@media screen and (min-width: 850px) {
     .head-title {
         height: 200px;
         align-items: flex-end;
         vertical-align: baseline;
+        margin: 60px 0 0 0;
     }
     .flex-column {
         flex: 1;
     }
 }
+
+.flex-column {
+    margin-right: 40px;
+}
+
 
 .service-header {
     grid-column: 2/4;
