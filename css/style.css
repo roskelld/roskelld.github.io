@@ -180,8 +180,8 @@ main {
     display: block;
     position: fixed;
     z-index: 900;
-    right: 5vh;
-    top: 5vh;
+    right: 20px;
+    top: 25px;
 }
 
 .logo {
@@ -190,12 +190,18 @@ main {
     display: block;
     position: fixed;
     z-index: 1000;
-    bottom: 5vh;
-    right: 5vh;
-    -webkit-transition-property: width, height, bottom, right;
-    transition-property: width, height, bottom, right;
+    bottom: 20px;
+    right: 20px;
+    -webkit-transition-property: width, height, bottom, right, transform;
+    transition-property: width, height, bottom, right, transform;
     -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
+    perspective: 250px;
+}
+
+.logo:hover {
+    perspective: 250px;
+    transform: rotate3d(-0.8, 0.8, 0.3, 45deg);
 }
 
 .box {
@@ -205,7 +211,7 @@ main {
 
 @media only screen and (max-width: 500px) {
     .logo.off-right {
-        right: -50%;
+        /* right: -50%; */
     }
 }
 
@@ -1165,7 +1171,7 @@ code {
 }
 
 .fadeInAnimation {
-  animation: fade-in 2s;
+  animation: fade-in 3s;
 }
 
 .fadeInOnScreen {
