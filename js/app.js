@@ -732,7 +732,6 @@ class FadeInOnScreen {
     }
     reset() {
         this.windowHeight = window.innerHeight;
-        console.log('RESET');
         if ( typeof this.els != 'undefined' ) {
             this.els.forEach( el => el.classList.replace( 'fadeInAnimation', 'fadeInOnScreen' ) );
             this.checkPosition();
@@ -741,7 +740,6 @@ class FadeInOnScreen {
     checkPosition() {
         if ( typeof this.els == 'undefined' ) return;
         this.els.forEach( el => {
-            console.log('CHECK');
             const pos = el.getBoundingClientRect().top;
             if ( pos - this.windowHeight <= -50 )
                 el.classList.replace( 'fadeInOnScreen', 'fadeInAnimation' );
