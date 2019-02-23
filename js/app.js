@@ -15,6 +15,9 @@ class WebSite {
         const service   = data.filter( item => item.type === 'service' );
         const core      = data.filter( item => item.type === 'core' );
 
+        // Element Fade in On Screen
+        this.fader = new FadeInOnScreen();
+
         this.gameCardGenerator( games, 'games' );
         this.applicationCardGenerator( apps, 'applications');
         this.projectCardGenerator( projects, 'projects');
@@ -96,7 +99,7 @@ class WebSite {
         // Read URI and setup site
         this.openHashLocation();
 
-        window.addEventListener( 'resize', this.debounce( () => this.setFullPagePanelHeight(), 300 ));
+        window.addEventListener( 'resize', Utils.debounce( () => this.setFullPagePanelHeight(), 300 ));
 
         this.content.fullpage.forEach( panel => {
             this.setFullPagePanelHeight( panel );
@@ -113,6 +116,8 @@ class WebSite {
         }, false );
 
         this.setLogoScreenPosition();
+
+        this.fader.init();
     }
 
 
@@ -152,6 +157,8 @@ class WebSite {
         this.oldTab = tab.id;
         window.scrollTo( 0, 0 );
         s.setLogoScreenPosition();
+
+        s.fader.reset();
 
         if ( tab.id !== 'home' || tab.id !== 'bio' ) {
             if ( typeof s.nav.cards[tab.id] == 'undefined' || typeof s.nav.cards[tab.id][0] == 'undefined' ) return;                                                // Reset Story
@@ -694,10 +701,13 @@ class WebSite {
 
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Utils
 
-    debounce( func, time ) {
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Utils
+class Utils {
+    static debounce( func, time ) {
         let timeout;
         return function() {
             const functionCall = () => func.apply( this, arguments );
@@ -708,12 +718,45 @@ class WebSite {
     }
 }
 
+////////////////////////////////////////////////////////////////////////////
+// Scroll Checker
+class FadeInOnScreen {
+    constructor() {
+        window.addEventListener( 'scroll', () => this.checkPosition(), false );
+        window.addEventListener( 'resize', () => this.init(), false );
+    }
+    init() {
+        this.els = document.querySelectorAll( '.fadeInOnScreen' );
+        this.windowHeight = window.innerHeight;
+        this.checkPosition();
+    }
+    reset() {
+        this.windowHeight = window.innerHeight;
+        console.log('RESET');
+        if ( typeof this.els != 'undefined' ) {
+            this.els.forEach( el => el.classList.replace( 'fadeInAnimation', 'fadeInOnScreen' ) );
+            this.checkPosition();
+        }
+    }
+    checkPosition() {
+        if ( typeof this.els == 'undefined' ) return;
+        this.els.forEach( el => {
+            console.log('CHECK');
+            const pos = el.getBoundingClientRect().top;
+            if ( pos - this.windowHeight <= -50 )
+                el.classList.replace( 'fadeInOnScreen', 'fadeInAnimation' );
+
+        });
+    }
+}
+
 const site = new WebSite();
 document.addEventListener( 'DOMContentLoaded', function() {
     setTimeout( () => {
         document.querySelector( '#loader' ).classList.remove( 'loader' );
     }, 10);
 }, false );
+
 
 
 window.s = site;
