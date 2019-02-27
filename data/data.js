@@ -42,7 +42,7 @@ const data = [
                 <a href="https://aframe.io/">A-Frame</a>`,
 }, {
  type: 'project',
- id: 'bubblefall',
+ id: 'bubble-fall',
  title: 'Bubble Fall',
  platforms: ['Web', 'Mobile' ],
  genre: 'Entertainment',
@@ -54,12 +54,15 @@ const data = [
  dev_time: '7 Days',
  role: 'Lead Designer',
  work: ['Programming', 'Animation', 'Audio', 'Art', 'Design'],
- trailer: 'https://www.youtube.com/watch?v=vHKVKo0JcFA&',
+ trailer: 'https://www.youtube.com/watch?v=1udX_m3nE2s',
+ images: [''],
  embed: ``,
- link: '/projects/wolf3d',
+ link: '',
  description: `<p>After the release of the iPhone and iPod Touch I began to explore the platform and I develop a number of game ideas designed around the touch screen. The goal with most of them was to try and play to the strengths of the device rather than mimic a traditional pad control.</p>
                <p>Bubblefall is one of the ideas that I produced, and prior to developing it on the iPhone I experiemented by creating a quick animatic in Flash, to help me figure out the motion and the assets I'd need for the game.</p>
-               <p>I also elected to use the Gameboy color palette of green tones, partly because the screen was much nicer than the old Gameboy screen so I wanted to see how a game in that style would look, and also I wanted to make sure I was focusing on the gameplay experience and not getting sidetracked by the graphics.</p>`,
+               <p>I also elected to use the Gameboy color palette of green tones, partly because the screen was much nicer than the old Gameboy screen so I wanted to see how a game in that style would look, and also I wanted to make sure I was focusing on the gameplay experience and not getting sidetracked by the graphics.</p>
+               <h5>Gameplay</h5>
+               <p>The premise of Bubble Fall is to get a high score by collecting the coins which appear on screen in random waves. To do this the player must place bubbles into the level in order to direct the Hero character. The game finishes if the Hero lands on the ground or gets hit by any of the hazards that spawn in the level. Hazards will also pop bubbles if they touch. The difficulty of the game increases over time as more hazards take up space on the level, making it more challenging to place bubbles and guide the Hero to the coins. Directing the Hero comes from the angle he lands on the Bubble, the positioning of the Bubble and its size. This aspect of the game requires some learning in order to be able to perfect directing the Hero to the coins, and navigating the hazards.</p>`,
 }, {
   type: 'app',
   id: 'spark',
