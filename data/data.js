@@ -218,8 +218,25 @@ const data = [
   work: ['Game Design', 'Game Controls', 'Level Design', 'UI System', 'Balancing', 'Scoring Sytem'],
   trailer: '',
   embed: '',
-  description: `BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH `
+  description: ``
 }, {
+    type: 'game',
+    id: 'egg-catcher',
+    title: 'Egg Catcher',
+    platforms: ['iOS'],
+    genre: 'Puzzle',
+    technology: ['In-house'],
+    release: 'N/A',
+    company: 'Toolbox Design',
+    publisher: 'N/A',
+    team_size: 4,
+    dev_time: '2 Months',
+    role: 'Designer',
+    work: ['Game Design', 'Game Controls', 'Level Design', 'UI System', 'Balancing', 'Scoring Sytem'],
+    trailer: 'https://www.youtube.com/watch?v=WO4AP72_QaA',
+    embed: '',
+    description: ``
+  }, {
   type: 'game',
   id: 'world-in-conflict',
   title: 'World in Conflict: Soviet Assault',

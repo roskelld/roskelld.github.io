@@ -393,7 +393,7 @@ class WebSite {
             detailDiv.id = `content-${item.id}`;
 
             detailDiv.innerHTML = `
-                <div class="section content-panel">
+                <div id="games" class="section content-panel">
                     <div class="row">
                         <div class="col s12"><div class="soft-grey-text title center-align">${item.title}</div></div>
                     </div>
@@ -441,11 +441,6 @@ class WebSite {
                         </div>
                     </div>
                     <div class="divider"></div>
-                    <div class="section">
-                        <div class="row">
-
-                        </div>
-                    </div>
                 </div>`;
             detail.appendChild( detailDiv );
         });
