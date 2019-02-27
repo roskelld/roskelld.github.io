@@ -12,8 +12,6 @@ class WebSite {
         const games     = data.filter( item => item.type === 'game' );
         const apps      = data.filter( item => item.type === 'app' );
         const projects  = data.filter( item => item.type === 'project' );
-        const service   = data.filter( item => item.type === 'service' );
-        const core      = data.filter( item => item.type === 'core' );
 
         // Element Fade in On Screen
         this.fader = new FadeInOnScreen();
@@ -21,7 +19,6 @@ class WebSite {
         this.gameCardGenerator( games, 'games' );
         this.applicationCardGenerator( apps, 'applications');
         this.projectCardGenerator( projects, 'projects');
-        // this.serviceCardGenerator( service, 'services', core[0] );
 
         const content =  document.querySelector('#stuff')
 
@@ -131,7 +128,7 @@ class WebSite {
             this.selectTab( tab );
 
             url += `#${tab}`;
-            scroll(0,0);
+            window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 
             if ( c.includes(this.itemURI) ) {
                 const item = c.slice(  c.indexOf(this.itemURI) + 1, c.length );
@@ -155,7 +152,8 @@ class WebSite {
         if ( tab.id === this.oldTab ) return;                                   // Ignore if tab hasn't changed
 
         this.oldTab = tab.id;
-        window.scrollTo( 0, 0 );
+        console.log('top of screen');
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
         s.setLogoScreenPosition();
 
         s.fader.reset();
@@ -699,6 +697,21 @@ class WebSite {
             }, false);
         }
 
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // STATS
+
+    totalGames() {
+        const games = data.filter( item => item.type === 'game' );
+        const res = [...new Set( games.map( game => game.title))];
+        return res;
+    }
+
+    totalPublishedGames() {
+        const games = data.filter( item => item.type === 'game' );
+        const res = [...new Set( games.map( game => { if (game.release != 'N/A') return game.title }))];
+        return res;
     }
 }
 

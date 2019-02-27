@@ -1,95 +1,7 @@
 'use strict';
 
-const data = [{
-  type: 'core',
-  description: 'I offer over 20 years of real-world experience designing and creating games across all platforms and for a wide range of audiences. I find that by talking with the team we can learn about the goals, pain points and build solutions.',
-  work: {
-    'Level Design': {
-      icon: 'fas fa-dungeon',
-      text: `I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.`
-    },
-    'Locomotion': {
-      icon: 'fas fa-walking',
-      text: `I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.`
-    },
-    'Puzzle Design': {
-      icon: 'fas fa-puzzle-piece',
-      text: `I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.`
-    },
-    'Presentation': {
-      icon: 'fas fa-tv',
-      text: `I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.`
-    },
-    'Player Messaging': {
-      icon: 'fas fa-search',
-      text: `I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.`
-    },
-    'Pacing': {
-      icon: 'fas fa-road',
-      text: `I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.`
-    },
-    'Game Flow': {
-      icon: 'fas fa-wind',
-      text: `I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.`
-    },
-    'Tutorials': {
-      icon: 'fas fa-question',
-      text: `I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.`
-    },
-    'UI / Menus': {
-      icon: 'fas fa-sitemap',
-      text: `I have designed levels for almost every game I've worked on from 2D platforming to vast open world. Over the years I've learned the language that helps define how to plan and build an experience which can be challenging yet rewarding, and can use visual cues to help support the player without interupting play with hand-holding guidence.`
-    }
-  }
-}, {
-  type: 'service',
-  id: 'dsna',
-  title: 'Design Audit',
-  quote: `Feel like your game's levels aren't proving to be the fun challenge you were looking for, or your mechanics just aren't clicking?`,
-  work: ['Level Design', 'Locomotion', 'Puzzle Design', 'Presentation', 'Player Messaging', 'Pacing', 'Game Flow', 'Tutorials', 'UI / Menus'],
-  contact: '',
-  description: `A Design audit can help identify key issues and establish a plan to get back on track.`
-}, {
-  type: 'service',
-  id: 'plan',
-  title: 'Project Planning',
-  quote: `Feel like your game's levels aren't proving to be the fun challenge you were looking for or your mechanics just aren't clicking?`,
-  work: ['Level Design', 'Locomotion', 'Puzzle Design', 'Presentation', 'Player Messaging', 'Pacing', 'Game Flow', 'Tutorials', 'UI / Menus'],
-  contact: '',
-  description: `<p></p>`
-}, {
-  type: 'service',
-  id: 'uxa',
-  title: 'UX Audit',
-  quote: `Feel like your game's levels aren't proving to be the fun challenge you were looking for or your mechanics just aren't clicking?`,
-  work: ['Level Design', 'Locomotion', 'Puzzle Design', 'Presentation', 'Player Messaging', 'Pacing', 'Game Flow', 'Tutorials', 'UI / Menus'],
-  contact: '',
-  description: `<p></p>`
-}, {
-  type: 'service',
-  id: 'tech',
-  title: 'Technology Audit',
-  quote: `Feel like your game's levels aren't proving to be the fun challenge you were looking for or your mechanics just aren't clicking?`,
-  work: ['Level Design', 'Locomotion', 'Puzzle Design', 'Presentation', 'Player Messaging', 'Pacing', 'Game Flow', 'Tutorials', 'UI / Menus'],
-  contact: '',
-  description: `<p></p>`
-}, {
-  type: 'service',
-  id: 'review',
-  title: 'Game Review',
-  quote: `Feel like your game's levels aren't proving to be the fun challenge you were looking for or your mechanics just aren't clicking?`,
-  work: ['Level Design', 'Locomotion', 'Puzzle Design', 'Presentation', 'Player Messaging', 'Pacing', 'Game Flow', 'Tutorials', 'UI / Menus'],
-  contact: '',
-  description: `<p></p>`
-}, {
-  type: 'service',
-  id: 'industry',
-  title: 'Game Industry Consultation',
-  quote: `Feel like your game's levels aren't proving to be the fun challenge you were looking for or your mechanics just aren't clicking?`,
-  work: ['Level Design', 'Locomotion', 'Puzzle Design', 'Presentation', 'Player Messaging', 'Pacing', 'Game Flow', 'Tutorials', 'UI / Menus'],
-  contact: '',
-  description: `<p></p>`
-}, {
+const data = [
+{
   type: 'project',
   id: 'lna',
   title: 'Lightning Network Arcade ⚡',
@@ -128,6 +40,26 @@ const data = [{
   description: `<p>I made this test project whilst I was exploring the possibilities of WebVR tech. This was the second project I worked on and I wanted to test out things like collision, interaction, sound. The idea of using Wolfenstein 3D came about because I wanted something I was familiar with so I could test my results against the existing game. Plus I wanted to see what it felt like to walk around the first FPS game I ever played but in VR.</p>
                 <p>This was an interesting experiement. The A-Frame library allows you to create 3D VR enabled spaces using HTML markup, which is great fun though due to it relying on the DOM to create worlds it's not performant for use for spaces which can't be held comefortably in memory at one time; I believe that Wolfenstein 3D could well work as the levels are simple and small enough.</p>
                 <a href="https://aframe.io/">A-Frame</a>`,
+}, {
+ type: 'project',
+ id: 'bubblefall',
+ title: 'Bubble Fall',
+ platforms: ['Web', 'Mobile' ],
+ genre: 'Entertainment',
+ technology: ['Flash', 'Photoshop', 'Actionscript', 'Audacity'],
+ release: '2010',
+ company: '',
+ publisher: '',
+ team_size: 1,
+ dev_time: '7 Days',
+ role: 'Lead Designer',
+ work: ['Programming', 'Animation', 'Audio', 'Art', 'Design'],
+ trailer: 'https://www.youtube.com/watch?v=vHKVKo0JcFA&',
+ embed: ``,
+ link: '/projects/wolf3d',
+ description: `<p>After the release of the iPhone and iPod Touch I began to explore the platform and I develop a number of game ideas designed around the touch screen. The goal with most of them was to try and play to the strengths of the device rather than mimic a traditional pad control.</p>
+               <p>Bubblefall is one of the ideas that I produced, and prior to developing it on the iPhone I experiemented by creating a quick animatic in Flash, to help me figure out the motion and the assets I'd need for the game.</p>
+               <p>I also elected to use the Gameboy color palette of green tones, partly because the screen was much nicer than the old Gameboy screen so I wanted to see how a game in that style would look, and also I wanted to make sure I was focusing on the gameplay experience and not getting sidetracked by the graphics.</p>`,
 }, {
   type: 'app',
   id: 'spark',
@@ -286,7 +218,7 @@ const data = [{
   description: `BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH `
 }, {
   type: 'game',
-  id: 'wic',
+  id: 'world-in-conflict',
   title: 'World in Conflict: Soviet Assault',
   platforms: ['360'],
   genre: 'Real Time Strategy',
@@ -303,7 +235,7 @@ const data = [{
   description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
 }, {
   type: 'game',
-  id: 'made',
+  id: 'made-man',
   title: 'Made Man',
   platforms: ['PC', 'PS2'],
   genre: '3rd Person Shooter',
