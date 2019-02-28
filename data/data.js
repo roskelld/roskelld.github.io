@@ -18,8 +18,8 @@ const data = [
   trailer: '',
   embed: ``,
   link: 'https://edmontonbitcoin.org',
-  description: `<p>In January 2017 a meetup group was formed to bring people together in Edmonton to talk about Bitcoin, since that time the <a href="https://www.meetup.com/yegbitcoin">Meetup.com</a> group has grown to over 700 members.</p>
-                <p>The core organizers decided that to help improve the setup we would form a company structure to allow us to create a more formalized approach to the meetup, extending the number of monthly events, adding more content, and bringing in a wider range of guest speakers</p>
+  description: `<p>In January 2017 a meetup group was formed to bring people together in Edmonton to talk about Bitcoin. Since that time the <a href="https://www.meetup.com/yegbitcoin">Meetup.com</a> group has grown to over 700 members.</p>
+                <p>The core organizers decided that to help improve the setup we would form a company structure to allow us to create a more formalized approach to the meetup, extending the number of monthly events, adding more content, and bringing in a wider range of guest speakers.</p>
                 <p>We currently host a range of education, networking and technical growth events per month, covering the complete beginner-to-advanced range of experience levels.</p>`
 },
 {
@@ -40,7 +40,7 @@ const data = [
   embed: ``,
   link: '',
   description: `<p>A few years ago I built a small Arcade Cabinet based on the RaspberryPi and custom MAME software <a href="https://retropie.org.uk/">RetroPie</a>, and recently have started modifying it to add a payment system using the Bitcoin <a href="https://lightning.network/">Lightning Network protocol</a>.</p>
-        <p>Attached to the machine is an <a href="https://www.nodemcu.com/index_en.html">NODE MCU ESP8266</a> Microcontroller unit (MCU) with WiFi and an <a href="https://www.waveshare.com/1.54inch-e-paper-module.htm">e-Paper screen</a>. The MCU connects to <a href="https://acinq.co/">ACINQ Strike</a> and requests a Lightning Network Invoice, then generates a QR code for the e-Paper screen. A User can then use their own LN enabled Wallet on a phone and scan the QR code. Once a payment signal has been received a credit is issued to MAME.</p>`
+        <p>Attached to the machine is a <a href="https://www.nodemcu.com/index_en.html">NODE MCU ESP8266</a> Microcontroller unit (MCU) with WiFi and an <a href="https://www.waveshare.com/1.54inch-e-paper-module.htm">e-Paper screen</a>. The MCU connects to <a href="https://acinq.co/">ACINQ Strike</a> and requests a Lightning Network Invoice, then generates a QR code for the e-Paper screen. A User can then use their own LN enabled Wallet on a phone and scan the QR code. Once a payment signal has been received a credit is issued to MAME.</p>`
 }, {
   type: 'project',
   id: 'wolf3d',
@@ -103,7 +103,7 @@ const data = [
   link: 'https://sparkshot.io',
   description: `<p>Sparkshot is a <a href="https://blog.lightning.engineering/posts/2018/05/02/lightning-ux.html">Lightning Network</a> art platform upon which artists can upload their original artwork to the site and it is launched in a blank state. Users then purchase pixels and add personalised message using Bitcoin over the Lightning Network. This process slowly reveals the art whilst also adding a meta layer on top for each individual purchase. Observers can then view both the art as it appears as well as look at the posted messages and shapes of pixel groups.<p>
                 <h5>The Lightning Network</h5>
-                <p>The Lightning Network protocol allows for instant transactions to happen at near-zero fee, and in amounts as tiny as a fraction of a cent, achieving nano-scale payments across in the internet with no requirement for a 3rd party payment provider like PayPal or Square.</p>
+                <p>The Lightning Network protocol allows for instant transactions to happen at near-zero fee, and in amounts as tiny as a fraction of a cent, achieving nano-scale payments across the internet with no requirement for a 3rd party payment provider like PayPal or Square.</p>
                 <h5>The Goal</h5>
                 <p>We understand that this is extremely new technology which requires a serious level of onboarding before it can be considered a viable business platform, however that process has to begin somewhere. So we set about building an application that could use an already popular medium such as images and adapt it into something that cannot be done with existing payment systems (sub-cent transactions aren't possible via existing payment services). It also had to be something that could grow but didn't require a large userbase in order for individuals to see the fun.</p>`,
 }, {
