@@ -3,6 +3,27 @@
 const data = [
 {
   type: 'project',
+  id: 'edmonton-bitcoin-association',
+  title: 'Edmonton Bitcoin Association',
+  platforms: [],
+  genre: 'Education',
+  technology: ['Bitcoin', 'Lightning Network'],
+  release: '2018',
+  company: 'Edmonton Bitcoin Association',
+  publisher: '',
+  team_size: 7,
+  dev_time: '',
+  role: 'Director',
+  work: ['Presenting', 'Management', 'Social Media', 'Organizer'],
+  trailer: '',
+  embed: ``,
+  link: 'https://edmontonbitcoin.org',
+  description: `<p>In January 2017 a meetup group was formed to bring people together in Edmonton to talk about Bitcoin, since that time the <a href="https://www.meetup.com/yegbitcoin">Meetup.com</a> group has grown to over 700 members.</p>
+                <p>The core organizers decided that to help improve the setup we would form a company structure to allow us to create a more formalized approach to the meetup, extending the number of monthly events, adding more content, and bringing in a wider range of guest speakers</p>
+                <p>We currently host a range of education, networking and technical growth events per month, covering the complete beginner-to-advanced range of experience levels.</p>`
+},
+{
+  type: 'project',
   id: 'lna',
   title: 'Lightning Network Arcade ⚡',
   platforms: ['RaspberryPi', 'Bitcoin', 'Lightning Network'],
@@ -38,7 +59,7 @@ const data = [
   embed: ``,
   link: '/projects/wolf3d',
   description: `<p>I made this test project whilst I was exploring the possibilities of WebVR tech. This was the second project I worked on and I wanted to test out things like collision, interaction, sound. The idea of using Wolfenstein 3D came about because I wanted something I was familiar with so I could test my results against the existing game. Plus I wanted to see what it felt like to walk around the first FPS game I ever played but in VR.</p>
-                <p>This was an interesting experiement. The A-Frame library allows you to create 3D VR enabled spaces using HTML markup, which is great fun though due to it relying on the DOM to create worlds it's not performant for use for spaces which can't be held comefortably in memory at one time; I believe that Wolfenstein 3D could well work as the levels are simple and small enough.</p>
+                <p>This was an interesting experiment. The A-Frame library allows you to create 3D VR enabled spaces using HTML markup, which is great fun though due to it relying on the DOM to create worlds it's not performant for use for spaces which can't be held comfortably in memory at one time; I believe that Wolfenstein 3D could well work as the levels are simple and small enough.</p>
                 <a href="https://aframe.io/">A-Frame</a>`,
 }, {
  type: 'project',
@@ -59,10 +80,10 @@ const data = [
  embed: ``,
  link: '',
  description: `<p>After the release of the iPhone and iPod Touch I began to explore the platform and I develop a number of game ideas designed around the touch screen. The goal with most of them was to try and play to the strengths of the device rather than mimic a traditional pad control.</p>
-               <p>Bubblefall is one of the ideas that I produced, and prior to developing it on the iPhone I experiemented by creating a quick animatic in Flash, to help me figure out the motion and the assets I'd need for the game.</p>
+               <p>Bubblefall is one of the ideas that I produced, and prior to developing it on the iPhone I experimented by creating a quick animatic in Flash, to help me figure out the motion and the assets I'd need for the game.</p>
                <p>I also elected to use the Gameboy color palette of green tones, partly because the screen was much nicer than the old Gameboy screen so I wanted to see how a game in that style would look, and also I wanted to make sure I was focusing on the gameplay experience and not getting sidetracked by the graphics.</p>
                <h5>Gameplay</h5>
-               <p>The premise of Bubble Fall is to get a high score by collecting the coins which appear on screen in random waves. To do this the player must place bubbles into the level in order to direct the Hero character. The game finishes if the Hero lands on the ground or gets hit by any of the hazards that spawn in the level. Hazards will also pop bubbles if they touch. The difficulty of the game increases over time as more hazards take up space on the level, making it more challenging to place bubbles and guide the Hero to the coins. Directing the Hero comes from the angle he lands on the Bubble, the positioning of the Bubble and its size. This aspect of the game requires some learning in order to be able to perfect directing the Hero to the coins, and navigating the hazards.</p>`,
+               <p>The premise of Bubble Fall is to get a high score by collecting the coins which appear on the screen in random waves. To do this the player must place bubbles into the level in order to direct the Hero character. The game finishes if the Hero lands on the ground or gets hit by any of the hazards that spawn in the level. Hazards will also pop bubbles if they touch. The difficulty of the game increases over time as more hazards take up space on the level, making it more challenging to place bubbles and guide the Hero to the coins. Directing the Hero comes from the angle he lands on the Bubble, the positioning of the Bubble and its size. This aspect of the game requires some learning in order to be able to perfect directing the Hero to the coins and navigating the hazards.</p>`,
 }, {
   type: 'app',
   id: 'spark',
@@ -80,14 +101,18 @@ const data = [
   trailer: '',
   embed: ``,
   link: 'https://sparkshot.io',
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: `<p>Sparkshot is a <a href="https://blog.lightning.engineering/posts/2018/05/02/lightning-ux.html">Lightning Network</a> art platform upon which artists can upload their original artwork to the site and it is launched in a blank state. Users then purchase pixels and add personalised message using Bitcoin over the Lightning Network. This process slowly reveals the art whilst also adding a meta layer on top for each individual purchase. Observers can then view both the art as it appears as well as look at the posted messages and shapes of pixel groups.<p>
+                <h5>The Lightning Network</h5>
+                <p>The Lightning Network protocol allows for instant transactions to happen at near-zero fee, and in amounts as tiny as a fraction of a cent, achieving nano-scale payments across in the internet with no requirement for a 3rd party payment provider like PayPal or Square.</p>
+                <h5>The Goal</h5>
+                <p>We understand that this is extremely new technology which requires a serious level of onboarding before it can be considered a viable business platform, however that process has to begin somewhere. So we set about building an application that could use an already popular medium such as images and adapt it into something that cannot be done with existing payment systems (sub-cent transactions aren't possible via existing payment services). It also had to be something that could grow but didn't require a large userbase in order for individuals to see the fun.</p>`,
 }, {
   type: 'app',
   id: 'sparkw',
   title: 'Sparkshot Website',
   platforms: ['Web'],
   genre: 'Education',
-  technology: ['Javascript', 'HTML', 'CSS'],
+  technology: ['Javascript', 'HTML', 'CSS', 'Atom', 'Photoshop', 'Illustrator'],
   release: '2018',
   company: 'PrimeVR',
   publisher: 'PrimeVR',
@@ -98,14 +123,16 @@ const data = [
   trailer: '',
   embed: ``,
   link: 'https://sparkshot.io',
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: `<p>Prior to the release of Sparkshot our Lightning Network Art Platform, we wanted to launch something early so we could point people to so we created a website to help inform of the goal of the project as well as provide updates on its development.</p>
+  <h5>Development</h5>
+  <p>I produced the website using the <a href="https://materializecss.com">Materialize</a> framework for the layout, buttons and other elements. Beyond that I generated all the graphics, the project logo, and built the interactive functionality using vanilla Javascript.</p>`,
 }, {
   type: 'app',
   id: 'fork',
   title: 'Forkdrop',
   platforms: ['Web'],
   genre: 'Education',
-  technology: ['Javascript', 'HTML', 'CSS'],
+  technology: ['Javascript', 'HTML', 'CSS', 'Atom'],
   release: '2018',
   company: 'PrimeVR',
   publisher: 'PrimeVR',
@@ -116,7 +143,7 @@ const data = [
   trailer: '',
   embed: ``,
   link: 'https://forkdrop.io',
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ``,
 }, {
   type: 'game',
   id: 'ddr',
@@ -236,7 +263,7 @@ const data = [
     trailer: 'https://www.youtube.com/watch?v=WO4AP72_QaA',
     embed: '',
     description: ``
-  }, {
+}, {
   type: 'game',
   id: 'world-in-conflict',
   title: 'World in Conflict: Soviet Assault',

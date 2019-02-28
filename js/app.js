@@ -489,6 +489,12 @@ class WebSite {
                     <div class="divider"></div>
                     <div class="section">
                         <div class="row">
+                            <div class="col s12"><div class="">${item.description}</div></div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="section">
+                        <div class="row">
                             <div class="col s12 m3"><div class="off-white soft-grey-text detail-header right">Platform(s):</div></div>
                             <div class="col s12 m9"><div class="detail-data">${platforms}</div></div>
                         </div>

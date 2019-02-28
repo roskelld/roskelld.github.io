@@ -14,7 +14,7 @@ header {
 }
 
 p {
-    margin: 0 1em 0 0;
+    margin: 0 0 0 0;
 }
 
 /* ****************************************************************************/
@@ -209,12 +209,10 @@ main {
         transition-property: width, height, bottom, right, transform;
         -webkit-transition-duration: 0.3s;
         transition-duration: 3s;
-        perspective: 900px;
     }
 }
 
 .logo:hover {
-    perspective: 900px;
     transform: rotate3d( 0, 0.99, 0, 180deg);
 }
 
@@ -404,8 +402,9 @@ main {
         margin: 60px 0 0 0;
     }
     .flex-column {
-        /* margin-right: 40px !important; */
         flex: 1;
+        margin-right:  2.5em    !important;
+        margin-left:   0em      !important;
     }
 }
 
@@ -440,11 +439,9 @@ main {
     }
     .flex-column {
         flex: 1;
+        margin-right:  3em      !important;
+        margin-left:   0em      !important;
     }
-}
-
-.flex-column {
-    /* margin-right: 40px; */
 }
 
 
@@ -606,6 +603,10 @@ h5 {
     /* IE 10+ */
     user-select: none !important;
     /* Likely future */
+}
+
+.section {
+    margin: 0 1em 0 1em;
 }
 
 .background-image {
