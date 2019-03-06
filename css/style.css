@@ -17,6 +17,9 @@ p {
     margin: 0 0 0 0;
 }
 
+.bold {
+    font-weight: 600 !important;
+}
 /* ****************************************************************************/
 /* SITE BORDER */
 /* ****************************************************************************/
@@ -169,7 +172,7 @@ main {
 }
 
 .sidenav {
-    width: 65% !important;
+    width: 90% !important;
     z-index: 1001 !important;
 }
 
@@ -178,14 +181,15 @@ main {
     font-size:      2em;
     padding: 0 0 0 0.5em;
     margin: 0;
+    width: 100%;
 }
 
 #sidenav-btn {
     display: block;
     position: fixed;
     z-index: 900;
-    right: 20px;
-    top: 25px;
+    right: 2px;
+    top: 14px;
 }
 
 @media screen and (min-width: 0px) {
@@ -193,7 +197,6 @@ main {
         display: none;
     }
 }
-
 
 @media screen and (min-width: 850px) {
     .logo {
@@ -304,9 +307,44 @@ main {
     overflow-y: scroll;
     display: inline-block;
     scroll-behavior: smooth;
-    height: 85%;
+    height: 82%;
     top: 6em;
 }
+
+.height-40px {
+    height: 40px !important;
+}
+
+.sidenav-link {
+    background-color: inherit !important;
+    font-size: 1em !important;
+    line-height: 3em !important;
+    width: 85%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block !important;
+    height: 40px !important;
+    padding-left: 5px !important;
+    vertical-align: inherit !important;
+}
+
+/* ****************************************************************************/
+/* POSITION */
+/* ****************************************************************************/
+
+@media screen and (min-width: 600px) {
+    .right-on-med-and-up {
+            float: right !important;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .right-on-large-and-up {
+            float: right !important;
+    }
+}
+
 /* ****************************************************************************/
 /* ICONS */
 /* ****************************************************************************/
@@ -318,6 +356,10 @@ main {
     margin: 0 0 0 1em;
 }
 
+.img-icon {
+    width: 40px;
+    display: inline-block;
+}
 /* ****************************************************************************/
 /* GRID */
 /* ****************************************************************************/
@@ -566,8 +608,6 @@ p.caption {
 
 h3 {
     font-size: 1.7em   !important;
-    margin-top: 2em    !important;
-    margin-bottom: 2em !important;
 }
 
 h4 {
@@ -719,12 +759,12 @@ h5 {
 }
 
 .detail-header {
-    padding: 0.1em;
+    /* padding: 0.1em;
     padding-left: 0.3em;
     padding-right: 0.3em;
-    border-radius: 0.1em;
-    font-weight: 500;
-    font-stretch: semi-expanded;
+    border-radius: 0.1em; */
+    /* font-stretch: semi-expanded; */
+    font-weight: 700;
 }
 
 .unreleased {
@@ -738,18 +778,9 @@ h5 {
 }
 
 .detail-data {
-    padding-left: 1em;
+    /* padding-left: 1em; */
     /* width:        30em; */
 }
-
-td.detail-header {
-    width: 10em;
-}
-
-td.detail-data {
-    width: 80%;
-}
-
 
 
 .contentdetail {
@@ -849,6 +880,14 @@ code {
 .hover-gray-to-color:focus, .hover-gray-to-color:active {
     filter: grayscale(0);
     opacity: 1;
+}
+
+.padding-left-0 {
+    padding-left: 0 !important;
+}
+
+.padding-right-0 {
+    padding-right: 0 !important;
 }
 
 /* ****************************************************************************/
@@ -1227,3 +1266,12 @@ html.shh * {
         cursor: url("../img/sprites/shh-1.png") 16 16, auto;
     }
 }
+
+/* DEBUG */
+/* .row {
+    border: 1px dashed black !important;
+}
+
+.col {
+    border: 1px dashed green !important;
+} */

@@ -13,7 +13,7 @@ const data = [
   publisher: '',
   team_size: 7,
   dev_time: '',
-  role: 'Director',
+  role: ['Director'],
   work: ['Presenting', 'Management', 'Social Media', 'Organizer'],
   trailer: '',
   embed: ``,
@@ -34,7 +34,7 @@ const data = [
   publisher: '',
   team_size: 1,
   dev_time: '3 months',
-  role: 'Lead Designer / Programmer',
+  role: ['Lead Designer', 'Programmer'],
   work: [],
   trailer: '',
   embed: ``,
@@ -53,7 +53,7 @@ const data = [
   publisher: '',
   team_size: 1,
   dev_time: '3 Days',
-  role: 'Lead Designer / Programmer',
+  role: ['Lead Designer', 'Programmer'],
   work: ['Programming', 'Locomotion', 'Systems'],
   trailer: 'https://www.youtube.com/watch?v=vHKVKo0JcFA&',
   embed: ``,
@@ -73,7 +73,7 @@ const data = [
  publisher: '',
  team_size: 1,
  dev_time: '7 Days',
- role: 'Lead Designer',
+ role: ['Lead Designer'],
  work: ['Programming', 'Animation', 'Audio', 'Art', 'Design'],
  trailer: 'https://www.youtube.com/watch?v=1udX_m3nE2s',
  images: [''],
@@ -96,7 +96,7 @@ const data = [
   publisher: 'PrimeVR',
   team_size: 2,
   dev_time: '3 months',
-  role: 'Lead Designer / Programmer / Artist',
+  role: ['Lead Designer', 'Programmer', 'Artist'],
   work: ['Design', 'UI System', 'UX Design', 'Textures'],
   trailer: '',
   embed: ``,
@@ -118,7 +118,7 @@ const data = [
   publisher: 'PrimeVR',
   team_size: 2,
   dev_time: '2 Weeks',
-  role: 'Lead Designer / Programmer / Artist',
+  role: ['Lead Designer', 'Programmer', 'Artist'],
   work: ['Design', 'UI System', 'UX Design', 'Textures'],
   trailer: '',
   embed: ``,
@@ -138,7 +138,7 @@ const data = [
   publisher: 'PrimeVR',
   team_size: 2,
   dev_time: '3 Months',
-  role: 'Lead Designer / Programmer / Artist',
+  role: ['Lead Designer', 'Programmer', 'Artist'],
   work: ['Design', 'UI System', 'UX Design', 'Textures'],
   trailer: '',
   embed: ``,
@@ -156,7 +156,7 @@ const data = [
   publisher: 'PrimeVR / Steam',
   team_size: 3,
   dev_time: '3 months',
-  role: 'Lead Designer / Programmer / Artist / Modeller',
+  role: ['Lead Designer', 'Programmer', 'Artist', 'Modeller'],
   work: ['Game Design', 'Level Layouts', 'Level Art', 'Textures', 'Game Controls', 'Locomotion', 'UI System', 'Game Loop', 'Game Balancing', 'Testing', 'Sound', 'Animation', '3D Models'],
   trailer: 'https://www.youtube.com/watch?v=3lWZAOnabWw',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/3lWZAOnabWw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
@@ -173,11 +173,11 @@ const data = [
   publisher: 'EA',
   team_size: 477,
   dev_time: '1 year',
-  role: 'Senior Designer',
+  role: ['Senior Designer'],
   work: ['Quest Design', 'Gameplay Systems', 'Level Design', 'Puzzle Design', 'Open World Design', 'Combat Layout', 'Level Scripting', 'Documentation', 'Technical Design', 'Story Development'],
   trailer: 'https://www.youtube.com/watch?v=X6PJEmEHIaY',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/X6PJEmEHIaY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title. Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title. Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title. Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title. Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'daitres',
@@ -190,11 +190,12 @@ const data = [
   publisher: 'EA',
   team_size: 300,
   dev_time: '5 months',
-  role: 'Senior Designer',
+  role: ['Senior Designer'],
   work: ['Quest Design', 'Gameplay Systems', 'Level Design', 'Puzzle Design', 'Combat Layout', 'Level Scripting', 'Documentation', 'Technical Design', 'Boss Fight'],
   trailer: 'https://www.youtube.com/watch?v=bUQKGFMfXx0',
+  website: 'https://www.ea.com/games/dragon-age/dragon-age-inquisition/dlc/single-player/trespasser',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/bUQKGFMfXx0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'daihak',
@@ -207,11 +208,11 @@ const data = [
   publisher: 'EA',
   team_size: 317,
   dev_time: '3 months',
-  role: 'Senior Designer',
+  role: ['Senior Designer'],
   work: ['Quest Design', 'Level Design', 'Puzzle Design', 'Open World Design', 'Combat Layout', 'Level Scripting', 'Documentation'],
   trailer: 'https://www.youtube.com/watch?v=LwIPATzk9fI',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/LwIPATzk9fI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'dai',
@@ -224,11 +225,11 @@ const data = [
   publisher: 'EA',
   team_size: 476,
   dev_time: '3 years 4 months',
-  role: 'Senior Designer',
+  role: ['Senior Designer'],
   work: ['Quest Design', 'Gameplay Systems', 'Level Design', 'Puzzle Design', 'Open World Design', 'Combat Layout', 'Level Scripting', 'Documentation'],
   trailer: 'https://www.youtube.com/watch?v=jJqxfkgSUog',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/jJqxfkgSUog" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'hoop',
@@ -241,7 +242,7 @@ const data = [
   publisher: 'Comic Relief',
   team_size: 4,
   dev_time: '24 hours',
-  role: 'Lead Designer',
+  role: ['Lead Designer'],
   work: ['Game Design', 'Game Controls', 'Level Design', 'UI System', 'Balancing', 'Scoring Sytem'],
   trailer: '',
   embed: '',
@@ -258,7 +259,7 @@ const data = [
     publisher: 'N/A',
     team_size: 4,
     dev_time: '2 Months',
-    role: 'Designer',
+    role: ['Senior Designer'],
     work: ['Game Design', 'Game Controls', 'Level Design', 'UI System', 'Balancing', 'Scoring Sytem'],
     trailer: 'https://www.youtube.com/watch?v=WO4AP72_QaA',
     embed: '',
@@ -275,11 +276,11 @@ const data = [
   publisher: 'Sierra Entertainment',
   team_size: 100,
   dev_time: '6 Months',
-  role: 'Senior Designer',
+  role: ['Senior Designer'],
   work: ['Game Controls', 'UI System', 'Frontend Design', 'UX Design'],
   trailer: 'https://www.youtube.com/watch?v=e45Q-f3RxBI',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/e45Q-f3RxBI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'made-man',
@@ -292,7 +293,7 @@ const data = [
   publisher: 'Mastertronic / Aspyr',
   team_size: 24,
   dev_time: '1 year 5 months',
-  role: 'Level Designer',
+  role: ['Senior Level Designer'],
   work: ['Level Design', 'Combat Design', 'Level Scripting', 'Boss Fight', 'Contract Pitching'],
   trailer: 'https://www.youtube.com/watch?v=dbpi8GIcmGQ',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/dbpi8GIcmGQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
@@ -309,11 +310,11 @@ const data = [
   publisher: 'Zee Three',
   team_size: 5,
   dev_time: '1 Year',
-  role: 'Level Designer',
+  role: ['Level Designer'],
   work: ['Level Design'],
   trailer: 'https://www.youtube.com/watch?v=nOKVbB9TLT8&t=1s',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/nOKVbB9TLT8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'sup',
@@ -326,11 +327,11 @@ const data = [
   publisher: 'N/A',
   team_size: 12,
   dev_time: '9 months',
-  role: 'Senior Designer',
+  role: ['Senior Designer'],
   work: ['Gameplay Design', 'Level Design', 'Game Controls', 'UX Design', 'UI Design', 'Combat Design', 'Level Scripting', 'Balancing', 'Scoring System'],
   trailer: 'https://www.youtube.com/watch?v=EB5dFdqQBi0',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/EB5dFdqQBi0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'mom',
@@ -343,11 +344,11 @@ const data = [
   publisher: 'N/A',
   team_size: 8,
   dev_time: '3 months',
-  role: 'Senior Designer',
+  role: ['Senior Designer'],
   work: ['Level Design', 'Gameplay Design', 'Game Controls', 'UX Design'],
   trailer: 'https://www.youtube.com/watch?v=8mDgSg4hH60',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/8mDgSg4hH60" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'ani',
@@ -360,11 +361,11 @@ const data = [
   publisher: 'Ignition Entertainment',
   team_size: 30,
   dev_time: '1 year',
-  role: 'Senior Designer',
+  role: ['Senior Designer'],
   work: ['Level Design', 'Level Scripting', 'Cutscene Scripting'],
   trailer: 'https://www.youtube.com/watch?v=MNAFU-jgE7Y',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/MNAFU-jgE7Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'lon',
@@ -377,11 +378,11 @@ const data = [
   publisher: 'EA / Warner Bros.',
   team_size: 54,
   dev_time: '1 year',
-  role: 'Senior Designer',
+  role: ['Senior Designer'],
   work: ['Level Design', 'Level Modelling', 'Gameplay Design', 'Puzzle Design', 'Combat Design', 'Cutscene Scripting', 'Level Scripting'],
   trailer: 'https://www.youtube.com/watch?v=jytzJqfQHbw',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/jytzJqfQHbw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'xls',
@@ -394,11 +395,11 @@ const data = [
   publisher: 'EA',
   team_size: 44,
   dev_time: '1 year 7 months',
-  role: 'Lead Designer / Producer',
+  role: ['Lead Designer', 'Producer'],
   work: ['Concept Design', 'Gameplay Design', 'Level Design', 'Combat Design', 'Vehicle Design', 'Boss Fight', 'Vocal Script', 'Story', 'Quest Design', 'Team Management', 'Publisher Management', 'UI System', 'UX Design', 'Documentation', 'Voice Acting Direction', 'Recruitment'],
   trailer: 'https://www.youtube.com/watch?v=W8aPSUe2W48',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/W8aPSUe2W48" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'als',
@@ -411,11 +412,11 @@ const data = [
   publisher: 'EA',
   team_size: 14,
   dev_time: '1 year',
-  role: 'Senior Designer',
+  role: ['Senior Designer'],
   work: ['Concept Design', 'Gameplay Design', 'Level Design', 'UI Design', 'Level Scripting'],
   trailer: 'https://www.youtube.com/watch?v=-iTPrgfo-vY',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/-iTPrgfo-vY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'li2',
@@ -428,11 +429,11 @@ const data = [
   publisher: 'LEGO Media',
   team_size: 14,
   dev_time: '1 year',
-  role: 'Designer',
+  role: ['Designer'],
   work: ['Level Design', 'Gameplay Design', 'Level Scripting', 'UI Design', 'UX Design', 'Development Tools Design'],
   trailer: 'https://www.youtube.com/watch?v=Ja_nR1sSgUc',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Ja_nR1sSgUc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }, {
   type: 'game',
   id: 'dow',
@@ -445,7 +446,7 @@ const data = [
   publisher: 'Take-Two Interactive',
   team_size: 24,
   dev_time: '8 Months',
-  role: 'Lead Tester',
+  role: ['Lead Tester'],
   work: ['Level Testing', 'UI Testing', 'Multiplayer Testing', 'Team Management', 'Game Guide Writing', 'Build Compiling'],
   trailer: 'https://www.youtube.com/watch?v=tIHYeDl6-qk',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/tIHYeDl6-qk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
@@ -462,7 +463,7 @@ const data = [
   publisher: 'SouthPeak Interactive',
   team_size: 25,
   dev_time: '2 months',
-  role: 'QA',
+  role: ['Tester'],
   work: ['Front-End Testing', 'UI Testing', 'Multiplayer Testing'],
   trailer: 'https://www.youtube.com/watch?v=S5AJLvEUPGE',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/S5AJLvEUPGE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
@@ -479,9 +480,9 @@ const data = [
   publisher: 'Eidos Interactive',
   team_size: 50,
   dev_time: '2 months',
-  role: 'QA',
+  role: ['Tester'],
   work: ['Multiplayer Testing'],
   trailer: 'https://www.youtube.com/watch?v=YUr3D32rluE',
   embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/YUr3D32rluE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
+  description: ''
 }];

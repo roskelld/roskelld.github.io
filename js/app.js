@@ -34,6 +34,11 @@ class WebSite {
         this.sideNavOptions = {};
         this.sideNavInstances = M.Sidenav.init( sideNav, this.sideNavOptions );
 
+
+        const collapsible = document.querySelectorAll( '.collapsible' );
+        this.collapsibleOptions = {};
+        this.collapsibleInstances = M.Collapsible.init( collapsible, this.collapsibleOptions );
+
         this.photosEl = document.querySelectorAll('.materialboxed');
         this.photosOptions = {};
         this.photosInstances = M.Materialbox.init( this.photosEl, this.photosOptions );
@@ -167,7 +172,7 @@ class WebSite {
     }
 
     selectTab( tabId ) {
-        if ( typeof tabId == 'undefined' ) return;
+        if ( typeof tabId === 'undefined' || tabId == '' ) return;
         this.tabMainInstances.select( tabId );
         this.nav.buttons.all.forEach( button => button.classList.remove('active') );
         this.nav.buttons[tabId].classList.add( 'active' );
@@ -192,6 +197,8 @@ class WebSite {
             }, false );
         });
     }
+
+
 
     setMenuLinks() {
         this.nav.buttons.all.forEach( button => {
@@ -279,6 +286,22 @@ class WebSite {
         return colDiv;
     }
 
+    generateMobileLink( item, containerId ) {
+        // <li><a href="#applications?sparkw">Sparkshot</a></li>
+        const li = document.createElement( 'li' );
+        const img = document.createElement( 'img' );
+        const a  = document.createElement( 'a' );
+        li.classList.add( 'height-40px' );
+        a.classList.add( 'sidenav-link', 'hvr-bounce-to-right', 'soft-grey-text-2' );
+        a.href = `#${containerId}?${item.id}`;
+        a.textContent = `${item.title}`;
+        img.src = `img/product/${item.id}.png`;
+        img.classList.add( 'img-icon' );
+        li.appendChild( img );
+        li.appendChild( a );
+        return li;
+    }
+
     generateFakeTab( item ) {
         const tab = document.createElement( 'li' );
         const tabLink = document.createElement( 'a' );
@@ -363,90 +386,70 @@ class WebSite {
     // GAMES
 
     gameCardGenerator( data, containerId ) {
+
         // step through the data and build DOM elements, then add to container
         const container = document.querySelector( `#${containerId}` );
         const links = container.querySelector( '.contentlinks' );
         const detail  = container.querySelector( '.contentdetail' );
         const tabs    = document.querySelector( '#tab-container' );
+        const mobileLinks = document.querySelector( '#mobile-games-links' );
 
         data.forEach( (item, i) => {
-            // GENERATE LINKS
+            // GENERATE CARD LINK
             links.appendChild( this.generateCard( item ) );
+            mobileLinks.appendChild( this.generateMobileLink( item, containerId ) );
 
             // GENERATE CONTENT TAB
             // Futz around with the ul tabs because Materialize seems to need one
             const tab = this.generateFakeTab( item );
             tabs.appendChild( tab );
 
-            // GENERATE DETAIL
-            let platforms = `${this.split} `;
-            item.platforms.forEach( x => { platforms += `${x} ${this.split} `; } );         // Generate All Platforms string
-
-            let tech = `${this.split} `;
-            item.technology.forEach( x => { tech += `${x} ${this.split} `} );
-
-            let tasks = `${this.split} `;
-            item.work.forEach( x => { tasks += `${x} ${this.split} `} );
-
+            // Add Content
             const detailDiv = document.createElement( 'div' );
-            detailDiv.classList.add( 'col', 's12' );
             detailDiv.id = `content-${item.id}`;
+            detailDiv.classList.add( 'section', 'content-panel' );
 
-            detailDiv.innerHTML = `
-                <div id="games" class="section content-panel">
-                    <div class="row">
-                        <div class="col s12"><div class="soft-grey-text title center-align">${item.title}</div></div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="section">
-                        <div class="row">
-                            <div class="col s12 m3"><div class="off-white soft-grey-text detail-header right">Platform(s):</div></div>
-                            <div class="col s12 m9"><div class="detail-data">${platforms}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Genre:</div></div>
-                            <div class="col s3"><div class="detail-data">${item.genre}</div></div>
-                            <div class="col s2"><div class="off-white soft-grey-text detail-header right">Company:</div></div>
-                            <div class="col s4"><div class="detail-data">${item.company}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Release:</div></div>
-                            <div class="col s2"><div class="detail-data">${item.release}</div></div>
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Publisher:</div></div>
-                            <div class="col s4"><div class="detail-data">${item.publisher}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Role:</div></div>
-                            <div class="col s9"><div class="detail-data">${item.role}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Responsibilities:</div></div>
-                            <div class="col s9"><div class="detail-data">${tasks}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Technology:</div></div>
-                            <div class="col s9"><div class="detail-data">${tech}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Team Size:</div></div>
-                            <div class="col s9"><div class="detail-data">${item.team_size}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Dev Time:</div></div>
-                            <div class="col s9"><div class="detail-data">${item.dev_time}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Trailer:</div></div>
-                            <div class="col s9"><div class="detail-data"><a href="${item.trailer}"><i class="fas fa-film fa-2x"></i></a></div></div>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                </div>`;
+            detailDiv.appendChild( this.createTitle( item.title ) );
+            // detailDiv.appendChild( this.createDivider() );
+            detailDiv.appendChild( this.createGroupText( item.platforms, 'Platform' ) );
+
+            const row1 = this.createRow();
+            row1.appendChild( this.createItemText( item.genre, 'Genre' ) );
+            row1.appendChild( this.createItemText( item.release, 'Release' ) );
+            detailDiv.appendChild( row1 );
+
+            const row2 = this.createRow();
+            row2.appendChild( this.createItemText( item.company, 'Company' ) );
+            row2.appendChild( this.createItemText( item.publisher, 'Publisher' ) );
+            detailDiv.appendChild( row2 );
+
+            detailDiv.appendChild( this.createGroupText( item.role, 'Role' ) );
+            detailDiv.appendChild( this.createGroupText( item.work, 'Responsibility' ) );
+
+            detailDiv.appendChild( this.createGroupText( item.technology, 'Technology' ) );
+
+            const row4 = this.createRow();
+            row4.appendChild( this.createItemText( item.team_size, 'Team Size' ) );
+            row4.appendChild( this.createItemText( item.dev_time, 'Dev Time' ) );
+            detailDiv.appendChild( row4 );
+
+            const row5 = this.createRow();
+            if ( item.trailer ) row5.appendChild( this.createVideoLink( item.trailer, 'Trailer' ) );
+            if ( item.website ) row5.appendChild( this.createLink( item.website, 'Website' ) );
+            detailDiv.appendChild( row5 );
+
+            if ( item.description ) {
+                const row6 = this.createRow();
+                row6.appendChild( this.createDivider() );
+                row6.appendChild( this.createBlockText( item.description, 'Description' ) );
+                detailDiv.appendChild( row6 );
+            }
+
             detail.appendChild( detailDiv );
-        });
 
-        // <div class="col s12"><div class="center">${item.embed}</div></div>
+        });
     }
+
 
     ////////////////////////////////////////////////////////////////////////////
     // APPLICATIONS
@@ -457,99 +460,66 @@ class WebSite {
         const links = container.querySelector( '.contentlinks' );
         const detail  = container.querySelector( '.contentdetail' );
         const tabs    = document.querySelector( '#tab-container' );
+        const mobileLinks = document.querySelector( '#mobile-applications-links' );
 
         data.forEach( (item, i) => {
-            // GENERATE LINKS
+            // GENERATE CARD LINK
             links.appendChild( this.generateCard( item ) );
+            mobileLinks.appendChild( this.generateMobileLink( item, containerId ) );
 
             // GENERATE CONTENT TAB
             // Futz around with the ul tabs because Materialize seems to need one
             const tab = this.generateFakeTab( item );
             tabs.appendChild( tab );
 
-            // GENERATE DETAIL
-            let platforms = `${this.split} `;
-            item.platforms.forEach( x => { platforms += `${x} ${this.split} `; } );         // Generate All Platforms string
-
-            let tech = `${this.split} `;
-            item.technology.forEach( x => { tech += `${x} ${this.split} `} );
-
-            let tasks = `${this.split} `;
-            item.work.forEach( x => { tasks += `${x} ${this.split} `} );
-
+            // Add Content
             const detailDiv = document.createElement( 'div' );
-            detailDiv.classList.add( 'col', 's12' );
             detailDiv.id = `content-${item.id}`;
+            detailDiv.classList.add( 'section', 'content-panel' );
 
-            detailDiv.innerHTML = `
-                <div id="section-${item.id}" class="section content-panel">
-                    <div class="row">
-                        <div class="col s12"><div class="title center-align">${item.title}</div></div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="section">
-                        <div class="row">
-                            <div class="col s12"><div class="">${item.description}</div></div>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="section">
-                        <div class="row">
-                            <div class="col s12 m3"><div class="off-white soft-grey-text detail-header right">Platform(s):</div></div>
-                            <div class="col s12 m9"><div class="detail-data">${platforms}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Genre:</div></div>
-                            <div class="col s3"><div class="detail-data">${item.genre}</div></div>
-                            <div class="col s2"><div class="off-white soft-grey-text detail-header right">Company:</div></div>
-                            <div class="col s4"><div class="detail-data">${item.company}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Release:</div></div>
-                            <div class="col s2"><div class="detail-data">${item.release}</div></div>
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Publisher:</div></div>
-                            <div class="col s4"><div class="detail-data">${item.publisher}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Role:</div></div>
-                            <div class="col s9"><div class="detail-data">${item.role}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Responsibilities:</div></div>
-                            <div class="col s9"><div class="detail-data">${tasks}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Technology:</div></div>
-                            <div class="col s9"><div class="detail-data">${tech}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Team Size:</div></div>
-                            <div class="col s9"><div class="detail-data">${item.team_size}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Dev Time:</div></div>
-                            <div class="col s9"><div class="detail-data">${item.dev_time}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Link:</div></div>
-                            <div class="col s9"><div class="detail-data"><a href="${item.link}">${item.link}</a></div></div>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="section">
-                        <div class="row">
-                            <div class="col s12"><div class="center">${item.embed}</div></div>
+            detailDiv.appendChild( this.createTitle( item.title ) );
+            // detailDiv.appendChild( this.createDivider() );
+            detailDiv.appendChild( this.createGroupText( item.platforms, 'Platform' ) );
 
-                        </div>
-                    </div>
-                </div>`;
+            const row1 = this.createRow();
+            row1.appendChild( this.createItemText( item.genre, 'Genre' ) );
+            row1.appendChild( this.createItemText( item.release, 'Release' ) );
+            detailDiv.appendChild( row1 );
+
+            const row2 = this.createRow();
+            row2.appendChild( this.createItemText( item.company, 'Company' ) );
+            row2.appendChild( this.createItemText( item.publisher, 'Publisher' ) );
+            detailDiv.appendChild( row2 );
+
+            detailDiv.appendChild( this.createGroupText( item.role, 'Role' ) );
+            detailDiv.appendChild( this.createGroupText( item.work, 'Responsibility' ) );
+
+            detailDiv.appendChild( this.createGroupText( item.technology, 'Technology' ) );
+
+            const row4 = this.createRow();
+            row4.appendChild( this.createItemText( item.team_size, 'Team Size' ) );
+            row4.appendChild( this.createItemText( item.dev_time, 'Dev Time' ) );
+            detailDiv.appendChild( row4 );
+
+            const row5 = this.createRow();
+            if ( item.trailer ) row5.appendChild( this.createVideoLink( item.trailer, 'Trailer' ) );
+            if ( item.website ) row5.appendChild( this.createLink( item.website, 'Website' ) );
+            detailDiv.appendChild( row5 );
+
+            if ( item.description ) {
+                const row6 = this.createRow();
+                row6.appendChild( this.createDivider() );
+                row6.appendChild( this.createBlockText( item.description, 'Description' ) );
+                detailDiv.appendChild( row6 );
+            }
+
             detail.appendChild( detailDiv );
-        });
 
+        });
     }
 
     ////////////////////////////////////////////////////////////////////////////
-    // APPLICATIONS
+    // PROJECTS
 
     projectCardGenerator( data, containerId ) {
         // step through the data and build DOM elements, then add to container
@@ -557,93 +527,238 @@ class WebSite {
         const links = container.querySelector( '.contentlinks' );
         const detail  = container.querySelector( '.contentdetail' );
         const tabs    = document.querySelector( '#tab-container' );
+        const mobileLinks = document.querySelector( '#mobile-projects-links' );
 
         data.forEach( (item, i) => {
-            // GENERATE LINKS
+            // GENERATE CARD LINK
             links.appendChild( this.generateCard( item ) );
+            mobileLinks.appendChild( this.generateMobileLink( item, containerId ) );
 
             // GENERATE CONTENT TAB
             // Futz around with the ul tabs because Materialize seems to need one
             const tab = this.generateFakeTab( item );
             tabs.appendChild( tab );
 
-            // GENERATE DETAIL
-            let platforms = `${this.split} `;
-            item.platforms.forEach( x => { platforms += `${x} ${this.split} `; } );         // Generate All Platforms string
-
-            let tech = `${this.split} `;
-            item.technology.forEach( x => { tech += `${x} ${this.split} `} );
-
-            let tasks = `${this.split} `;
-            item.work.forEach( x => { tasks += `${x} ${this.split} `} );
-
+            // Add Content
             const detailDiv = document.createElement( 'div' );
-            detailDiv.classList.add( 'col', 's12' );
             detailDiv.id = `content-${item.id}`;
+            detailDiv.classList.add( 'section', 'content-panel' );
 
-            detailDiv.innerHTML = `
-                <div id="section-${item.id}" class="section content-panel">
-                    <div class="row">
-                        <div class="col s12"><div class="title center-align">${item.title}</div></div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="section">
-                        <div class="row">
-                            <div class="col s12"><div class="">${item.description}</div></div>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="section">
-                        <div class="row">
-                            <div class="col s12 m3"><div class="off-white soft-grey-text detail-header right">Platform(s):</div></div>
-                            <div class="col s12 m9"><div class="detail-data">${platforms}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Genre:</div></div>
-                            <div class="col s3"><div class="detail-data">${item.genre}</div></div>
-                            <div class="col s2"><div class="off-white soft-grey-text detail-header right">Company:</div></div>
-                            <div class="col s4"><div class="detail-data">${item.company}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Release:</div></div>
-                            <div class="col s2"><div class="detail-data">${item.release}</div></div>
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Publisher:</div></div>
-                            <div class="col s4"><div class="detail-data">${item.publisher}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Role:</div></div>
-                            <div class="col s9"><div class="detail-data">${item.role}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Responsibilities:</div></div>
-                            <div class="col s9"><div class="detail-data">${tasks}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Technology:</div></div>
-                            <div class="col s9"><div class="detail-data">${tech}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Team Size:</div></div>
-                            <div class="col s9"><div class="detail-data">${item.team_size}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Dev Time:</div></div>
-                            <div class="col s9"><div class="detail-data">${item.dev_time}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Link:</div></div>
-                            <div class="col s9"><div class="detail-data"><a href="${item.link}">${item.link}</a></div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s3"><div class="off-white soft-grey-text detail-header right">Trailer:</div></div>
-                            <div class="col s9"><div class="detail-data"><a href="${item.trailer}"><i class="fas fa-film fa-2x"></i></a></div></div>
-                        </div>
-                    </div>
-                </div>`;
+            detailDiv.appendChild( this.createTitle( item.title ) );
+            // detailDiv.appendChild( this.createDivider() );
+            detailDiv.appendChild( this.createGroupText( item.platforms, 'Platform' ) );
+
+            const row1 = this.createRow();
+            row1.appendChild( this.createItemText( item.genre, 'Genre' ) );
+            row1.appendChild( this.createItemText( item.release, 'Release' ) );
+            detailDiv.appendChild( row1 );
+
+            const row2 = this.createRow();
+            row2.appendChild( this.createItemText( item.company, 'Company' ) );
+            // row2.appendChild( this.createItemText( item.publisher, 'Publisher' ) );
+            detailDiv.appendChild( row2 );
+
+            detailDiv.appendChild( this.createGroupText( item.role, 'Role' ) );
+            detailDiv.appendChild( this.createGroupText( item.work, 'Responsibility' ) );
+
+            detailDiv.appendChild( this.createGroupText( item.technology, 'Technology' ) );
+
+            const row4 = this.createRow();
+            row4.appendChild( this.createItemText( item.team_size, 'Team Size' ) );
+            row4.appendChild( this.createItemText( item.dev_time, 'Dev Time' ) );
+            detailDiv.appendChild( row4 );
+
+            const row5 = this.createRow();
+            if ( item.trailer ) row5.appendChild( this.createVideoLink( item.trailer, 'Video' ) );
+            if ( item.website ) row5.appendChild( this.createLink( item.website, 'Website' ) );
+            detailDiv.appendChild( row5 );
+
+            if ( item.description ) {
+                const row6 = this.createRow();
+                row6.appendChild( this.createDivider() );
+                row6.appendChild( this.createBlockText( item.description, 'Description' ) );
+                detailDiv.appendChild( row6 );
+            }
 
             detail.appendChild( detailDiv );
-        });
 
+        });
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // LAYOUT METHODS
+
+    createTitle( title ) {
+        // TITLE
+        const divRow = document.createElement( 'div' );
+        const divCol = document.createElement( 'div' );
+        const div = document.createElement( 'div' );
+        divRow.classList.add( 'row' );
+        divCol.classList.add( 'col', 's12' );
+        div.classList.add( 'soft-grey-text', 'title', 'center-align' );
+        div.textContent = title;
+        divCol.appendChild( div );
+        divRow.appendChild( divCol );
+
+        return divRow;
+    }
+
+    createGroupText( group, title ) {
+        let groupText = ( group.length > 1 ) ? `${this.split} ` : '';
+        group.forEach( x => {
+            groupText += ` ${x} `;
+            groupText += ( group.length > 1 ) ? ` ${this.split}` : '';
+        } );         // Generate Group string
+
+        // Group
+        const divRow = document.createElement( 'div' );
+        const divColTitle = document.createElement( 'div' );
+        const divColContent = document.createElement( 'div' );
+        const divTitle = document.createElement( 'div' );
+        const divContent = document.createElement( 'div' );
+        divRow.classList.add( 'row' );
+        divColTitle.classList.add( 'col', 's12', 'm3' );
+        divColContent.classList.add( 'col', 's12', 'm7' );
+        divTitle.classList.add( 'soft-grey-text', 'detail-header', 'right-on-med-and-up' );
+        divContent.classList.add( 'soft-grey-text', 'detail-data' );
+
+        if ( group.length > 1 ) {
+            if ( title.substring(title.length, title.length-1) === 'y' )
+                divTitle.textContent = `${title.substring(0, title.length -1)}ies`;
+            else
+                divTitle.textContent = `${title}s`;
+        } else {
+            divTitle.textContent = `${title}:`;
+        }
+        divContent.textContent = groupText;
+
+        divColTitle.appendChild( divTitle );
+        divRow.appendChild( divColTitle );
+        divColContent.appendChild( divContent );
+        divRow.appendChild( divColContent );
+
+        return divRow;
+    }
+
+    createItemText( item, title ) {
+
+        // Container
+        const div = document.createElement( 'div' );
+        div.classList.add( 'col', 's6', 'padding-left-0', 'padding-right-0' );
+        // Item
+        const divTitleCol = document.createElement( 'div' );
+        divTitleCol.classList.add( 'col', 's12', 'm6' );
+
+        const divContentCol = document.createElement( 'div' );
+        divContentCol.classList.add( 'col', 's12', 'm6' );
+
+        const divTitle = document.createElement( 'div' );
+        divTitle.classList.add( 'soft-grey-text', 'detail-header', 'right-on-med-and-up' );
+        divTitle.textContent = `${title}:`;
+
+        const divContent = document.createElement( 'div' );
+        divContent.classList.add( 'soft-grey-text', 'detail-data' );
+        divContent.textContent = item;
+
+        divTitleCol.appendChild( divTitle );
+        div.appendChild( divTitleCol );
+
+        divContentCol.appendChild( divContent );
+        div.appendChild( divContentCol );
+
+        return div;
+    }
+
+    createVideoLink( link, title ) {
+        // Container
+        const div = document.createElement( 'div' );
+        div.classList.add( 'col', 's6', 'padding-left-0', 'padding-right-0' );
+        // Item
+        const divTitleCol = document.createElement( 'div' );
+        divTitleCol.classList.add( 'col', 's12', 'm6' );
+
+        const divContentCol = document.createElement( 'div' );
+        divContentCol.classList.add( 'col', 's12', 'm6' );
+
+        const divTitle = document.createElement( 'div' );
+        divTitle.classList.add( 'soft-grey-text', 'detail-header', 'right-on-med-and-up' );
+        divTitle.textContent = `${title}:`;
+
+        const divContent = document.createElement( 'div' );
+        divContent.classList.add( 'soft-grey-text', 'detail-data' );
+        const a = document.createElement( 'a' );
+        a.href = link;
+        a.innerHTML = `<i class="fas fa-film fa-2x"></i>`;
+        a.target = "_none";
+        divContent.appendChild( a );
+
+        divTitleCol.appendChild( divTitle );
+        div.appendChild( divTitleCol );
+
+        divContentCol.appendChild( divContent );
+        div.appendChild( divContentCol );
+
+        return div;
+    }
+
+    createLink( link, title ) {
+        // Container
+        const div = document.createElement( 'div' );
+        div.classList.add( 'col', 's6', 'padding-left-0', 'padding-right-0' );
+        // Item
+        const divTitleCol = document.createElement( 'div' );
+        divTitleCol.classList.add( 'col', 's12', 'm6' );
+
+        const divContentCol = document.createElement( 'div' );
+        divContentCol.classList.add( 'col', 's12', 'm6' );
+
+        const divTitle = document.createElement( 'div' );
+        divTitle.classList.add( 'soft-grey-text', 'detail-header', 'right-on-med-and-up' );
+        divTitle.textContent = `Link:`;
+
+        const divContent = document.createElement( 'div' );
+        divContent.classList.add( 'soft-grey-text', 'detail-data' );
+        const a = document.createElement( 'a' );
+        a.href = link;
+        a.textContent = title;
+        a.target = "_none";
+        divContent.appendChild( a );
+
+        divTitleCol.appendChild( divTitle );
+        div.appendChild( divTitleCol );
+
+        divContentCol.appendChild( divContent );
+        div.appendChild( divContentCol );
+
+        return div;
+    }
+
+    createBlockText( text, title ) {
+        const div = document.createElement( 'div' );
+        div.classList.add( 'col', 's12', 'offset-m2', 'm8' );
+        const divTitle = document.createElement( 'h3' );
+        divTitle.textContent = title;
+
+        const p = document.createElement( 'p' );
+
+        p.innerHTML = text;
+
+        div.appendChild( divTitle );
+        div.appendChild( p );
+
+        return div;
+    }
+
+    createDivider() {
+        const div = document.createElement( 'div' )
+        div.classList.add( 'divider' );
+        return div;
+    }
+
+    createRow() {
+        const div = document.createElement( 'div' )
+        div.classList.add( 'row' );
+        return div;
     }
 
     ////////////////////////////////////////////////////////////////////////////
