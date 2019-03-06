@@ -297,7 +297,7 @@ class WebSite {
         const img = document.createElement( 'img' );
         const a  = document.createElement( 'a' );
         li.classList.add( 'height-40px' );
-        a.classList.add( 'sidenav-link', 'hvr-bounce-to-right', 'soft-grey-text-2' );
+        a.classList.add( 'sidenav-link', 'hvr-bounce-to-right', 'bold','soft-grey-text-2' );
         a.href = `#${containerId}?${item.id}`;
         a.textContent = `${item.title}`;
         a.onclick = () => { s.sideNavInstances[0].close(); };
