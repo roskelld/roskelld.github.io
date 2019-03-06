@@ -1,6 +1,4 @@
 'use strict';
-// import WebSite          from './site.js';
-
 
 class WebSite {
     constructor() {
@@ -24,12 +22,6 @@ class WebSite {
 
         // .....................................................................
         // INITIALIZE MATERIALIZE
-        const tabsMain = document.querySelector( '#main-nav-tabs' );
-        const tabsBody = document.querySelector( '#tab-container' );
-        this.tabMainOptions = { onShow: this.onTabSelected };
-        this.tabBodyInstances = M.Tabs.init( tabsBody, {} );
-        this.tabMainInstances = M.Tabs.init( tabsMain, this.tabMainOptions );
-
         const sideNav = document.querySelectorAll( '.sidenav' );
         this.sideNavOptions = {};
         this.sideNavInstances = M.Sidenav.init( sideNav, this.sideNavOptions );
@@ -39,20 +31,8 @@ class WebSite {
         this.collapsibleOptions = {};
         this.collapsibleInstances = M.Collapsible.init( collapsible, this.collapsibleOptions );
 
-        // this.photosEl = document.querySelectorAll('.materialboxed');
-        // this.photosOptions = {};
-        // this.photosInstances = M.Materialbox.init( this.photosEl, this.photosOptions );
-
         this.nav = {
             header:             document.querySelector('#nav-header'),
-            tabs:   {
-                home:           document.querySelector('#home'),
-                services:       document.querySelector('#services'),
-                games:          document.querySelector('#games'),
-                applications:   document.querySelector('#applications'),
-                projects:       document.querySelector('#projects'),
-                bio:            document.querySelector('#bio'),
-            },
             buttons: {
                 home:           document.querySelector('#home-menu-btn'),
                 services:       document.querySelector('#services-menu-btn'),
@@ -65,7 +45,6 @@ class WebSite {
                 all:            document.querySelectorAll('.menu-btn'),
             },
             cards: {
-                // services:           document.querySelector(`#services`).querySelector('.contentlinks').querySelectorAll('.card-link'),
                 games:              document.querySelector(`#games`).querySelector('.contentlinks').querySelectorAll('.card-link'),
                 applications:       document.querySelector(`#applications`).querySelector('.contentlinks').querySelectorAll('.card-link'),
                 projects:           document.querySelector(`#projects`).querySelector('.contentlinks').querySelectorAll('.card-link'),
@@ -77,7 +56,6 @@ class WebSite {
             main:               document.querySelector('main'),
             panels:             document.querySelectorAll('.product-panel'),
             background:         document.querySelectorAll('.background-image'),
-            // cards:              document.querySelectorAll('.card-link'),
             fullpage:           document.querySelectorAll( '.fullpage' ),
         }
 
@@ -102,9 +80,9 @@ class WebSite {
 
         window.addEventListener( 'resize', Utils.debounce( () => this.setFullPagePanelHeight(), 300 ));
 
-        this.content.fullpage.forEach( panel => {
-            this.setFullPagePanelHeight( panel );
-        });
+        // this.content.fullpage.forEach( panel => {
+        //     this.setFullPagePanelHeight( panel );
+        // });
 
         window.addEventListener( "scroll", e => {
             e.preventDefault();
@@ -120,8 +98,6 @@ class WebSite {
 
         this.fader.init();
     }
-
-
 
     openHashLocation() {
         const c =  window.location.hash;
@@ -141,7 +117,6 @@ class WebSite {
             }
 
         } else {
-            console.log( 'bing' );
             this.selectTab( 'home' );
         }
     }
@@ -149,37 +124,41 @@ class WebSite {
     onTabSelected( tab ) {
         // Generate Tab from URL if not given
         if ( typeof tab === 'undefined' || tab === null ) {
-            console.log( 'wangle' );
-            tab = {};
-            tab.id = window.location.hash.substr(1);;
+            tab = window.location.hash.substr(1);
         }
 
-        if ( tab.id === this.oldTab ) return;                                   // Ignore if tab hasn't changed
+        if ( tab === this.oldTab ) return;                                   // Ignore if tab hasn't changed
 
-        this.oldTab = tab.id;
+        this.oldTab = tab;
         window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
         s.setLogoScreenPosition();
 
         s.fader.reset();
 
-        if ( tab.id !== 'home' || tab.id !== 'bio' ) {
-            if ( typeof s.nav.cards[tab.id] == 'undefined' || typeof s.nav.cards[tab.id][0] == 'undefined' ) return;                                                // Reset Story
-            s.selectCard( s.nav.cards[tab.id][0].id.replace( 'card-', ''), tab.id );
-        }
-
+        if ( typeof s.nav.cards[tab] == 'undefined' || typeof s.nav.cards[tab][0] == 'undefined' ) return;                                                // Reset Story
+        s.selectCard( s.nav.cards[tab][0].id.replace( 'card-', ''), tab );
 
     }
 
     selectTab( tabId ) {
         if ( typeof tabId === 'undefined' || tabId == '' ) return;
 
-        // if URL is bad then go home
-        if ( window.location.hash.includes( 'content-') ) window.location.hash = '';
+        // Hide all content
+        const content = document.querySelectorAll( '.content-page' );
+        content.forEach( c => c.classList.add( 'hide') );
 
-        this.tabMainInstances.select( tabId );
-        this.nav.buttons.all.forEach( button => button.classList.remove('active') );
-
-        this.nav.buttons[tabId].classList.add( 'active' );
+        // Unhide selected content
+        const page = document.querySelector( `#${tabId}`);
+        if ( page !== null ) {
+            page.classList.remove( 'hide' );
+            this.nav.buttons.all.forEach( button => button.classList.remove('active') );
+            this.nav.buttons[tabId].classList.add( 'active' );
+            this.onTabSelected( tabId );
+        } else {
+            // if URL is bad then go home
+            this.selectTab( 'home' );
+            window.location.hash = 'home';
+        }
     }
 
     selectCard( cardId, tabId = 'all',  ) {
@@ -188,7 +167,13 @@ class WebSite {
         if ( typeof card === 'undefined' ) return;
         this.nav.cards.all.forEach( card => card.classList.remove('selected') );   // Remove highlight
         card.classList.add( 'selected' );
-        this.tabBodyInstances.select( `content-${cardId}` );                       // Select Content
+
+        // Hide all content
+        const content = document.querySelectorAll( '.content-panel' );
+        content.forEach( c => c.classList.add( 'hide') );
+
+        // Unhide selected content
+        document.querySelector( `#content-${cardId}`).classList.remove( 'hide' );
     }
 
     setCardLinks() {
@@ -196,13 +181,13 @@ class WebSite {
             card.addEventListener( 'click', e => {
                 this.selectCard( card.dataset.target );
                 // Update URI
-                const uri = `${this.tabMainInstances.$activeTabLink[0].hash}${this.itemURI}${card.dataset.target}`;
+                const h = window.location.hash;
+                const hash = ( h.includes("?") ) ? h.substr(0, h.indexOf("?") ) : h;
+                const uri = `${hash}${this.itemURI}${card.dataset.target}`;
                 window.history.pushState( { id: `#${uri}` }, 'Dean Roskell', `${uri}` );
             }, false );
         });
     }
-
-
 
     setMenuLinks() {
         this.nav.buttons.all.forEach( button => {
@@ -308,85 +293,6 @@ class WebSite {
         return li;
     }
 
-    generateFakeTab( item ) {
-        const tab = document.createElement( 'li' );
-        const tabLink = document.createElement( 'a' );
-        tab.classList.add( 'tab' );
-        tabLink.href = `#content-${item.id}`;
-        tabLink.textContent = `${item.id}`;
-        tab.appendChild( tabLink );
-        return tab;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // SERVICES
-
-    serviceCardGenerator( data, containerId, core ) {
-        // step through the data and build DOM elements, then add to container
-        const container = document.querySelector( `#${containerId}` );
-        const links = container.querySelector( '.contentlinks' );
-        const detail  = container.querySelector( '.contentdetail' );
-        const tabs    = document.querySelector( '#tab-container' );
-
-        data.forEach( (item, i) => {
-
-            // GENERATE LINKS
-            links.appendChild( this.generateTextCard( item ) );
-
-            // GENERATE CONTENT TAB
-            tabs.appendChild(  this.generateFakeTab( item ) );
-
-            let list = `` ;
-            // GENERATE DETAIL
-            item.work.forEach( x => {
-                list += `<li><div class="collapsible-header grey darken-4 blue-grey-text no-select">
-                            <i class="${core.work[x].icon}"></i> <span class="size-1-2">${x}</span></div>
-                            <div class="collapsible-body grey darken-4 blue-grey-text text-lighten-4"><span>${core.work[x].text}</span></div>`;
-            } );
-
-            // GENERATE DETAIL
-            const detailDiv = document.createElement( 'div' );
-            detailDiv.classList.add( 'col', 's12' );
-            detailDiv.id = `content-${item.id}`;
-
-            detailDiv.innerHTML = `
-                <div id="section-${item.id}" class="section content-panel">
-                    <div class="row"><div class="col s12"><div class="center-align"><h2>${item.title}</h2></div></div></div>
-                    <div class="row">
-                        <div class="col s12"><blockquote style="font-style: italic; font-size: 1.5em;">${item.quote}</blockquote></div>
-                    </div>
-
-                    <div class="section">
-                        <div class="row">
-                            <div class="col s12"><div class="size-1-2">${item.description}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s12"><div class="size-1-2">${core.description}</div></div>
-                        </div>
-                        <div class="row">
-                            <div class="col s12">
-                                <ul class="collapsible">
-                                    ${list}
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="section">
-
-                    </div>
-                </div>`;
-            detail.appendChild( detailDiv );
-        });
-
-        setTimeout(function () {
-            const el = document.querySelectorAll('.collapsible');
-            M.Collapsible.init( el, {} );
-
-        }, 10);
-
-    }
 
     ////////////////////////////////////////////////////////////////////////////
     // GAMES
@@ -397,7 +303,7 @@ class WebSite {
         const container = document.querySelector( `#${containerId}` );
         const links = container.querySelector( '.contentlinks' );
         const detail  = container.querySelector( '.contentdetail' );
-        const tabs    = document.querySelector( '#tab-container' );
+        // const tabs    = document.querySelector( '#tab-container' );
         const mobileLinks = document.querySelector( '#mobile-games-links' );
 
         data.forEach( (item, i) => {
@@ -405,15 +311,10 @@ class WebSite {
             links.appendChild( this.generateCard( item ) );
             mobileLinks.appendChild( this.generateMobileLink( item, containerId ) );
 
-            // GENERATE CONTENT TAB
-            // Futz around with the ul tabs because Materialize seems to need one
-            const tab = this.generateFakeTab( item );
-            tabs.appendChild( tab );
-
             // Add Content
             const detailDiv = document.createElement( 'div' );
             detailDiv.id = `content-${item.id}`;
-            detailDiv.classList.add( 'section', 'content-panel' );
+            detailDiv.classList.add( 'section', 'content-panel', 'hide' );
 
             detailDiv.appendChild( this.createTitle( item.title ) );
             // detailDiv.appendChild( this.createDivider() );
@@ -471,11 +372,6 @@ class WebSite {
             // GENERATE CARD LINK
             links.appendChild( this.generateCard( item ) );
             mobileLinks.appendChild( this.generateMobileLink( item, containerId ) );
-
-            // GENERATE CONTENT TAB
-            // Futz around with the ul tabs because Materialize seems to need one
-            const tab = this.generateFakeTab( item );
-            tabs.appendChild( tab );
 
             // Add Content
             const detailDiv = document.createElement( 'div' );
@@ -538,11 +434,6 @@ class WebSite {
             // GENERATE CARD LINK
             links.appendChild( this.generateCard( item ) );
             mobileLinks.appendChild( this.generateMobileLink( item, containerId ) );
-
-            // GENERATE CONTENT TAB
-            // Futz around with the ul tabs because Materialize seems to need one
-            const tab = this.generateFakeTab( item );
-            tabs.appendChild( tab );
 
             // Add Content
             const detailDiv = document.createElement( 'div' );
@@ -843,7 +734,6 @@ class Utils {
         let timeout;
         return function() {
             const functionCall = () => func.apply( this, arguments );
-
             clearTimeout( timeout );
             timeout = setTimeout( functionCall, time );
         }
@@ -854,8 +744,8 @@ class Utils {
 // Scroll Checker
 class FadeInOnScreen {
     constructor() {
-        window.addEventListener( 'scroll', () => this.checkPosition(), false );
-        window.addEventListener( 'resize', () => this.init(), false );
+        window.addEventListener( 'scroll', Utils.debounce( () => this.checkPosition(), 50 ), false );
+        window.addEventListener( 'resize', Utils.debounce( () => this.init(), 50 ), false );
     }
     init() {
         this.els = document.querySelectorAll( '.fadeInOnScreen' );
@@ -886,8 +776,6 @@ document.addEventListener( 'DOMContentLoaded', function() {
         document.querySelector( '#loader' ).classList.remove( 'loader' );
     }, 10);
 }, false );
-
-
 
 window.s = site;
 site.init();

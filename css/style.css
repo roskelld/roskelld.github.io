@@ -172,8 +172,10 @@ main {
 }
 
 .sidenav {
-    width: 90% !important;
+    /* width: 90% !important; */
+    width: 25em !important;
     z-index: 1001 !important;
+    height: 100% !important;
 }
 
 .sidenav .menu-btn {
@@ -891,6 +893,10 @@ code {
 
 .padding-right-0 {
     padding-right: 0 !important;
+}
+
+.padding-2 {
+    padding: 2em !important;
 }
 
 /* ****************************************************************************/
