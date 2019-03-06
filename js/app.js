@@ -295,6 +295,7 @@ class WebSite {
         a.classList.add( 'sidenav-link', 'hvr-bounce-to-right', 'soft-grey-text-2' );
         a.href = `#${containerId}?${item.id}`;
         a.textContent = `${item.title}`;
+        a.onclick = () => { s.sideNavInstances[0].close(); };
         img.src = `img/product/${item.id}.png`;
         img.classList.add( 'img-icon' );
         li.appendChild( img );
@@ -449,7 +450,6 @@ class WebSite {
 
         });
     }
-
 
     ////////////////////////////////////////////////////////////////////////////
     // APPLICATIONS
