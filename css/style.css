@@ -582,6 +582,7 @@ p.caption {
         font-size: 1em !important;
         line-height: 1.5em !important;
         margin: 0.8rem 1rem 1.68rem 1rem !important;
+
     }
 }
 
@@ -834,6 +835,7 @@ a.text-link:link {
     color: rgb(147, 145, 143) !important;
     padding: 0em 0.1em 0 0.1em;
     border-bottom: 5px solid rgb(243, 246, 169);
+    vertical-align: inherit !important;
 }
 
 a.text-link:visited {
@@ -841,6 +843,7 @@ a.text-link:visited {
     color: rgb(147, 145, 143) !important;
     padding: 0em 0.1em 0 0.1em;
     border-bottom: 5px solid rgb(243, 246, 169);
+    vertical-align: inherit !important;
 }
 
 code {
