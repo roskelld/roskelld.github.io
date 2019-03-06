@@ -176,8 +176,8 @@ class WebSite {
         this.nav.buttons.all.forEach( button => button.classList.remove('active') );
 
         if ( typeof this.nav.buttons[tabId] === 'undefined' ) {
-            window.location.replace( window.location.origin );
-            return;
+            // window.location.replace( window.location.origin );
+            // return;
         }
 
         this.nav.buttons[tabId].classList.add( 'active' );
