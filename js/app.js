@@ -141,6 +141,7 @@ class WebSite {
             }
 
         } else {
+            console.log( 'bing' );
             this.selectTab( 'home' );
         }
     }
@@ -172,13 +173,11 @@ class WebSite {
     selectTab( tabId ) {
         if ( typeof tabId === 'undefined' || tabId == '' ) return;
 
+        // if URL is bad then go home
+        if ( window.location.hash.includes( 'content-') ) window.location.hash = '';
+
         this.tabMainInstances.select( tabId );
         this.nav.buttons.all.forEach( button => button.classList.remove('active') );
-
-        if ( typeof this.nav.buttons[tabId] === 'undefined' ) {
-            // window.location.replace( window.location.origin );
-            // return;
-        }
 
         this.nav.buttons[tabId].classList.add( 'active' );
     }
