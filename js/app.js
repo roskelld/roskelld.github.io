@@ -39,9 +39,9 @@ class WebSite {
         this.collapsibleOptions = {};
         this.collapsibleInstances = M.Collapsible.init( collapsible, this.collapsibleOptions );
 
-        this.photosEl = document.querySelectorAll('.materialboxed');
-        this.photosOptions = {};
-        this.photosInstances = M.Materialbox.init( this.photosEl, this.photosOptions );
+        // this.photosEl = document.querySelectorAll('.materialboxed');
+        // this.photosOptions = {};
+        // this.photosInstances = M.Materialbox.init( this.photosEl, this.photosOptions );
 
         this.nav = {
             header:             document.querySelector('#nav-header'),
@@ -94,7 +94,6 @@ class WebSite {
 
     init() {
         window.addEventListener("hashchange", e => {
-            console.log('HASH CHANGE');
             this.openHashLocation();
         });
 
@@ -137,7 +136,6 @@ class WebSite {
 
             if ( c.includes(this.itemURI) ) {
                 const item = c.slice(  c.indexOf(this.itemURI) + 1, c.length );
-                // console.log(`CARD: ${item}`);
                 this.selectCard( item, tab );
                 url += `?${item}`;
             }
@@ -150,6 +148,7 @@ class WebSite {
     onTabSelected( tab ) {
         // Generate Tab from URL if not given
         if ( typeof tab === 'undefined' || tab === null ) {
+            console.log( 'wangle' );
             tab = {};
             tab.id = window.location.hash.substr(1);;
         }
@@ -157,7 +156,6 @@ class WebSite {
         if ( tab.id === this.oldTab ) return;                                   // Ignore if tab hasn't changed
 
         this.oldTab = tab.id;
-        console.log('top of screen');
         window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
         s.setLogoScreenPosition();
 
@@ -173,8 +171,15 @@ class WebSite {
 
     selectTab( tabId ) {
         if ( typeof tabId === 'undefined' || tabId == '' ) return;
+
         this.tabMainInstances.select( tabId );
         this.nav.buttons.all.forEach( button => button.classList.remove('active') );
+
+        if ( typeof this.nav.buttons[tabId] === 'undefined' ) {
+            window.location.replace( window.location.origin );
+            return;
+        }
+
         this.nav.buttons[tabId].classList.add( 'active' );
     }
 
