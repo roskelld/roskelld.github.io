@@ -304,13 +304,14 @@ main {
 }
 
 .contentlinks {
-    position: fixed;
+    /* position: fixed; */
     overflow-x: hidden;
     overflow-y: scroll;
     display: inline-block;
     scroll-behavior: smooth;
     height: 82%;
-    top: 6em;
+    /* top: 6em; */
+    padding: 2.5em 0 0 0 !important;
 }
 
 .height-40px {

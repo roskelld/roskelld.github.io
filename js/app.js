@@ -1,5 +1,12 @@
 'use strict';
+/**
+ * Website Framework
+ * Copyright Dean Roskell 2019
+ * @author Dean Roskell <deanroskell@protonmail.com>
+ */
 
+
+// Use https://jscompress.com/
 class WebSite {
     constructor() {
         // Style
@@ -127,7 +134,7 @@ class WebSite {
             tab = window.location.hash.substr(1);
         }
 
-        if ( tab === this.oldTab ) return;                                   // Ignore if tab hasn't changed
+        // if ( tab === this.oldTab ) return;                                   // Ignore if tab hasn't changed
 
         this.oldTab = tab;
         window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
@@ -136,7 +143,9 @@ class WebSite {
         s.fader.reset();
 
         if ( typeof s.nav.cards[tab] == 'undefined' || typeof s.nav.cards[tab][0] == 'undefined' ) return;                                                // Reset Story
-        s.selectCard( s.nav.cards[tab][0].id.replace( 'card-', ''), tab );
+        // s.selectCard( s.nav.cards[tab][0].id.replace( 'card-', ''), tab );
+        this.unsetAllCards();
+        this.hideAllContentPages();
 
     }
 
@@ -165,15 +174,23 @@ class WebSite {
         const cards = Array.from( s.nav.cards[tabId] );
         const card = cards.find( item => item.id === `card-${cardId}` );
         if ( typeof card === 'undefined' ) return;
-        this.nav.cards.all.forEach( card => card.classList.remove('selected') );   // Remove highlight
+        this.unsetAllCards();
         card.classList.add( 'selected' );
 
-        // Hide all content
-        const content = document.querySelectorAll( '.content-panel' );
-        content.forEach( c => c.classList.add( 'hide') );
+        this.hideAllContentPages();
 
         // Unhide selected content
         document.querySelector( `#content-${cardId}`).classList.remove( 'hide' );
+    }
+
+    unsetAllCards() {
+        this.nav.cards.all.forEach( card => card.classList.remove('selected') );   // Remove highlight
+    }
+
+    hideAllContentPages() {
+        // Hide all content
+        const content = document.querySelectorAll( '.content-panel' );
+        content.forEach( c => c.classList.add( 'hide') );
     }
 
     setCardLinks() {
@@ -185,6 +202,7 @@ class WebSite {
                 const hash = ( h.includes("?") ) ? h.substr(0, h.indexOf("?") ) : h;
                 const uri = `${hash}${this.itemURI}${card.dataset.target}`;
                 window.history.pushState( { id: `#${uri}` }, 'Dean Roskell', `${uri}` );
+                window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
             }, false );
         });
     }
@@ -252,7 +270,7 @@ class WebSite {
         const imgDiv    = document.createElement( 'div' );
         const img       = document.createElement( 'img' );
 
-        colDiv.classList.add( 'col', 's12', 'm12', 'l6', 'xl3' );
+        colDiv.classList.add( 'col', 's4', 'm2', 'l6', 'xl3' );
         cardDiv.classList.add( 'card', 'card-link', 'z-depth-0' );
         cardDiv.id = `card-${item.id}`;
         cardDiv.dataset.target = item.id;
