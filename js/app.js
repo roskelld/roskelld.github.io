@@ -872,6 +872,8 @@ class FadeInOnScreen {
 }
 
 const site = new WebSite();
+site.setPageMetaData();
+
 document.addEventListener( 'DOMContentLoaded', function() {
     setTimeout( () => {
         document.querySelector( '#loader' ).classList.remove( 'loader' );
