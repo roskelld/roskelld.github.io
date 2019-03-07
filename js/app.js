@@ -14,9 +14,9 @@ class WebSite {
         // this.itemURI = '%F0%9F%8E%AE'; // 🎮
         this.itemURI = '?'; // 🎮
         // Build DOM Elements
-        const games     = data.filter( item => item.type === 'game' );
-        const apps      = data.filter( item => item.type === 'app' );
-        const projects  = data.filter( item => item.type === 'project' );
+        const games     = data.filter( item => item.type === 'games' );
+        const apps      = data.filter( item => item.type === 'applications' );
+        const projects  = data.filter( item => item.type === 'projects' );
 
         // Element Fade in On Screen
         this.fader = new FadeInOnScreen();
@@ -46,7 +46,7 @@ class WebSite {
                 games:          document.querySelector('#games-menu-btn'),
                 applications:   document.querySelector('#applications-menu-btn'),
                 projects:       document.querySelector('#projects-menu-btn'),
-                bio:            document.querySelector('#bio-menu-btn'),
+                about:          document.querySelector('#about-menu-btn'),
                 logo:           document.querySelector( '#logo' ),
                 sidenav:        document.querySelector( '#sidenav-btn' ),
                 all:            document.querySelectorAll('.menu-btn'),
@@ -107,7 +107,7 @@ class WebSite {
     }
 
     openHashLocation() {
-        const c =  window.location.hash;
+        const c = window.location.hash;
         let url = '';
 
         if ( c !== '' ) {
@@ -143,10 +143,10 @@ class WebSite {
         s.fader.reset();
 
         if ( typeof s.nav.cards[tab] == 'undefined' || typeof s.nav.cards[tab][0] == 'undefined' ) return;                                                // Reset Story
-        // s.selectCard( s.nav.cards[tab][0].id.replace( 'card-', ''), tab );
-        this.unsetAllCards();
-        this.hideAllContentPages();
 
+        this.unsetAllCards();
+        this.
+        hideAllContentPages();
     }
 
     selectTab( tabId ) {
@@ -168,6 +168,7 @@ class WebSite {
             this.selectTab( 'home' );
             window.location.hash = 'home';
         }
+        this.setPageMetaData();
     }
 
     selectCard( cardId, tabId = 'all',  ) {
@@ -176,11 +177,9 @@ class WebSite {
         if ( typeof card === 'undefined' ) return;
         this.unsetAllCards();
         card.classList.add( 'selected' );
-
         this.hideAllContentPages();
-
         // Unhide selected content
-        document.querySelector( `#content-${cardId}`).classList.remove( 'hide' );
+        document.querySelector( `#content-${cardId}` ).classList.remove( 'hide' );
     }
 
     unsetAllCards() {
@@ -203,6 +202,7 @@ class WebSite {
                 const uri = `${hash}${this.itemURI}${card.dataset.target}`;
                 window.history.pushState( { id: `#${uri}` }, 'Dean Roskell', `${uri}` );
                 window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+                this.setPageMetaData();
             }, false );
         });
     }
@@ -235,6 +235,45 @@ class WebSite {
         } else {
             this.nav.buttons.logo.classList.remove( 'off-right' );
         }
+    }
+
+    setPageMetaData() {
+        setTimeout( () => {
+            const c = window.location.hash;
+
+            switch ( c ) {
+                case '':
+                    this.setPageTitle( 'Game & Software Developer' );
+                    break;
+                case '#home':
+                    this.setPageTitle( 'Game & Software Developer' );
+                    break;
+                case '#services':
+                    this.setPageTitle( 'Game & Software Developer' );
+                    break;
+                case '#about':
+                    this.setPageTitle( 'Game & Software Developer' );
+                    break;
+                default:
+                    const page = ( c.includes("?") ) ? c.substr(1, c.indexOf("?")-1 ) : c.substr( 1, c.length-1 );
+                    const id = ( c.includes("?") ) ? c.substr(c.indexOf("?")+1, c.length-1) : '';
+                    let title = '';
+                    const bundle = data.filter( item => item.type === page );
+                    const tag = bundle.filter( item => item.id === id );
+
+                    if ( tag.length > 0 ) {
+                        title = ` - ${tag[0].title}`;
+                        this.setPageTitle( `${Utils.capitalize(page)} ${title}` );
+                    } else {
+                        this.setPageTitle( 'Game & Software Developer' );
+                    }
+            }
+
+        }, 0 );
+    }
+
+    setPageTitle( title ) {
+        document.title = `Dean Roskell - ${title}`;
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -310,7 +349,6 @@ class WebSite {
         li.appendChild( a );
         return li;
     }
-
 
     ////////////////////////////////////////////////////////////////////////////
     // GAMES
@@ -755,6 +793,11 @@ class Utils {
             clearTimeout( timeout );
             timeout = setTimeout( functionCall, time );
         }
+    }
+
+    static capitalize( word ) {
+        const l = word.substr(0, 1).toUpperCase();
+        return `${l}${word.substr(1, word.length)}`;
     }
 }
 
