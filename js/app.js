@@ -238,38 +238,6 @@ class WebSite {
     }
 
     setPageMetaData() {
-
-        const c = window.location.hash;
-
-        switch ( c ) {
-            case '':
-                this.setPageTitle( 'Game & Software Developer' );
-                break;
-            case '#home':
-                this.setPageTitle( 'Game & Software Developer' );
-                break;
-            case '#services':
-                this.setPageTitle( 'Game & Software Developer' );
-                break;
-            case '#about':
-                this.setPageTitle( 'Game & Software Developer' );
-                break;
-            default:
-                const page = ( c.includes("?") ) ? c.substr(1, c.indexOf("?")-1 ) : c.substr( 1, c.length-1 );
-                const id = ( c.includes("?") ) ? c.substr(c.indexOf("?")+1, c.length-1) : '';
-                let title = '';
-                const bundle = data.filter( item => item.type === page );
-                const tag = bundle.filter( item => item.id === id );
-
-                if ( tag.length > 0 ) {
-                    title = ` - ${tag[0].title}`;
-                    this.setPageTitle( `${Utils.capitalize(page)} ${title}` );
-                    this.setTwitterOG( tag[0].title );
-                } else {
-                    this.setPageTitle( 'Game & Software Developer' );
-                }
-        }
-
         setTimeout( () => {
             const c = window.location.hash;
 
