@@ -270,13 +270,16 @@ class WebSite {
     pushState( uri ) {
         if ( !uri.includes("#") ) uri = `#${uri}`;
         window.history.pushState( { id: `${uri}` }, 'Dean Roskell', `/${uri}` );
+        this.sendGA();
+    }
 
+    sendGA() {
         const item = this.getDataFromURI();
 
         let title = `${Utils.capitalize(item.type)}`
         if ( item.title !== null ) title += ` - ${item.title}`;
 
-        ga('set', { page: `/${uri}`, title: title } );
+        ga('set', { page: `/#${item.type}`, title: title } );
         ga('send', 'pageview');
     }
 
@@ -846,7 +849,9 @@ class FadeInOnScreen {
 }
 
 const site = new WebSite();
+
 site.setPageMetaData();
+site.sendGA();
 
 document.addEventListener( 'DOMContentLoaded', function() {
     setTimeout( () => {
