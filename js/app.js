@@ -200,9 +200,11 @@ class WebSite {
                 const h = window.location.hash;
                 const hash = ( h.includes("?") ) ? h.substr(0, h.indexOf("?") ) : h;
                 const uri = `${hash}${this.itemURI}${card.dataset.target}`;
-                window.history.pushState( { id: `#${uri}` }, 'Dean Roskell', `${uri}` );
+                this.pushState( uri, card.dataset.target );
+                // window.history.pushState( { id: `#${uri}` }, 'Dean Roskell', `${uri}` );
                 window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
                 this.setPageMetaData();
+
             }, false );
         });
     }
@@ -211,8 +213,9 @@ class WebSite {
         this.nav.buttons.all.forEach( button => {
             button.addEventListener( 'click', e => {
                 this.selectTab( button.dataset.target );
+                this.pushState( button.dataset.target, button.dataset.target  );
                 // Update URI
-                window.history.pushState( { id: `#${button.dataset.target}` }, 'Dean Roskell', `/#${button.dataset.target}` );
+                // window.history.pushState( { id: `#${button.dataset.target}` }, 'Dean Roskell', `/#${button.dataset.target}` );
             }, false );
         });
     }
@@ -239,37 +242,17 @@ class WebSite {
 
     setPageMetaData() {
         setTimeout( () => {
-            const c = window.location.hash;
+            const item = this.getDataFromURI();
 
-            switch ( c ) {
-                case '':
-                    this.setPageTitle( 'Game & Software Developer' );
-                    break;
-                case '#home':
-                    this.setPageTitle( 'Game & Software Developer' );
-                    break;
-                case '#services':
-                    this.setPageTitle( 'Game & Software Developer' );
-                    break;
-                case '#about':
-                    this.setPageTitle( 'Game & Software Developer' );
-                    break;
-                default:
-                    const page = ( c.includes("?") ) ? c.substr(1, c.indexOf("?")-1 ) : c.substr( 1, c.length-1 );
-                    const id = ( c.includes("?") ) ? c.substr(c.indexOf("?")+1, c.length-1) : '';
-                    let title = '';
-                    const bundle = data.filter( item => item.type === page );
-                    const tag = bundle.filter( item => item.id === id );
-
-                    if ( tag.length > 0 ) {
-                        title = ` - ${tag[0].title}`;
-                        this.setPageTitle( `${Utils.capitalize(page)} ${title}` );
-                        this.setTwitterOG( tag[0].title );
-                    } else {
-                        this.setPageTitle( 'Game & Software Developer' );
-                    }
+            let title = `${Utils.capitalize(item.type)}`
+            if ( item.title !== null ) {
+                title += ` - ${item.title}`;
+            } else {
+                title = `Game & Software Developer :: ${title}`;
             }
 
+            this.setPageTitle( title );
+            this.setTwitterOG( title );
         }, 0 );
     }
 
@@ -282,6 +265,29 @@ class WebSite {
         nodes.forEach( a => {
             a.content = `Dean Roskell: Game Developer on ${title}`;
         });
+    }
+
+    pushState( uri ) {
+        if ( !uri.includes("#") ) uri = `#${uri}`;
+        window.history.pushState( { id: `${uri}` }, 'Dean Roskell', `/${uri}` );
+
+        const item = this.getDataFromURI();
+
+        let title = `${Utils.capitalize(item.type)}`
+        if ( item.title !== null ) title += ` - ${item.title}`;
+
+        ga('set', { page: `/${uri}`, title: title } );
+        ga('send', 'pageview');
+    }
+
+    getDataFromURI() {
+        const c = window.location.hash;
+        const page = ( c.includes("?") ) ? c.substr(1, c.indexOf("?")-1 ) : c.substr( 1, c.length-1 );
+        const id = ( c.includes("?") ) ? c.substr(c.indexOf("?")+1, c.length-1) : '';
+
+        const set = data.filter( item => item.type === page );
+        const item = set.filter( item => item.id === id );
+        return ( item.length > 0 ) ? item[0] : { type: page, title: null };
     }
 
     ////////////////////////////////////////////////////////////////////////////
