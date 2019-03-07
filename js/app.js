@@ -264,6 +264,7 @@ class WebSite {
                     if ( tag.length > 0 ) {
                         title = ` - ${tag[0].title}`;
                         this.setPageTitle( `${Utils.capitalize(page)} ${title}` );
+                        this.setTwitterOG( tag[0].title );
                     } else {
                         this.setPageTitle( 'Game & Software Developer' );
                     }
@@ -274,6 +275,13 @@ class WebSite {
 
     setPageTitle( title ) {
         document.title = `Dean Roskell - ${title}`;
+    }
+
+    setTwitterOG( title ) {
+        const nodes = document.querySelectorAll( '.meta-title' );
+        nodes.forEach( a => {
+            a.content = `Dean Roskell: Game Developer on ${title}`;
+        });
     }
 
     ////////////////////////////////////////////////////////////////////////////
