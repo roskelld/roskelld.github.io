@@ -711,15 +711,21 @@ h5 {
     cursor: pointer;
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
-    opacity: 0.5;
-    animation: half-saturation-out 0.2s ease-out;
+    opacity: 0.7;
+            transition: opacity 0.5s linear, filter 1s ease-in !important; /* vendorless fallback */
+         -o-transition: opacity 0.5s linear, filter 1s ease-in !important; /* opera */
+        -ms-transition: opacity 0.5s linear, filter 1s ease-in !important; /* IE 10 */
+       -moz-transition: opacity 0.5s linear, filter 1s ease-in !important; /* Firefox */
+    -webkit-transition: opacity 0.5s linear, filter 1s ease-in !important; /*safari and chrome */
 }
 
-.card-link:hover {
-    -webkit-filter: saturation(50%);
-    filter: saturation(50%);
+.card-link:hover:not(.selected) {
     opacity: 1;
-    animation: half-saturation-in 0.3s linear;
+    transition: opacity 0.5s linear !important; /* vendorless fallback */
+    -o-transition: opacity 0.5s linear !important; /* opera */
+    -ms-transition: opacity 0.5s linear !important; /* IE 10 */
+    -moz-transition: opacity 0.5s linear !important; /* Firefox */
+    -webkit-transition: opacity 0.5s linear !important; /*safari and chrome */
 }
 
 .card-link.a {
@@ -730,7 +736,11 @@ h5 {
     -webkit-filter: grayscale(0%) !important;
     filter: grayscale(0%) !important;
     opacity: 1 !important;
-    animation: grayscale-50-100 0.3s linear;
+            transition: opacity 0.5s linear, filter 0.3s ease-in !important; /* vendorless fallback */
+         -o-transition: opacity 0.5s linear, filter 0.3s ease-in !important; /* opera */
+        -ms-transition: opacity 0.5s linear, filter 0.3s ease-in !important; /* IE 10 */
+       -moz-transition: opacity 0.5s linear, filter 0.3s ease-in !important; /* Firefox */
+    -webkit-transition: opacity 0.5s linear, filter 0.3s ease-in !important; /*safari and chrome */
 }
 
 .detail-description {
