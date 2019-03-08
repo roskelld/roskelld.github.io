@@ -415,7 +415,7 @@ class WebSite {
 
             const row5 = this.createRow();
             if ( item.trailer ) row5.appendChild( this.createVideoLink( item.trailer, 'Trailer' ) );
-            if ( item.website ) row5.appendChild( this.createLink( item.website, 'Website' ) );
+            if ( item.website ) row5.appendChild( this.createLink( item.website, `<i class="fas fa-home fa-2x"></i>`, 'Website' ) );
             detailDiv.appendChild( row5 );
 
             if ( item.description ) {
@@ -476,8 +476,9 @@ class WebSite {
             detailDiv.appendChild( row4 );
 
             const row5 = this.createRow();
-            if ( item.trailer ) row5.appendChild( this.createVideoLink( item.trailer, 'Trailer' ) );
-            if ( item.website ) row5.appendChild( this.createLink( item.website, 'Website' ) );
+            if ( item.trailer ) row5.appendChild( this.createVideoLink( item.trailer, 'Video' ) );
+            if ( item.website ) row5.appendChild( this.createLink( item.website, `<i class="fas fa-home fa-2x"></i>`, 'Website' ) );
+            if ( item.link )    row5.appendChild( this.createLink( item.link, 'Demo' ) );
             detailDiv.appendChild( row5 );
 
             if ( item.description ) {
@@ -539,7 +540,8 @@ class WebSite {
 
             const row5 = this.createRow();
             if ( item.trailer ) row5.appendChild( this.createVideoLink( item.trailer, 'Video' ) );
-            if ( item.website ) row5.appendChild( this.createLink( item.website, 'Website' ) );
+            if ( item.website ) row5.appendChild( this.createLink( item.website, item.website, 'Website' ) );
+            if ( item.link )    row5.appendChild( this.createLink( item.link, 'Demo' ) );
             detailDiv.appendChild( row5 );
 
             if ( item.description ) {
@@ -670,7 +672,7 @@ class WebSite {
         return div;
     }
 
-    createLink( link, title ) {
+    createLink( link, text, title = 'Link' ) {
         // Container
         const div = document.createElement( 'div' );
         div.classList.add( 'col', 's6', 'padding-left-0', 'padding-right-0' );
@@ -683,13 +685,13 @@ class WebSite {
 
         const divTitle = document.createElement( 'div' );
         divTitle.classList.add( 'soft-grey-text', 'detail-header', 'right-on-med-and-up' );
-        divTitle.textContent = `Link:`;
+        divTitle.textContent = `${title}:`;
 
         const divContent = document.createElement( 'div' );
         divContent.classList.add( 'soft-grey-text', 'detail-data' );
         const a = document.createElement( 'a' );
         a.href = link;
-        a.textContent = title;
+        a.innerHTML = text;
         a.target = "_none";
         divContent.appendChild( a );
 

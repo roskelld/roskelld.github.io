@@ -17,7 +17,7 @@ const data = [
   work: ['Presenting', 'Management', 'Social Media', 'Organizer'],
   trailer: '',
   embed: ``,
-  link: 'https://edmontonbitcoin.org',
+  website: 'https://edmontonbitcoin.org',
   description: `<p>In January 2017 a meetup group was formed to bring people together in Edmonton to talk about Bitcoin. Since that time the <a href="https://www.meetup.com/yegbitcoin">Meetup.com</a> group has grown to over 700 members.</p>
                 <p>The core organizers decided that to help improve the setup we would form a company structure to allow us to create a more formalized approach to the meetup, extending the number of monthly events, adding more content, and bringing in a wider range of guest speakers.</p>
                 <p>We currently host a range of education, networking and technical growth events per month, covering the complete beginner-to-advanced range of experience levels.</p>`
@@ -99,8 +99,7 @@ const data = [
   role: ['Lead Designer', 'Programmer', 'Artist'],
   work: ['Design', 'UI System', 'UX Design', 'Textures'],
   trailer: '',
-  embed: ``,
-  link: 'https://sparkshot.io',
+  website: 'https://sparkshot.io',
   description: `<p>Sparkshot is a <a href="https://blog.lightning.engineering/posts/2018/05/02/lightning-ux.html">Lightning Network</a> art platform upon which artists can upload their original artwork to the site and it is launched in a blank state. Users then purchase pixels and add personalised message using Bitcoin over the Lightning Network. This process slowly reveals the art whilst also adding a meta layer on top for each individual purchase. Observers can then view both the art as it appears as well as look at the posted messages and shapes of pixel groups.<p>
                 <h5>The Lightning Network</h5>
                 <p>The Lightning Network protocol allows for instant transactions to happen at near-zero fee, and in amounts as tiny as a fraction of a cent, achieving nano-scale payments across the internet with no requirement for a 3rd party payment provider like PayPal or Square.</p>
@@ -121,8 +120,7 @@ const data = [
   role: ['Lead Designer', 'Programmer', 'Artist'],
   work: ['Design', 'UI System', 'UX Design', 'Textures'],
   trailer: '',
-  embed: ``,
-  link: 'https://sparkshot.io',
+  website: 'https://sparkshot.io',
   description: `<p>Prior to the release of Sparkshot our Lightning Network Art Platform, we wanted to launch something early so we could point people to so we created a website to help inform of the goal of the project as well as provide updates on its development.</p>
   <h5>Development</h5>
   <p>I produced the website using the <a href="https://materializecss.com">Materialize</a> framework for the layout, buttons and other elements. Beyond that I generated all the graphics, the project logo, and built the interactive functionality using vanilla Javascript.</p>`,
@@ -142,8 +140,18 @@ const data = [
   work: ['Design', 'UI System', 'UX Design', 'Textures'],
   trailer: '',
   embed: ``,
-  link: 'https://forkdrop.io',
-  description: ``,
+  website: 'https://forkdrop.io',
+  description: `<p>Forkdrop is a curated analysis of all known Bitcoin Forks and Altcoin Forks, on which cryptocurrency holders can research to see if they're eligible for any forked coins</p>
+                <h5>Bitcoin Forks</h5>
+                <p>During the last few months of 2017, we were looking at the trends that were happening in the cryptocurrency space. One thing of note was that after the Bitcoin fork which created Bitcoin Cash other groups saw the opportunity to also fork Bitcoin or one of the other cryptocurrencies in order to issue a new set of coins using different rules to govern from the original Bitcoin.<p>
+                <p>We predicted that this would become a growing trend which might be both interesting to track as well as create benefit for any holder who might find themselves owning forked coins. Second-to-being interesting, with the cryptocurrency space being like the wild west, it was highly probable that scams would take place. So having a site which tracked these projects and where users could report bad activity seemed like a good idea.</p>
+                <h5>Creation</h5>
+                <p>The web seemed like a perfect fit for this type of dataset, easy for users to find, and browsers having great capability for showing well presented searchable data.</p>
+                <p>We built the website using a number of open source frameworks, namely: <a href="https://materializecss.com">Materialize</a> for the layout and <a href="https://www.ag-grid.com/">ag-grid</a> for the data table. The site pages are pre-generated from a dataset via a python codebase, which allows us to update and add to the site by updating the dataset.</p>
+                <p>One of the challenging aspects of the project was to take the concept of a cryptocurrency fork and form a standardized dataset from it, then present that data in such a way to be useful for a general cryptocurrency holder. The presentation UI helped show the data off in an easy to observe way, but where possible we included help hints to fully explain each part.</p>
+                <p>The final major component is the Guides section, which takes a different approach and steps through the concept as a set of instructions to help users claim their forked coins</p>
+                <h5>Take Away</h5>
+                <p>Forkdrop provided with a great challenge to create and an opportunity to learn a lot of about Web App development, deployment, hosting, and SEO (We successfully reached #2 in Google's index for Bitcoin Forks). The project has proved valuable to our users and has become the major source of data on fork coins. Thanks to how we created the site to allow for easy updating means we'll be happy to support it for years to come.</p>`,
 }, {
   type: 'games',
   id: 'ddr',
@@ -159,7 +167,7 @@ const data = [
   role: ['Lead Designer', 'Programmer', 'Artist', 'Modeller'],
   work: ['Game Design', 'Level Layouts', 'Level Art', 'Textures', 'Game Controls', 'Locomotion', 'UI System', 'Game Loop', 'Game Balancing', 'Testing', 'Sound', 'Animation', '3D Models'],
   trailer: 'https://www.youtube.com/watch?v=3lWZAOnabWw',
-  embed: `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/3lWZAOnabWw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
+  description:
   description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
 }, {
   type: 'games',
