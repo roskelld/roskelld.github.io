@@ -167,7 +167,6 @@ const data = [
   role: ['Lead Designer', 'Programmer', 'Artist', 'Modeller'],
   work: ['Game Design', 'Level Layouts', 'Level Art', 'Textures', 'Game Controls', 'Locomotion', 'UI System', 'Game Loop', 'Game Balancing', 'Testing', 'Sound', 'Animation', '3D Models'],
   trailer: 'https://www.youtube.com/watch?v=3lWZAOnabWw',
-  description:
   description: 'Our team wanted to take on the challenge of producing a fun game that gave an experience unique to VR.<br> The concept of using the physical motion of movings ones arms to simulate running became the basis of the title.'
 }, {
   type: 'games',
